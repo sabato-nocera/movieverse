@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
 </head>
-<body class="bg-primary">
+<body class="bg-lg">
 <div id="layoutAuthentication">
     <div id="layoutAuthentication_content">
         <main>
@@ -56,7 +56,7 @@
                                 </form>
                             </div>
                             <div class="card-footer text-center py-3">
-                                <div class="small"><a href="Registrazione">Need an account? Sign up!</a></div>
+                                <div class="small"><a href="Registrazione.jsp">Need an account? Sign up!</a></div>
                             </div>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
         </main>
     </div>
     <div id="layoutAuthentication_footer">
-        <footer class="py-4 bg-light mt-auto">
+        <footer class="py-4 bg-light mt-auto" style="background-color: #212529">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
                     <div class="text-muted">Copyright &copy; Movieverse 2021</div>

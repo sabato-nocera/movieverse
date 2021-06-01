@@ -19,7 +19,7 @@
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 </head>
-<body class="bg-primary">
+<body class="bg-lg">
 <div id="layoutAuthentication">
     <div id="layoutAuthentication_content">
         <main>
@@ -100,7 +100,7 @@
             </div>
         </main>
     </div>
-    <div id="layoutAuthentication_footer">
+    <div id="layoutAuthentication_footer" style="background-color: #212529">
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">

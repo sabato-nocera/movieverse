@@ -2181,9 +2181,9 @@ progress {
 .form-control:focus, .dataTable-input:focus {
   color: #212529;
   background-color: #fff;
-  border-color: #86b7fe;
+  border-color: #ffc107;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(255, 193, 8, 0.25);
 }
 .form-control::-webkit-date-and-time-value, .dataTable-input::-webkit-date-and-time-value {
   height: 1.5em;
@@ -2692,7 +2692,7 @@ textarea.form-control-lg {
   color: #212529;
   text-align: center;
   white-space: nowrap;
-  background-color: #e9ecef;
+  background: #212529;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
 }
@@ -3485,14 +3485,15 @@ textarea.form-control-lg {
   padding: 0.5rem 0;
   margin: 0;
   font-size: 1rem;
-  color: #212529;
+  color: #ffc107;
+  background-color: #212529;
   text-align: left;
   list-style: none;
-  background-color: #fff;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
 }
+
 .dropdown-menu[data-bs-popper] {
   top: 100%;
   left: 0;
@@ -3689,21 +3690,21 @@ textarea.form-control-lg {
   padding: 0.25rem 1rem;
   clear: both;
   font-weight: 400;
-  color: #212529;
+  color: #ffc107;
+  background-color: #212529;
   text-align: inherit;
   text-decoration: none;
   white-space: nowrap;
-  background-color: transparent;
   border: 0;
 }
 .dropdown-item:hover, .dropdown-item:focus {
-  color: #1e2125;
-  background-color: #e9ecef;
+  background-color: #ffc107;
+  color: #212529;
 }
 .dropdown-item.active, .dropdown-item:active {
   color: #fff;
   text-decoration: none;
-  background-color: #0d6efd;
+  background-color: #ffc107;
 }
 .dropdown-item.disabled, .dropdown-item:disabled {
   color: #adb5bd;
@@ -3720,14 +3721,16 @@ textarea.form-control-lg {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
   font-size: 0.875rem;
-  color: #6c757d;
+  color: #ffc107;
+  background-color: #212529;
   white-space: nowrap;
 }
 
 .dropdown-item-text {
   display: block;
   padding: 0.25rem 1rem;
-  color: #212529;
+  color: #ffc107;
+  background-color: #212529;
 }
 
 .dropdown-menu-dark {
@@ -3744,7 +3747,7 @@ textarea.form-control-lg {
 }
 .dropdown-menu-dark .dropdown-item.active, .dropdown-menu-dark .dropdown-item:active {
   color: #fff;
-  background-color: #0d6efd;
+  background-color: #ffc107;
 }
 .dropdown-menu-dark .dropdown-item.disabled, .dropdown-menu-dark .dropdown-item:disabled {
   color: #adb5bd;
@@ -4275,7 +4278,8 @@ textarea.form-control-lg {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: #212529;
+  color: white;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
@@ -7402,6 +7406,11 @@ textarea.form-control-lg {
 
 .text-reset {
   color: inherit !important;
+}
+
+.bg-lg{
+  background-image: url("Image/cinema.jpg");
+  background-size: cover;
 }
 
 .bg-primary {
@@ -10869,6 +10878,7 @@ body {
 
 #layoutSidenav {
   display: flex;
+  background-color: #343a40;
 }
 #layoutSidenav #layoutSidenav_nav {
   flex-basis: 225px;
@@ -10876,6 +10886,7 @@ body {
   transition: transform 0.15s ease-in-out;
   z-index: 1038;
   transform: translateX(-225px);
+  background-color: #343a40;
 }
 #layoutSidenav #layoutSidenav_content {
   position: relative;
@@ -10886,6 +10897,7 @@ body {
   flex-grow: 1;
   min-height: calc(100vh - 56px);
   margin-left: -225px;
+  background-color: #343a40;
 }
 
 .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
@@ -11044,7 +11056,7 @@ body {
   color: rgba(255, 255, 255, 0.25);
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
-  color: #fff;
+  color: #ffc107;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active {
   color: #fff;
