@@ -7,17 +7,27 @@
 
  --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String errorMessage = (String) request.getAttribute("errorMessage");
+    if(errorMessage == null){
+        errorMessage = "";
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
     <title>Login</title>
-    <link href="css/styles.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <link href="css/styles.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+            crossorigin="anonymous"></script>
+    <!-- SweetAlerts per la visualizzazione di messaggi di errore o di conferma -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
 </head>
 <body class="bg-primary">
 <div id="layoutAuthentication">
@@ -29,13 +39,15 @@
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                             <div class="card-body">
-                                <form action="Login" method="POST">
+                                <form action="Catalogo" method="POST">
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" name="username" id="inputUsername" type="text" placeholder="Username*" />
+                                        <input class="form-control" name="username" id="inputUsername" type="text"
+                                               placeholder="Username*"/>
                                         <label for="inputUsername">Username*</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" name="password" id="inputPassword" type="password" placeholder="Password*" />
+                                        <input class="form-control" name="password" id="inputPassword" type="password"
+                                               placeholder="Password*"/>
                                         <label for="inputPassword">Password*</label>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
@@ -67,8 +79,15 @@
         </footer>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
 <script src="js/scripts.js"></script>
+<script type="text/javascript">
+    var errorMessage = "<%=errorMessage%>";
+    if (errorMessage != null && errorMessage.length > 0) {
+        sweetAlert(errorMessage, "Try again", "error");
+    }
+</script>
 </body>
 </html>
 
