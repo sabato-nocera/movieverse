@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class FilmBean {
-    private ObjectId id;
+    private ObjectId _id;
     private String title;
     private int year;
     private List<String> genres;
@@ -24,11 +24,11 @@ public class FilmBean {
     }
 
     public ObjectId getId() {
-        return id;
+        return _id;
     }
 
     public void setId(ObjectId id) {
-        this.id = id;
+        this._id = id;
     }
 
     public String getTitle() {
@@ -130,7 +130,7 @@ public class FilmBean {
     @Override
     public String toString() {
         return "FilmBean{" +
-                "id=" + id +
+                "id=" + _id +
                 ", title='" + title + '\'' +
                 ", year=" + year +
                 ", genres=" + genres +

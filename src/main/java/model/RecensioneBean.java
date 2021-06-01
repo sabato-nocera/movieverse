@@ -1,21 +1,21 @@
 package model;
 
-import com.google.gson.Gson;
 import org.bson.types.ObjectId;
 
-import javax.json.JsonObject;
-
 public class RecensioneBean {
-    private ObjectId userid;
+    /**
+     * Id dell'utente che ha effettuato la recensione
+     */
+    private ObjectId _id;
     private String comment;
     private Double rating;
 
     public ObjectId getUserid() {
-        return userid;
+        return _id;
     }
 
     public void setUserid(ObjectId userid) {
-        this.userid = userid;
+        this._id = userid;
     }
 
     public String getComment() {
@@ -37,7 +37,7 @@ public class RecensioneBean {
     @Override
     public String toString() {
         return "RecensioneBean{" +
-                "userid=" + userid +
+                "userid=" + _id +
                 ", comment='" + comment + '\'' +
                 ", rating=" + rating +
                 '}';
