@@ -1,0 +1,9 @@
+[{
+  "_id": {
+    "$oid": "60b62a4ea6039c13d28d70de"
+  },
+  "email": "admin@movieverse.it",
+  "isAdmin": true,
+  "password": "admin",
+  "username": "admin"
+}]
