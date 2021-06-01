@@ -37,26 +37,27 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-5">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
-                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                            <div class="card-header"><img src="css/Image/Logo.png" style="width:300px;height: 150px; margin-left: 90px;">
+                            <h3 class="text-center my-4" style="color: #ffc107">Login</h3></div>
                             <div class="card-body">
                                 <form action="Catalogo" method="POST">
                                     <div class="form-floating mb-3">
                                         <input class="form-control" name="username" id="inputUsername" type="text"
                                                placeholder="Username*"/>
-                                        <label for="inputUsername">Username*</label>
+                                        <label for="inputUsername" style="color: #212529">Username*</label>
                                     </div>
                                     <div class="form-floating mb-3">
                                         <input class="form-control" name="password" id="inputPassword" type="password"
                                                placeholder="Password*"/>
-                                        <label for="inputPassword">Password*</label>
+                                        <label for="inputPassword" style="color: #212529">Password*</label>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
-                                        <button type="submit" class="btn btn-primary">Login</button>
+                                        <button type="submit" class="btn btn-warning">Login</button>
                                     </div>
                                 </form>
                             </div>
                             <div class="card-footer text-center py-3">
-                                <div class="small"><a href="Registrazione.jsp">Need an account? Sign up!</a></div>
+                                <div class="small"><a href="Registrazione">Need an account? Sign up!</a></div>
                             </div>
                         </div>
                     </div>
@@ -65,7 +66,7 @@
         </main>
     </div>
     <div id="layoutAuthentication_footer">
-        <footer class="py-4 bg-light mt-auto" style="background-color: #212529">
+        <footer class="py-4 mt-auto" style="background-color: #212529">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
                     <div class="text-muted">Copyright &copy; Movieverse 2021</div>
