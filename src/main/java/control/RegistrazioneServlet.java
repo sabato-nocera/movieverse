@@ -47,7 +47,7 @@ public class RegistrazioneServlet extends HttpServlet {
         String passwordConfirm = request.getParameter("passwordConfirm");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
-        String date = request.getParameter("date");
+        String date = request.getParameter("dateOfBirth");
         String gender = request.getParameter("gender");
 
         // Controllo che i parametri fondamentali per la registrazione di un utente siano presenti

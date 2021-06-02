@@ -2,7 +2,6 @@ package model;
 
 import org.bson.types.ObjectId;
 
-import java.sql.Date;
 import java.util.List;
 
 public class FilmBean {
@@ -11,13 +10,13 @@ public class FilmBean {
     private int year;
     private List<String> genres;
     private String duration;
-    private Date releaseDate;
+    private String releaseDate;
     private Double averageRating;
     private String originalTitle;
     private String storyline;
     private List<String> actors;
     private Double imdbRating;
-    private String posterUrl;
+    private String posterurl;
     private List<RecensioneBean> reviews;
 
     public FilmBean() {
@@ -63,11 +62,11 @@ public class FilmBean {
         this.duration = duration;
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -111,12 +110,12 @@ public class FilmBean {
         this.imdbRating = imdbRating;
     }
 
-    public String getPosterUrl() {
-        return posterUrl;
+    public String getPosterurl() {
+        return posterurl;
     }
 
-    public void setPosterUrl(String posterUrl) {
-        this.posterUrl = posterUrl;
+    public void setPosterurl(String posterurl) {
+        this.posterurl = posterurl;
     }
 
     public List<RecensioneBean> getReviews() {
@@ -141,7 +140,7 @@ public class FilmBean {
                 ", storyline='" + storyline + '\'' +
                 ", actors=" + actors +
                 ", imdbRating=" + imdbRating +
-                ", posterUrl='" + posterUrl + '\'' +
+                ", posterUrl='" + posterurl + '\'' +
                 ", reviews=" + reviews +
                 '}';
     }

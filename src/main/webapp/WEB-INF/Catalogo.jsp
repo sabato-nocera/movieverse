@@ -6,6 +6,13 @@
   To change this template use File | Settings | File Templates.
 
 --%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+<%@ page import="model.*" %>
+<%@ page import="control.*" %>
+<%@ page import="java.util.*" %>
+<%  UtenteBean user = (UtenteBean) session.getAttribute("utente"); %>
+<%  ArrayList<FilmBean> movie = (ArrayList<FilmBean>) request.getAttribute("movieInTheaters"); %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,6 +77,7 @@
                         <div class="sb-nav-link-icon"><i class="fa fa-film"></i></div>
                         All Movies
                     </a>
+                <% if(!user.getAdmin()){%>
                     <div class="sb-sidenav-menu-heading">List</div>
                     <a class="nav-link" href="charts.html">
                         <div class="sb-nav-link-icon"><i class="fas fa-eye"></i></div>
@@ -79,16 +87,18 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-eye"></i></div>
                         To Watch List
                     </a>
+                <% } else {%>
                     <div class="sb-sidenav-menu-heading">Options</div>
                     <a class="nav-link" href="charts.html">
                         <div class="sb-nav-link-icon"><i class="fas fa-plus-circle"></i></div>
                         Add Movie
                     </a>
+                 <% } %>
                 </div>
             </div>
             <div class="sb-sidenav-footer">
                 <div class="small">Logged in as:</div>
-                Name
+                <%=user.getUsername()%>
             </div>
         </nav>
     </div>
@@ -114,53 +124,32 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="card mb-3" style="max-width: 400px;margin:10px">
-                        <div class="row g-0">
-                            <div class="col-md-4" style="width:300px; height:500px;margin:10px">
-                                <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BYjQ0ZWJkYjMtYjJmYS00MjJiLTg3NTYtMmIzN2E2Y2YwZmUyXkEyXkFqcGdeQXVyNjk5NDA3OTk@._V1_SY500_CR0,0,337,500_AL_.jpg" alt="..." style="width:360px; height:500px;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-3" style="max-width: 400px;margin:10px">
-                        <div class="row g-0">
-                            <div class="col-md-4" style="width:300px; height:500px;margin:10px">
-                                <img src="css/Image/cinema.jpg" alt="..." style="width:360px; height:500px;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-3" style="max-width: 400px;margin:10px">
-                        <div class="row g-0">
-                            <div class="col-md-4" style="width:300px; height:500px;margin:10px">
-                                <img src="css/Image/cinema.jpg" alt="..." style="width:360px; height:500px;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-
+                <% int i; for(i=0; i<movie.size(); i++){%>
+                    <div class="card mb-3" style="max-width: 540px; max-height: 310px; margin-right: 10px">
+                        <div class="row g-0">
+                            <div class="col-md-4" >
+                                <img src="<%=movie.get(i).getPosterurl()%>" style="width:180px; height:290px;margin-top: 10px">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%=movie.get(i).getTitle()%></h5>
+                                    <p class="card-text">Generi:<%int j; for(j=0; j<movie.get(i).getGenres().size();j++){%>
+                                        <%=movie.get(i).getGenres().get(j).toString()+", "%><%}%></p>
+                                    <p class="card-text">Attori<%int h; for(h=0; h<movie.get(i).getActors().size();h++){%>
+                                        <%=movie.get(i).getActors().get(h).toString()+", "%><%}%></p>
+                                    <p class="card-text"><%=movie.get(i).getReleaseDate()%></p>
+                                    <p class="card-text"><%=movie.get(i).getAverageRating()%></p>
+                                    <p class="card-text"><%=movie.get(i).getImdbRating()%></p>
+                                    <p class="card-text"><small class="text-muted"><button type="button" class="btn btn-link">Dettagli</button></small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <%}%>
 
                 </div>
-        </main>
+        <main>
         <footer class="py-4  mt-auto" style="background-color: #212529">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
