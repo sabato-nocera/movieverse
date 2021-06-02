@@ -34,10 +34,10 @@ public class RegistrazioneServlet extends HttpServlet {
     private final Logger logger = Logger.getLogger(LoginServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getSession().getAttribute("utente")!=null){
+        if (request.getSession().getAttribute("utente") != null) {
             String url = response.encodeURL("Catalogo");
             request.getRequestDispatcher(url).forward(request, response);
-            return ;
+            return;
         }
 
         // Recupero i parametri
@@ -112,7 +112,7 @@ public class RegistrazioneServlet extends HttpServlet {
 
                         String url = response.encodeURL("Catalogo");
                         request.getRequestDispatcher(url).forward(request, response);
-                        return ;
+                        return;
                     }
                 } catch (IOException e) {
                     logger.log(Level.WARNING, "Problema con l'inserimento di un nuovo utente nel database");

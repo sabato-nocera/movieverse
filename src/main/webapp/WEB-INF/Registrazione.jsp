@@ -91,19 +91,22 @@
                                         <div class="col-md-6">
                                             Gender <br/>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="gender" value="male" id="flexRadioDefault1">
+                                                <input class="form-check-input" type="radio" name="gender" value="male"
+                                                       id="flexRadioDefault1">
                                                 <label class="form-check-label" for="flexRadioDefault1">
                                                     Male
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="gender" value="female" id="flexRadioDefault2">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                       value="female" id="flexRadioDefault2">
                                                 <label class="form-check-label" for="flexRadioDefault2">
                                                     Female
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="gender" value="other" id="flexRadioDefault3">
+                                                <input class="form-check-input" type="radio" name="gender" value="other"
+                                                       id="flexRadioDefault3">
                                                 <label class="form-check-label" for="flexRadioDefault3">
                                                     Other
                                                 </label>

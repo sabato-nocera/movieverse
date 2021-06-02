@@ -32,11 +32,11 @@ public class LoginServlet extends HttpServlet {
     private final Logger logger = Logger.getLogger(LoginServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getSession().getAttribute("utente")!=null){
+        if (request.getSession().getAttribute("utente") != null) {
             logger.log(Level.WARNING, "Utente già loggato");
             String url = response.encodeURL("Catalogo");
             request.getRequestDispatcher(url).forward(request, response);
-            return ;
+            return;
         }
 
         // Recupero i parametri dalla JSP
@@ -50,7 +50,6 @@ public class LoginServlet extends HttpServlet {
 
             // Ottengo il riferimento alla collezione che mi interessa
             MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("users");
-
 
             // Creo un filtro perché devo ricercare un utente per un dato username ed una data password
             Document filter = new Document("username", username);
@@ -84,7 +83,7 @@ public class LoginServlet extends HttpServlet {
 
                 String url = response.encodeURL("Catalogo");
                 request.getRequestDispatcher(url).forward(request, response);
-                return ;
+                return;
             } else {
                 logger.log(Level.WARNING, "Risultati NON ottenuti dalla query");
             }
