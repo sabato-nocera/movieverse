@@ -7,6 +7,7 @@ import com.mongodb.client.MongoCursor;
 import model.UtenteBean;
 import org.bson.Document;
 import utils.MongoDBConnection;
+import utils.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,7 +54,8 @@ public class LoginServlet extends HttpServlet {
 
             // Creo un filtro perché devo ricercare un utente per un dato username ed una data password
             Document filter = new Document("username", username);
-            filter.append("password", password);
+            // TODO: cifrare password
+            filter.append("password", Utils.generatePwd(password));
             logger.log(Level.WARNING, "Filter: " + filter.toJson());
 
             // Interrogo il database attraverso la funzione find()

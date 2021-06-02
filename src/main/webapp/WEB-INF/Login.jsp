@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String errorMessage = (String) request.getAttribute("errorMessage");
-    if(errorMessage == null){
+    if (errorMessage == null) {
         errorMessage = "";
     }
 %>
@@ -42,12 +42,12 @@
                                 <form action="Catalogo" method="POST">
                                     <div class="form-floating mb-3">
                                         <input class="form-control" name="username" id="inputUsername" type="text"
-                                               placeholder="Username*"/>
+                                               placeholder="Username*" required/>
                                         <label for="inputUsername">Username*</label>
                                     </div>
                                     <div class="form-floating mb-3">
                                         <input class="form-control" name="password" id="inputPassword" type="password"
-                                               placeholder="Password*"/>
+                                               placeholder="Password*" required/>
                                         <label for="inputPassword">Password*</label>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
