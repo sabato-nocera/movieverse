@@ -74,7 +74,7 @@ public class RegistrazioneServlet extends HttpServlet {
                 if (date != null && !date.equals("")) {
                     utenteBean.setDateOfBirth(Date.valueOf(date));
                 }
-                if (firstName != null && !firstName.equals("")) {
+                if (gender != null && !gender.equals("")) {
                     utenteBean.setGender(gender);
                 }
                 logger.log(Level.WARNING, "Utente creato: " + utenteBean.toString());

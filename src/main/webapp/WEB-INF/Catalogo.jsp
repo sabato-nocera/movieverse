@@ -117,7 +117,7 @@
                     <div class="card mb-3" style="max-width: 400px;margin:10px">
                         <div class="row g-0">
                             <div class="col-md-4" style="width:300px; height:500px;margin:10px">
-                                <img src="css/Image/cinema.jpg" alt="..." style="width:360px; height:500px;">
+                                <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BYjQ0ZWJkYjMtYjJmYS00MjJiLTg3NTYtMmIzN2E2Y2YwZmUyXkEyXkFqcGdeQXVyNjk5NDA3OTk@._V1_SY500_CR0,0,337,500_AL_.jpg" alt="..." style="width:360px; height:500px;">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">

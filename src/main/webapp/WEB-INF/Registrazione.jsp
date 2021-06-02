@@ -33,8 +33,8 @@
     <div id="layoutAuthentication_content">
         <main>
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-7">
+                <div class="row justify-content-center" >
+                    <div class="col-lg-7" style="background-color: #212529">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header"><h3 class="text-center  my-4" style="color: #ffc107">Create
                                 Account</h3></div>
@@ -105,7 +105,7 @@
                                             <input class="form-check-input" type="radio" name="gender" value="male"
                                                    id="flexRadioDefault1">
                                             <label class="form-check-label" for="flexRadioDefault1"
-                                                   style="color: #212529">
+                                                   style="color: #ffc107">
                                                 Male
                                             </label>
                                         </div>
@@ -113,7 +113,7 @@
                                             <input class="form-check-input" type="radio" name="gender"
                                                    value="female" id="flexRadioDefault2">
                                             <label class="form-check-label" for="flexRadioDefault2"
-                                                   style="color: #212529">
+                                                   style="color: #ffc107">
                                                 Female
                                             </label>
                                         </div>
@@ -121,7 +121,7 @@
                                             <input class="form-check-input" type="radio" name="gender" value="other"
                                                    id="flexRadioDefault3">
                                             <label class="form-check-label" for="flexRadioDefault3"
-                                                   style="color: #212529">
+                                                   style="color: #ffc107">
                                                 Other
                                             </label>
                                         </div>
