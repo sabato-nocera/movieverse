@@ -53,7 +53,6 @@ public class LoginServlet extends HttpServlet {
 
             // Creo un filtro perché devo ricercare un utente per un dato username ed una data password
             Document filter = new Document("username", username);
-            // TODO: cifrare password
             filter.append("password", Utils.generatePwd(password));
             logger.log(Level.WARNING, "Filter: " + filter.toJson());
 
