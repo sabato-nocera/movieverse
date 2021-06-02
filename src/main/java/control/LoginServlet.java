@@ -86,13 +86,11 @@ public class LoginServlet extends HttpServlet {
                 return;
             } else {
                 logger.log(Level.WARNING, "Risultati NON ottenuti dalla query");
+                request.setAttribute("errorMessage", "Try again");
             }
         } else {
             logger.log(Level.WARNING, "Username e password vuoti");
         }
-
-        // Messaggio di errore in caso fallisse il login
-        request.setAttribute("errorMessage", "Login failed");
 
         String url = response.encodeURL("WEB-INF/Login.jsp");
         request.getRequestDispatcher(url).forward(request, response);

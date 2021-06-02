@@ -79,47 +79,57 @@ public class RegistrazioneServlet extends HttpServlet {
                 }
                 logger.log(Level.WARNING, "Utente creato: " + utenteBean.toString());
 
-                // Converto l'oggetto UtenteBean in una stringa JSON: nella stringa JSON ci saranno solo i campi
-                // per cui gli attributi in UtenteBean non sono null
+                // Controllo che non esista già un utente con lo stesso username registrato
+                Document filter = new Document("username", utenteBean.getUsername());
+                Document document = new Document();
                 Gson gson = new Gson();
-                String jsonString = gson.toJson(utenteBean);
-                logger.log(Level.WARNING, "Json: " + jsonString);
+                logger.log(Level.WARNING, "Filter: " + filter.toJson());
+                FindIterable<Document> findIterable = MongoDBConnection.getDatabase().getCollection("users").find(filter);
+                MongoCursor<Document> cursor = findIterable.iterator();
+                if (!cursor.hasNext()) {
+                    // Converto l'oggetto UtenteBean in una stringa JSON: nella stringa JSON ci saranno solo i campi
+                    // per cui gli attributi in UtenteBean non sono null
+                    String jsonString = gson.toJson(utenteBean);
+                    logger.log(Level.WARNING, "Json: " + jsonString);
 
-                // Istanzio un oggetto mapper per convertire una stringa JSON in un oggetto Map
-                ObjectMapper mapper = new ObjectMapper();
-                try {
-                    // Conversione della stringa JSON in un oggetto Map
-                    Map<String, ?> map = mapper.readValue(jsonString, Map.class);
-                    // Per inserire un documento in una collezione in MongoDB, è necessario utilizzare Document
-                    Document document = new Document();
-                    // Inserisco tutti gli elementi di Map nel documento
-                    document.putAll(map);
-                    // Effettuo l'inserimento effettivo nella collezione
-                    logger.log(Level.WARNING, "Document: " + document.toJson());
-                    MongoDBConnection.getDatabase().getCollection("users").insertOne(document);
+                    // Istanzio un oggetto mapper per convertire una stringa JSON in un oggetto Map
+                    ObjectMapper mapper = new ObjectMapper();
+                    try {
+                        // Conversione della stringa JSON in un oggetto Map
+                        Map<String, ?> map = mapper.readValue(jsonString, Map.class);
+                        // Inserisco tutti gli elementi di Map nel documento
+                        document.putAll(map);
+                        // Effettuo l'inserimento effettivo nella collezione
+                        logger.log(Level.WARNING, "Document: " + document.toJson());
+                        MongoDBConnection.getDatabase().getCollection("users").insertOne(document);
 
-                    // Effettuo il login per recuperare l'utente appena salvato in MongoDB, in quanto MongoDB lo ha
-                    // inserito con un _id che potrebbe servirmi
-                    Document filter = new Document("username", utenteBean.getUsername());
-                    filter.append("password", utenteBean.getPassword());
-                    logger.log(Level.WARNING, "Filter: " + filter.toJson());
-                    FindIterable<Document> findIterable = MongoDBConnection.getDatabase().getCollection("users").find(filter);
-                    MongoCursor<Document> cursor = findIterable.iterator();
-                    if (cursor.hasNext()) {
-                        document = cursor.next();
-                        utenteBean = gson.fromJson(document.toJson(), UtenteBean.class);
-                        request.getSession().setAttribute("utente", utenteBean);
+                        // Effettuo il login per recuperare l'utente appena salvato in MongoDB, in quanto MongoDB lo ha
+                        // inserito con un _id che potrebbe servirmi
+                        filter = new Document("username", utenteBean.getUsername());
+                        filter.append("password", utenteBean.getPassword());
+                        logger.log(Level.WARNING, "Filter: " + filter.toJson());
+                        findIterable = MongoDBConnection.getDatabase().getCollection("users").find(filter);
+                        cursor = findIterable.iterator();
+                        if (cursor.hasNext()) {
+                            document = cursor.next();
+                            utenteBean = gson.fromJson(document.toJson(), UtenteBean.class);
+                            request.getSession().setAttribute("utente", utenteBean);
 
-                        String url = response.encodeURL("Catalogo");
-                        request.getRequestDispatcher(url).forward(request, response);
-                        return;
+                            String url = response.encodeURL("Catalogo");
+                            request.getRequestDispatcher(url).forward(request, response);
+                            return;
+                        }
+                    } catch (IOException e) {
+                        logger.log(Level.WARNING, "Problema con l'inserimento di un nuovo utente nel database");
+                        e.printStackTrace();
                     }
-                } catch (IOException e) {
-                    logger.log(Level.WARNING, "Problema con l'inserimento di un nuovo utente nel database");
-                    e.printStackTrace();
+                } else {
+                    logger.log(Level.WARNING, "Impossibile registrare utente " + utenteBean.getUsername()+" perché già presente nel database");
+                    request.setAttribute("errorMessage", "Username already exists");
                 }
             } else {
                 logger.log(Level.WARNING, "Le password inserite sono diverse: " + password + " , " + passwordConfirm);
+                request.setAttribute("errorMessage", "Password missmatch");
             }
         } else {
             logger.log(Level.WARNING, "Non sono stati passati i parametri fondamentali per la registrazione di un nuovo account");

@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String errorMessage = (String) request.getAttribute("errorMessage");
-    if (errorMessage == null) {
+    if(errorMessage == null){
         errorMessage = "";
     }
 %>
@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
 </head>
-<body class="bg-primary">
+<body class="bg-lg">
 <div id="layoutAuthentication">
     <div id="layoutAuthentication_content">
         <main>
@@ -37,21 +37,22 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-5">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
-                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                            <div class="card-header"><img src="css/Image/Logo.png" style="width:300px;height: 150px; margin-left: 90px;">
+                                <h3 class="text-center my-4" style="color: #ffc107">Login</h3></div>
                             <div class="card-body">
                                 <form action="Catalogo" method="POST">
                                     <div class="form-floating mb-3">
                                         <input class="form-control" name="username" id="inputUsername" type="text"
-                                               placeholder="Username*" required/>
-                                        <label for="inputUsername">Username*</label>
+                                               placeholder="Username*"/>
+                                        <label for="inputUsername" style="color: #212529">Username*</label>
                                     </div>
                                     <div class="form-floating mb-3">
                                         <input class="form-control" name="password" id="inputPassword" type="password"
-                                               placeholder="Password*" required/>
-                                        <label for="inputPassword">Password*</label>
+                                               placeholder="Password*"/>
+                                        <label for="inputPassword" style="color: #212529">Password*</label>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
-                                        <button type="submit" class="btn btn-primary">Login</button>
+                                        <button type="submit" class="btn btn-warning">Login</button>
                                     </div>
                                 </form>
                             </div>
@@ -65,7 +66,7 @@
         </main>
     </div>
     <div id="layoutAuthentication_footer">
-        <footer class="py-4 bg-light mt-auto">
+        <footer class="py-4 mt-auto" style="background-color: #212529">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
                     <div class="text-muted">Copyright &copy; Movieverse 2021</div>
@@ -85,9 +86,8 @@
 <script type="text/javascript">
     var errorMessage = "<%=errorMessage%>";
     if (errorMessage != null && errorMessage.length > 0) {
-        sweetAlert(errorMessage, "Try again", "error");
+        sweetAlert("Login failed", errorMessage, "error");
     }
 </script>
 </body>
 </html>
-
