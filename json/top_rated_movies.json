@@ -19,7 +19,7 @@
     "Bob Gunton"
   ],
   "imdbRating": 9.3,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BODU4MjU4NjIwNl5BMl5BanBnXkFtZTgwMDU2MjEyMDE@._V1_SY500_CR0,0,336,500_AL_.jpg"
+  "posterurl": "https://www.themoviedb.org/t/p/w500/wSnStw76OolZTtVtbBeAsK7xgtJ.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a37"
@@ -41,7 +41,7 @@
     "James Caan"
   ],
   "imdbRating": 9.2,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BZTRmNjQ1ZDYtNDgzMy00OGE0LWE4N2YtNTkzNWQ5ZDhlNGJmL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SY500_CR0,0,352,500_AL_.jpg"
+  "posterurl": "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a38"
@@ -63,7 +63,7 @@
     "Robert Duvall"
   ],
   "imdbRating": 9,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMjZiNzIxNTQtNDc5Zi00YWY1LThkMTctMDgzYjY4YjI1YmQyL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SY500_CR0,0,351,500_AL_.jpg"
+  "posterurl": "https://d2iltjk184xms5.cloudfront.net/uploads/photo/file/237496/small_2aac97615c14269b2c5cc4e66ebd9401-60240-godfather2.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a39"
@@ -158,7 +158,7 @@
   "_id": {
     "$oid": "60b4bb81bab7483280e14a3d"
   },
-  "title": "Sagan om konungens återkomst",
+  "title": "The Lord of the Rings: The Return of the King",
   "year": "2003",
   "genres": [
     "Adventure",
@@ -176,7 +176,7 @@
     "Ian McKellen"
   ],
   "imdbRating": 8.9,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BYWY1ZWQ5YjMtMDE0MS00NWIzLWE1M2YtODYzYTk2OTNlYWZmXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_SY500_SX334_AL_.jpg"
+  "posterurl": "http://www.limitedruns.com/media/cache/7e/6b/7e6b6743a7e45d096838abd67b2464e2.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a3e"
@@ -218,12 +218,12 @@
     "Meat Loaf"
   ],
   "imdbRating": 8.8,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BZGY5Y2RjMmItNDg5Yy00NjUwLThjMTEtNDc2OGUzNTBiYmM1XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX290_CR0,0,290,429_AL_.jpg"
+  "posterurl": "https://cdn.domestika.org/c_limit,dpr_auto,f_auto,q_auto,w_820/v1576552355/content-items/003/521/446/FIGHTCLUB_FINAL-original.jpg?1576552355"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a40"
   },
-  "title": "Sagan om ringen: Härskarringen",
+  "title": "The Lord of the Rings: The Fellowship of the Ring",
   "year": "2001",
   "genres": [
     "Adventure",
@@ -241,12 +241,12 @@
     "Orlando Bloom"
   ],
   "imdbRating": 8.8,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BNmFmZDdkODMtNzUyMy00NzhhLWFjZmEtMGMzYjNhMDA1NTBkXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_SY500_SX342_AL_.jpg"
+  "posterurl": "https://cdn.hmv.com/r/w-1280/hmv/files/ef/efed5bfb-dc0b-4177-a167-7c74f673ddf1.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a41"
   },
-  "title": "Rymdimperiet slår tillbaka",
+  "title": "Star Wars",
   "year": "1980",
   "genres": [
     "Action",
@@ -264,7 +264,7 @@
     "Carrie Fisher"
   ],
   "imdbRating": 8.8,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BYmViY2M2MTYtY2MzOS00YjQ1LWIzYmEtOTBiNjhlMGM0NjZjXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SY500_CR0,0,322,500_AL_.jpg"
+  "posterurl": "https://m.media-amazon.com/images/I/51nwJJf3IjL.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a42"
@@ -287,7 +287,7 @@
     "Gary Sinise"
   ],
   "imdbRating": 8.8,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BYThjM2MwZGMtMzg3Ny00NGRkLWE4M2EtYTBiNWMzOTY0YTI4XkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SY500_CR0,0,378,500_AL_.jpg"
+  "posterurl": "https://images-na.ssl-images-amazon.com/images/I/91%2B%2BWV6FP4L._SY445_.jpgnull"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a43"
@@ -359,7 +359,7 @@
   "_id": {
     "$oid": "60b4bb81bab7483280e14a46"
   },
-  "title": "Maffiabröder",
+  "title": "Goodfellas",
   "year": "1990",
   "genres": [
     "Biography",
@@ -377,7 +377,7 @@
     "Joe Pesci"
   ],
   "imdbRating": 8.7,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BNThjMzczMjctZmIwOC00NTQ4LWJhZWItZDdhNTk5ZTdiMWFlXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SY500_CR0,0,334,500_AL_.jpg"
+  "posterurl": "https://ivid.akamaized.net/media/foto/2006/02/27/quei_bravi_ragazzi_locandina_66d16.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a47"
@@ -402,31 +402,9 @@
   "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SY500_CR0,0,332,500_AL_.jpg"
 },{
   "_id": {
-    "$oid": "60b4bb81bab7483280e14a48"
-  },
-  "title": "De sju samurajerna",
-  "year": "1954",
-  "genres": [
-    "Adventure",
-    "Drama"
-  ],
-  "duration": "PT207M",
-  "releaseDate": "1965-09-20",
-  "averageRating": 0,
-  "originalTitle": "Shichinin no samurai",
-  "storyline": "A veteran samurai, who has fallen on hard times, answers a village's request for protection from bandits. He gathers 6 other samurai to help him, and they teach the townspeople how to defend themselves, and they supply the samurai with three small meals a day. The film culminates in a giant battle when 40 bandits attack the village.                Written by\nColin Tinto <cst@imdb.com>",
-  "actors": [
-    "Toshirô Mifune",
-    "Takashi Shimura",
-    "Keiko Tsushima"
-  ],
-  "imdbRating": 8.7,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTc5MDY1MjU5MF5BMl5BanBnXkFtZTgwNDM2OTE4MzE@._V1_SY500_CR0,0,356,500_AL_.jpg"
-},{
-  "_id": {
     "$oid": "60b4bb81bab7483280e14a49"
   },
-  "title": "Stjärnornas krig",
+  "title": "Star Wars",
   "year": "1977",
   "genres": [
     "Action",
@@ -444,7 +422,7 @@
     "Carrie Fisher"
   ],
   "imdbRating": 8.7,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BYzQ2OTk4N2QtOGQwNy00MmI3LWEwNmEtOTk0OTY3NDk2MGJkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_SY500_CR0,0,332,500_AL_.jpg"
+  "posterurl": "http://www.multisalairis.it/wp-content/uploads/star-wars-LOC-3D.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a4a"
@@ -604,7 +582,7 @@
     "Natalie Portman"
   ],
   "imdbRating": 8.6,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMjdjMGU3MGYtN2Y5ZC00MTE4LWE4YWQtMTBhMjc3MTk0ZDUwXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SY500_SX332_AL_.jpg"
+  "posterurl": "https://upload.wikimedia.org/wikipedia/en/0/03/Leon-poster.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a51"
@@ -650,49 +628,6 @@
   ],
   "imdbRating": 8.6,
   "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BZjhkMDM4MWItZTVjOC00ZDRhLThmYTAtM2I5NzBmNmNlMzI1XkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SY500_CR0,0,339,500_AL_.jpg"
-},{
-  "_id": {
-    "$oid": "60b4bb81bab7483280e14a53"
-  },
-  "title": "Harmonica - En hämnare",
-  "year": "1968",
-  "genres": [
-    "Western"
-  ],
-  "duration": "PT175M",
-  "releaseDate": "1969-08-04",
-  "averageRating": 0,
-  "originalTitle": "C'era una volta il West",
-  "storyline": "Story of a young woman, Mrs. McBain, who moves from New Orleans to frontier Utah, on the very edge of the American West. She arrives to find her new husband and family slaughtered, but by whom? The prime suspect, coffee-lover Cheyenne, befriends her and offers to go after the real killer, assassin gang leader Frank, in her honor. He is accompanied by Harmonica, a man already on a quest to get even.                Written by\nDrGoodBeat / edited by statmanjeff",
-  "actors": [
-    "Henry Fonda",
-    "Charles Bronson",
-    "Claudia Cardinale"
-  ],
-  "imdbRating": 8.6,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BYjFiOTlmMzgtOGZlYi00NjY0LThmMzEtNmQ0OTgxNGViOTZmXkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_SY500_CR0,0,329,500_AL_.jpg"
-},{
-  "_id": {
-    "$oid": "60b4bb81bab7483280e14a54"
-  },
-  "title": "American History X",
-  "year": "1998",
-  "genres": [
-    "Crime",
-    "Drama"
-  ],
-  "duration": "PT119M",
-  "releaseDate": "1999-02-26",
-  "averageRating": 0,
-  "originalTitle": "",
-  "storyline": "Derek Vineyard is paroled after serving 3 years in prison for brutally killing two black men who tried to break into/steal his truck. Through his brother, Danny Vineyard's narration, we learn that before going to prison, Derek was a skinhead and the leader of a violent white supremacist gang that committed acts of racial crime throughout L.A. and his actions greatly influenced Danny. Reformed and fresh out of prison, Derek severs contact with the gang and becomes determined to keep Danny from going down the same violent path as he did.                Written by\nNitesh D.(nmxpa7@msn.com)",
-  "actors": [
-    "Edward Norton",
-    "Edward Furlong",
-    "Beverly D'Angelo"
-  ],
-  "imdbRating": 8.6,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BY2E2MWU5ZDktOTQ0OS00NGIzLTg4YTgtYjFhNTRlMjA1NzFjL2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SY500_SX340_AL_.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a55"
@@ -761,30 +696,7 @@
     "Vera Miles"
   ],
   "imdbRating": 8.5,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMDI3OWRmOTEtOWJhYi00N2JkLTgwNGItMjdkN2U0NjFiZTYwXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SY500_CR0,0,331,500_AL_.jpg"
-},{
-  "_id": {
-    "$oid": "60b4bb81bab7483280e14a58"
-  },
-  "title": "Stadens ljus",
-  "year": "1931",
-  "genres": [
-    "Comedy",
-    "Drama",
-    "Romance"
-  ],
-  "duration": "PT87M",
-  "releaseDate": "1931-04-20",
-  "averageRating": 0,
-  "originalTitle": "City Lights",
-  "storyline": "A tramp falls in love with a beautiful blind girl. Her family is in financial trouble. The tramp's on-and-off friendship with a wealthy man allows him to be the girl's benefactor and suitor.                Written by\nJohn J. Magee <magee@helix.mgh.harvard.edu>",
-  "actors": [
-    "Charles Chaplin",
-    "Virginia Cherrill",
-    "Florence Lee"
-  ],
-  "imdbRating": 8.6,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BZDRjMmI3ZjgtMGE3Mi00NjY5LTg0NWMtMmU3YzgyMjhmMjIzL2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SY500_CR0,0,330,500_AL_.jpg"
+  "posterurl": "https://ivid.akamaized.net/media/foto/2004/03/10/psyco_locandina_669c9.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a59"
@@ -1011,7 +923,7 @@
     "Melissa Benoist"
   ],
   "imdbRating": 8.5,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BOTVhMWQ5MDktMGE3OS00MjVlLWExZWYtMzY2MTg4ZGFiZDQ5L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SY500_CR0,0,337,500_AL_.jpg"
+  "posterurl": "https://img.ibs.it/images/8013123049285_0_306_0_75.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a63"
@@ -1056,7 +968,7 @@
     "Joe Pantoliano"
   ],
   "imdbRating": 8.5,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BZTcyNjk1MjgtOWI3Mi00YzQwLWI5MTktMzY4ZmI2NDAyNzYzXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SY500_CR0,0,340,500_AL_.jpg"
+  "posterurl": "https://i.pinimg.com/474x/71/ae/5e/71ae5e626ab5fc5a0832713f9f5f649a.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a65"
@@ -1078,7 +990,7 @@
     "Robert Duvall"
   ],
   "imdbRating": 8.5,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BODViM2VjYWYtMzU5Ny00ZjczLWEzNjMtODZmNGMwZDAxNzJkXkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_SY370_CR0,0,242,370_AL_.jpg"
+  "posterurl": "https://mr.comingsoon.it/imgdb/locandine/big/55786.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a66"
@@ -1146,7 +1058,7 @@
     "John Hurt"
   ],
   "imdbRating": 8.5,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BNDNhN2IxZWItNGEwYS00ZDNhLThiM2UtODU3NWJlZjBkYjQxXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SY500_CR0,0,340,500_AL_.jpg"
+  "posterurl": "https://movieplayer.net-cdn.it/t/images/2003/03/17/la-locandina-di-alien-7565_jpg_400x0_crop_q85.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a69"
@@ -1170,28 +1082,6 @@
   "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BNTkxYjUxNDYtZGY0My00NTc2LThiZmYtNmNmNmU0NGVkZWYwXkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_SY500_CR0,0,326,500_AL_.jpg"
 },{
   "_id": {
-    "$oid": "60b4bb81bab7483280e14a6a"
-  },
-  "title": "Sunset Boulevard",
-  "year": "1950",
-  "genres": [
-    "Drama",
-    "Film-Noir"
-  ],
-  "duration": "PT110M",
-  "releaseDate": "1950-12-20",
-  "averageRating": 0,
-  "originalTitle": "Sunset Blvd.",
-  "storyline": "In Hollywood of the 50's, the obscure screenplay writer Joe Gillis is not able to sell his work to the studios, is full of debts and is thinking in returning to his hometown to work in an office. While trying to escape from his creditors, he has a flat tire and parks his car in a decadent mansion in Sunset Boulevard. He meets the owner and former silent-movie star Norma Desmond, who lives alone wit her butler and driver Max von Mayerling. Norma is demented and believes she will return to the cinema industry, and is protected and isolated from the world by Max, who was his director and husband in the past and still loves her. Norma proposes Joe to move to the mansion and help her in writing a screenplay for her comeback to the cinema, and the small-time writer becomes her lover and gigolo. When Joe falls in love for the young aspirant writer Betty Schaefer, Norma becomes jealous and completely insane and her madness leads to a tragic end.                Written by\nClaudio Carvalho, Rio de Janeiro, Brazil",
-  "actors": [
-    "William Holden",
-    "Gloria Swanson",
-    "Erich von Stroheim"
-  ],
-  "imdbRating": 8.5,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTc3NDYzODAwNV5BMl5BanBnXkFtZTgwODg1MTczMTE@._V1_SY250_SX166_AL_.jpg"
-},{
-  "_id": {
     "$oid": "60b4bb81bab7483280e14a6b"
   },
   "title": "Diktatorn",
@@ -1213,27 +1103,6 @@
   ],
   "imdbRating": 8.5,
   "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMmExYWJjNTktNGUyZS00ODhmLTkxYzAtNWIzOGEyMGNiMmUwXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SY500_CR0,0,338,500_AL_.jpg"
-},{
-  "_id": {
-    "$oid": "60b4bb81bab7483280e14a6c"
-  },
-  "title": "Cinema Paradiso",
-  "year": "1988",
-  "genres": [
-    "Drama"
-  ],
-  "duration": "PT155M",
-  "releaseDate": "1990-01-19",
-  "averageRating": 0,
-  "originalTitle": "Nuovo Cinema Paradiso",
-  "storyline": "A famous film director remembers his childhood at the Cinema Paradiso where Alfredo, the projectionist, first brought about his love of films. He returns home to his Sicilian village for the first time after almost 30 years and is reminded of his first love, Elena, who disappeared from his life before he left for Rome.                Written by\nGraeme Roy <gsr@cbmamiga.demon.co.uk>",
-  "actors": [
-    "Philippe Noiret",
-    "Enzo Cannavale",
-    "Antonella Attili"
-  ],
-  "imdbRating": 8.5,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMjIzMTgzOTEwOF5BMl5BanBnXkFtZTgwNTUxNjcxMTE@._V1_SY249_CR0,0,168,249_AL_.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a6d"
@@ -1412,7 +1281,7 @@
     "Thora Birch"
   ],
   "imdbRating": 8.4,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMjM4NTI5NzYyNV5BMl5BanBnXkFtZTgwNTkxNTYxMTE@._V1_SY500_CR0,0,337,500_AL_.jpg"
+  "posterurl": "http://cultura.biografieonline.it/wp-content/uploads/2012/09/american-beauty-poster.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a75"
@@ -1460,29 +1329,6 @@
   "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTVlNWM4NTAtNDQxYi00YWU5LWIwM2MtZmVjYWFmODZiODE5XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SY500_CR0,0,353,500_AL_.jpg"
 },{
   "_id": {
-    "$oid": "60b4bb81bab7483280e14a77"
-  },
-  "title": "Aliens - Återkomsten",
-  "year": "1986",
-  "genres": [
-    "Action",
-    "Adventure",
-    "Sci-Fi"
-  ],
-  "duration": "PT137M",
-  "releaseDate": "1986-10-03",
-  "averageRating": 0,
-  "originalTitle": "Aliens",
-  "storyline": "Fifty seven years after Ellen Ripley survived her disastrous ordeal, her escape vessel is recovered after drifting across the galaxy as she slept in cryogenic stasis. Back on Earth, nobody believed her story about the \"Aliens\" on the moon LV-426. After the \"Company\" orders the colony on LV-426 to investigate, however, all communication with the colony is lost. The Company enlists Ripley to aid a team of tough, rugged space marines on a rescue mission to the now partially terraformed moon to find out if there are aliens or survivors. As the mission unfolds, Ripley will be forced to come to grips with her worst nightmare, but even as she does, she finds that the worst is yet to come.                Written by\nBrian Rawlings",
-  "actors": [
-    "Sigourney Weaver",
-    "Michael Biehn",
-    "Carrie Henn"
-  ],
-  "imdbRating": 8.4,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BNGYxMTA0M2EtYjg0Yy00NzI5LTg4NjEtZDA2MTcyOWM0YTVjL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_SY377_CR0,0,247,377_AL_.jpg"
-},{
-  "_id": {
     "$oid": "60b4bb81bab7483280e14a78"
   },
   "title": "Old Boy - Hämnden",
@@ -1526,28 +1372,6 @@
   ],
   "imdbRating": 8.4,
   "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMGFkNWI4MTMtNGQ0OC00MWVmLTk3MTktOGYxN2Y2YWVkZWE2XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SY500_CR0,0,319,500_AL_.jpg"
-},{
-  "_id": {
-    "$oid": "60b4bb81bab7483280e14a7a"
-  },
-  "title": "En sensation",
-  "year": "1941",
-  "genres": [
-    "Drama",
-    "Mystery"
-  ],
-  "duration": "PT119M",
-  "releaseDate": "1942-01-26",
-  "averageRating": 0,
-  "originalTitle": "Citizen Kane",
-  "storyline": "A group of reporters are trying to decipher the last word ever spoken by Charles Foster Kane, the millionaire newspaper tycoon: \"Rosebud.\" The film begins with a news reel detailing Kane's life for the masses, and then from there, we are shown flashbacks from Kane's life. As the reporters investigate further, the viewers see a display of a fascinating man's rise to fame, and how he eventually fell off the top of the world.                Written by\nZack H.",
-  "actors": [
-    "Orson Welles",
-    "Joseph Cotten",
-    "Dorothy Comingore"
-  ],
-  "imdbRating": 8.4,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTQ2Mjc1MDQwMl5BMl5BanBnXkFtZTcwNzUyOTUyMg@@._V1_SY250_SX169_AL_.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a7b"
@@ -1616,7 +1440,7 @@
     "James Mason"
   ],
   "imdbRating": 8.4,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMjQwMTQ0MzgwNl5BMl5BanBnXkFtZTgwNjc4ODE4MzE@._V1_SY500_CR0,0,319,500_AL_.jpg"
+  "posterurl": "https://d2iltjk184xms5.cloudfront.net/uploads/photo/file/78027/small_original.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a7e"
@@ -1644,7 +1468,7 @@
   "_id": {
     "$oid": "60b4bb81bab7483280e14a7f"
   },
-  "title": "Jedins återkomst",
+  "title": "Star Wars: Episode VI - Return of the Jedi",
   "year": "1983",
   "genres": [
     "Action",
@@ -1662,7 +1486,7 @@
     "Carrie Fisher"
   ],
   "imdbRating": 8.4,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BODllZjg2YjUtNWEzNy00ZGY2LTgyZmQtYTkxNDYyOWM3OTUyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SY500_CR0,0,318,500_AL_.jpg"
+  "posterurl": "https://images-na.ssl-images-amazon.com/images/I/81g8vEs4ixL.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a80"
@@ -1819,7 +1643,7 @@
     "Cybill Shepherd"
   ],
   "imdbRating": 8.3,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BNGQxNDgzZWQtZTNjNi00M2RkLWExZmEtNmE1NjEyZDEwMzA5XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SY500_CR0,0,327,500_AL_.jpg"
+  "posterurl": "https://i.ebayimg.com/images/g/U9kAAOSwQ-VgpX29/s-l300.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a87"
@@ -1868,29 +1692,6 @@
   "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BYWY5ZjhjNGYtZmI2Ny00ODM0LWFkNzgtZmI1YzA2N2MxMzA0XkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_SY500_CR0,0,346,500_AL_.jpg"
 },{
   "_id": {
-    "$oid": "60b4bb81bab7483280e14a89"
-  },
-  "title": "Kvinna utan samvete",
-  "year": "1944",
-  "genres": [
-    "Crime",
-    "Drama",
-    "Film-Noir"
-  ],
-  "duration": "PT107M",
-  "releaseDate": "1944-11-27",
-  "averageRating": 0,
-  "originalTitle": "Double Indemnity",
-  "storyline": "In 1938, Walter Neff, an experienced salesman of the Pacific All Risk Insurance Co., meets the seductive wife of one of his clients, Phyllis Dietrichson, and they have an affair. Phyllis proposes to kill her husband to receive the proceeds of an accident insurance policy and Walter devises a scheme to receive twice the amount based on a double indemnity clause. When Mr. Dietrichson is found dead on a train track, the police accept the determination of accidental death. However, the insurance analyst and Walter's best friend Barton Keyes does not buy the story and suspects that Phyllis has murdered her husband with the help of another man.                Written by\nClaudio Carvalho, Rio de Janeiro, Brazil",
-  "actors": [
-    "Fred MacMurray",
-    "Barbara Stanwyck",
-    "Edward G. Robinson"
-  ],
-  "imdbRating": 8.4,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BZmRmYmZkZTktZDc5ZC00ZjZmLTg4NWMtYjM3MjcyNTVjNGQ5L2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_SY500_CR0,0,332,500_AL_.jpg"
-},{
-  "_id": {
     "$oid": "60b4bb81bab7483280e14a8a"
   },
   "title": "Eternal Sunshine of the Spotless Mind",
@@ -1912,28 +1713,6 @@
   ],
   "imdbRating": 8.3,
   "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTY4NzcwODg3Nl5BMl5BanBnXkFtZTcwNTEwOTMyMw@@._V1_SY500_CR0,0,337,500_AL_.jpg"
-},{
-  "_id": {
-    "$oid": "60b4bb81bab7483280e14a8b"
-  },
-  "title": "Skuggor över södern",
-  "year": "1962",
-  "genres": [
-    "Crime",
-    "Drama"
-  ],
-  "duration": "PT129M",
-  "releaseDate": "1964-03-02",
-  "averageRating": 0,
-  "originalTitle": "To Kill a Mockingbird",
-  "storyline": "Small-town Alabama, 1932. Atticus Finch (played by Gregory Peck) is a lawyer and a widower. He has two young children, Jem and Scout. Atticus Finch is currently defending Tom Robinson, a black man accused of raping a white woman. Meanwhile, Jem and Scout are intrigued by their neighbours, the Radleys, and the mysterious, seldom-seen Boo Radley in particular.                Written by\ngrantss",
-  "actors": [
-    "Gregory Peck",
-    "John Megna",
-    "Frank Overton"
-  ],
-  "imdbRating": 8.3,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMjA4MzI1NDY2Nl5BMl5BanBnXkFtZTcwMTcyODc5Mw@@._V1_SY250_SX164_AL_.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a8c"
@@ -2027,29 +1806,6 @@
   "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTQ4MzQzMzM2Nl5BMl5BanBnXkFtZTgwMTQ1NzU3MDI@._V1_SY500_CR0,0,356,500_AL_.jpg"
 },{
   "_id": {
-    "$oid": "60b4bb81bab7483280e14a90"
-  },
-  "title": "Blåsningen",
-  "year": "1973",
-  "genres": [
-    "Comedy",
-    "Crime",
-    "Drama"
-  ],
-  "duration": "PT129M",
-  "releaseDate": "1974-02-25",
-  "averageRating": 0,
-  "originalTitle": "The Sting",
-  "storyline": "When a mutual friend is killed by a mob boss, two con men, one experienced and one young try to get even by pulling off the big con on the mob boss. The story unfolds with several twists and last minute alterations.                Written by\nJohn Vogel <jlvogel@comcast.net>",
-  "actors": [
-    "Paul Newman",
-    "Robert Redford",
-    "Robert Shaw"
-  ],
-  "imdbRating": 8.3,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTY5MjM1OTAyOV5BMl5BanBnXkFtZTgwMDkwODg4MDE@._V1._CR52,57,915,1388_SY500_CR0,0,329,500_AL_.jpg"
-},{
-  "_id": {
     "$oid": "60b4bb81bab7483280e14a91"
   },
   "title": "År 2001 - Ett rymdäventyr",
@@ -2141,7 +1897,7 @@
   "_id": {
     "$oid": "60b4bb81bab7483280e14a95"
   },
-  "title": "Cykeltjuven",
+  "title": "Ladri di biciclette",
   "year": "1948",
   "genres": [
     "Drama"
@@ -2157,7 +1913,7 @@
     "Lianella Carell"
   ],
   "imdbRating": 8.3,
-  "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BOTI3NTcwNzEtNDA1MS00ZjE0LThkNDEtMmU4MjVmNTQ1ZDBmXkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_SY450_SX312_AL_.jpg"
+  "posterurl": "https://unavitadacinefilo.files.wordpress.com/2014/05/ladri-italia.jpg"
 },{
   "_id": {
     "$oid": "60b4bb81bab7483280e14a96"

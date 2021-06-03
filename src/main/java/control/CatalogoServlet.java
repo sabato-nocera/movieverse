@@ -38,27 +38,101 @@ public class CatalogoServlet extends HttpServlet {
             request.getRequestDispatcher(url).forward(request, response);
             return ;
         }
-    //Ottengo la collezione movies_in_theaters e la trasformo in un oggetto iterabile
-        MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies_in_theaters");
-        FindIterable<Document> collection = mongoDatabase.find();
+    //Verifico se l'utente ha scelto uno specifico catalogo da visualizzare andandone a prendere il valore
+        String el = request.getParameter("elenco");
+        int elenco;
+        //Controllo se il valore è nullo, e in quel caso gli assegno 1;
+        if( el==null) {
+            el = "1";
+        }
+        //Trasformo in intero il valore preso;
+        elenco = (Integer.parseInt(el));
+        logger.log(Level.WARNING, "Elenco: " + elenco + ", versione stringa: " + el);
 
-        //Ho ottenuto la collezione, la trasformo in un ArrayList<FilmBean> in modo da passarlo al catalogo
-        ArrayList<FilmBean> movieInTheaters = new ArrayList<FilmBean>();
-        Iterator iterator = collection.iterator();
-        while(iterator.hasNext()){
-            org.bson.Document document = (org.bson.Document) iterator.next();
-            // Istanzio un oggetto Gson per l'effettuazione di manipolazioni facili ed efficaci con JSON
-            Gson gson = new Gson();
+        //effettuo uno switch, così da ottenere la collezione desiderata;
+        MongoCollection mongoDatabase = null;
+        boolean all = false;
+        switch (elenco){
+            case 1: mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies_in_theaters");
+                break;
+            case 2: mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies_coming_soon");
+                break;
+            case 3: mongoDatabase = MongoDBConnection.getDatabase().getCollection("top_rated_movies");
+                break;
+            case 4: all=true;
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + elenco);
+        }
 
-            // Creo l'oggetto FilmBean utilizzando automaticamente il metodo fromJson(), passando come
-            // parametri il Document (convertito in Json) e la classe target e l'aggiungo all'ArrayList
-            FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
-            logger.log(Level.WARNING, "JSON1 : "+film.toString()+" FINE \n");
-            movieInTheaters.add(film);
+        ArrayList<FilmBean> movie = new ArrayList<FilmBean>();
+
+        if(!all){
+            //trasformo la collezione in un oggetto iterabile
+            FindIterable<Document> collection = mongoDatabase.find();
+
+            //Ho ottenuto la collezione, la trasformo in un ArrayList<FilmBean> in modo da passarlo al catalogo
+
+            Iterator iterator = collection.iterator();
+            while(iterator.hasNext()){
+                org.bson.Document document = (org.bson.Document) iterator.next();
+                // Istanzio un oggetto Gson per l'effettuazione di manipolazioni facili ed efficaci con JSON
+                Gson gson = new Gson();
+                // TODO: 03/06/21 Aggiustare le date convertendole da intero a data (formato attuale: "releaseDate": {"$date": 1518566400000}) 
+                logger.log(Level.WARNING, "JSON : "+document.toJson()+" FINE \n");
+                // Creo l'oggetto FilmBean utilizzando automaticamente il metodo fromJson(), passando come
+                // parametri il Document (convertito in Json) e la classe target e l'aggiungo all'ArrayList
+                FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+                //logger.log(Level.WARNING, "JSON1 : "+film.toString()+" FINE \n");
+                movie.add(film);
+            }
+        } else {
+            //ripeto i passaggi sopra andando ad addizzionare nell'ArrayList<FilmBean> tutti i film di tutte le collezioni
+            //Collezione Other_movies
+            mongoDatabase = MongoDBConnection.getDatabase().getCollection("other_movies");
+            FindIterable<Document> collection = mongoDatabase.find();
+            Iterator iterator = collection.iterator();
+            while(iterator.hasNext()) {
+                org.bson.Document document = (org.bson.Document) iterator.next();
+                Gson gson = new Gson();
+                FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+                movie.add(film);
+            }
+            //Collezione movies_in_theaters
+            mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies_in_theaters");
+            collection = mongoDatabase.find();
+            iterator = collection.iterator();
+            while(iterator.hasNext()) {
+                org.bson.Document document = (org.bson.Document) iterator.next();
+                Gson gson = new Gson();
+                FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+                movie.add(film);
+            }
+            //Collezione Coming_Soon
+            mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies_coming_soon");
+            collection = mongoDatabase.find();
+            iterator = collection.iterator();
+            while(iterator.hasNext()) {
+                org.bson.Document document = (org.bson.Document) iterator.next();
+                Gson gson = new Gson();
+                FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+                movie.add(film);
+            }
+            //Collezione Best Movies
+            mongoDatabase = MongoDBConnection.getDatabase().getCollection("top_rated_movies");
+            collection = mongoDatabase.find();
+            iterator = collection.iterator();
+            while(iterator.hasNext()) {
+                org.bson.Document document = (org.bson.Document) iterator.next();
+                Gson gson = new Gson();
+                FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+                movie.add(film);
+            }
         }
 
 
-        request.setAttribute("movieInTheaters", movieInTheaters);
+
+        request.setAttribute("movie", movie);
         String url = response.encodeURL("WEB-INF/Catalogo.jsp");
         request.getRequestDispatcher(url).forward(request, response);
     }

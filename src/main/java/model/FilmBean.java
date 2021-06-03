@@ -2,6 +2,7 @@ package model;
 
 import org.bson.types.ObjectId;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class FilmBean {
@@ -10,7 +11,7 @@ public class FilmBean {
     private int year;
     private List<String> genres;
     private String duration;
-    private String releaseDate;
+    private LocalDateTime releaseDate;
     private Double averageRating;
     private String originalTitle;
     private String storyline;
@@ -62,11 +63,11 @@ public class FilmBean {
         this.duration = duration;
     }
 
-    public String getReleaseDate() {
+    public LocalDateTime  getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(LocalDateTime  releaseDate) {
         this.releaseDate = releaseDate;
     }
 

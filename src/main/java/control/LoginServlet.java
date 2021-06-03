@@ -79,6 +79,7 @@ public class LoginServlet extends HttpServlet {
 
                 // Inserisco l'utente loggato in sessione
                 request.getSession().setAttribute("utente", utenteBean);
+                request.getSession().setAttribute("elenco", "1");
 
                 String url = response.encodeURL("Catalogo");
                 request.getRequestDispatcher(url).forward(request, response);

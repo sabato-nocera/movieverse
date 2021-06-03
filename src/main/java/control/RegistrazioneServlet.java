@@ -8,6 +8,7 @@ import com.google.gson.JsonParser;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import jdk.vm.ci.meta.Local;
 import model.UtenteBean;
 import org.bson.Document;
 import utils.MongoDBConnection;
@@ -20,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -72,7 +75,9 @@ public class RegistrazioneServlet extends HttpServlet {
                     utenteBean.setLastName(lastName);
                 }
                 if (date != null && !date.equals("")) {
-                    utenteBean.setDateOfBirth(Date.valueOf(date));
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+                    utenteBean.setDateOfBirth(dateTime);
                 }
                 if (gender != null && !gender.equals("")) {
                     utenteBean.setGender(gender);

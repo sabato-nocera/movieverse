@@ -3,6 +3,7 @@ package model;
 import org.bson.types.ObjectId;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class UtenteBean {
@@ -14,7 +15,7 @@ public class UtenteBean {
     private String firstName;
     private String lastName;
     private String gender;
-    private Date dateOfBirth;
+    private LocalDateTime dateOfBirth;
     private List<ObjectId> viewedMovies;
     private List<ObjectId> moviesToSee;
 
@@ -85,11 +86,11 @@ public class UtenteBean {
         this.gender = gender;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDateTime  getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDateTime  dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

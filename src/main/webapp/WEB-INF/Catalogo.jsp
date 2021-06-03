@@ -12,7 +12,7 @@
 <%@ page import="control.*" %>
 <%@ page import="java.util.*" %>
 <%  UtenteBean user = (UtenteBean) session.getAttribute("utente"); %>
-<%  ArrayList<FilmBean> movie = (ArrayList<FilmBean>) request.getAttribute("movieInTheaters"); %>
+<%  ArrayList<FilmBean> movie = (ArrayList<FilmBean>) request.getAttribute("movie"); %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +33,7 @@
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="index.html"><img src="css/Image/Logo.png" style="width:200px;height:80px"></a>
+    <a class="navbar-brand ps-3" ><img src="css/Image/Logo.png" style="width:200px;height:80px"></a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
     <!-- Navbar Search-->
@@ -61,22 +61,35 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">Film</div>
-                    <a class="nav-link" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fa fa-film"></i></div>
-                        Movies in theaters
-                    </a>
-                    <a class="nav-link" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fa fa-film"></i></div>
-                        Coming soon
-                    </a>
-                    <a class="nav-link" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fa fa-film"></i></div>
-                        Best Movies
-                    </a>
-                    <a class="nav-link" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fa fa-film"></i></div>
-                        All Movies
-                    </a>
+
+                    <form action="Catalogo" method="POST">
+                        <div class="nav-link" >
+                            <div class="sb-nav-link-icon"><i class="fa fa-film"></i></div>
+                            <button type="submit" class="btn nav-link" name="elenco" value="1">Movies in Theaters</button>
+                        </div>
+                    </form>
+
+                    <form action="Catalogo" method="POST">
+                        <div class="nav-link" >
+                            <div class="sb-nav-link-icon"><i class="fa fa-film"></i></div>
+                            <button type="submit" class="btn nav-link" name="elenco" value="2">Coming Soon</button>
+                        </div>
+                    </form>
+
+                    <form action="Catalogo" method="POST">
+                        <div class="nav-link" >
+                            <div class="sb-nav-link-icon"><i class="fa fa-film"></i></div>
+                            <button type="submit" class="btn nav-link" name="elenco" value="3">Best Movies</button>
+                        </div>
+                    </form>
+
+                    <form action="Catalogo" method="POST">
+                        <div class="nav-link" >
+                            <div class="sb-nav-link-icon"><i class="fa fa-film"></i></div>
+                            <button type="submit" class="btn nav-link" name="elenco" value="4">All Movies</button>
+                        </div>
+                    </form>
+
                 <% if(!user.getAdmin()){%>
                     <div class="sb-sidenav-menu-heading">List</div>
                     <a class="nav-link" href="charts.html">
@@ -129,18 +142,24 @@
                     <div class="card mb-3" style="max-width: 540px; max-height: 310px; margin-right: 10px">
                         <div class="row g-0">
                             <div class="col-md-4" >
+                                <% if(movie.get(i).getPosterurl()==null || movie.get(i).getPosterurl().equalsIgnoreCase("null") || movie.get(i).getPosterurl().equals("")) {%>
+                                <img src="css/Image/locandina.png" style="width:180px; height:290px;margin-top: 10px">
+                                <%}else{%>
                                 <img src="<%=movie.get(i).getPosterurl()%>" style="width:180px; height:290px;margin-top: 10px">
+                                <%}%>
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title"><%=movie.get(i).getTitle()%></h5>
-                                    <p class="card-text">Generi:<%int j; for(j=0; j<movie.get(i).getGenres().size();j++){%>
+                                    <p class="card-text">Genres: <%int j; for(j=0; j<movie.get(i).getGenres().size();j++){%>
                                         <%=movie.get(i).getGenres().get(j).toString()+", "%><%}%></p>
-                                    <p class="card-text">Attori<%int h; for(h=0; h<movie.get(i).getActors().size();h++){%>
+                                    <p class="card-text">Actors: <%int h; for(h=0; h<movie.get(i).getActors().size();h++){%>
                                         <%=movie.get(i).getActors().get(h).toString()+", "%><%}%></p>
-                                    <p class="card-text"><%=movie.get(i).getReleaseDate()%></p>
-                                    <p class="card-text"><%=movie.get(i).getAverageRating()%></p>
-                                    <p class="card-text"><%=movie.get(i).getImdbRating()%></p>
+                                    <%if(movie.get(i).getReleaseDate()!=null) {%>
+                                    <p class="card-text">Release Date: <%=movie.get(i).getReleaseDate()%></p>
+                                    <%}%>
+                                    <p class="card-text">User Rating: <%=movie.get(i).getAverageRating()%></p>
+                                    <p class="card-text">Movieverse Rating: <%=movie.get(i).getImdbRating()%></p>
                                     <p class="card-text"><small class="text-muted"><button type="button" class="btn btn-link">Dettagli</button></small></p>
                                 </div>
                             </div>
