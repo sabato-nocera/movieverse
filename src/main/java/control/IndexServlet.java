@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 @WebServlet("/Index")
 public class IndexServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private final Logger logger = Logger.getLogger(LoginServlet.class.getName());
+    private final Logger logger = Logger.getLogger(IndexServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("utente") != null) {

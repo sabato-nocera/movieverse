@@ -34,8 +34,8 @@
         <main>
             <div class="container">
                 <div class="row justify-content-center" >
-                    <div class="col-lg-7" style="background-color: #212529">
-                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                    <div class="col-lg-7 mt-5" style="background-color: #212529">
+                        <div class="card shadow-lg border-0 rounded-lg">
                             <div class="card-header"><h3 class="text-center  my-4" style="color: #ffc107">Create
                                 Account</h3></div>
                         </div>
@@ -100,7 +100,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        Gender <br/>
+                                        <span class="text-white">Gender</span> <br/>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="gender" value="male"
                                                    id="flexRadioDefault1">

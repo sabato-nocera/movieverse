@@ -9,6 +9,11 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import jdk.vm.ci.meta.Local;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.*;
+
 import model.UtenteBean;
 import org.bson.Document;
 import utils.MongoDBConnection;
@@ -20,13 +25,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static com.fasterxml.jackson.databind.type.LogicalType.DateTime;
 
 /**
  * Utilizzata per effettuare la registrazione di un utente.
@@ -34,7 +38,7 @@ import java.util.logging.Logger;
 @WebServlet("/Registrazione")
 public class RegistrazioneServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private final Logger logger = Logger.getLogger(LoginServlet.class.getName());
+    private final Logger logger = Logger.getLogger(RegistrazioneServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("utente") != null) {
@@ -75,9 +79,12 @@ public class RegistrazioneServlet extends HttpServlet {
                     utenteBean.setLastName(lastName);
                 }
                 if (date != null && !date.equals("")) {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-                    utenteBean.setDateOfBirth(dateTime);
+                    String[] list = date.split("-");
+                    String year = list[0];
+                    String month = list[1];
+                    String day = list[2];
+                    Date dateOfBirth = new Date(Integer.parseInt(year)-1900, Integer.parseInt(month), Integer.parseInt(day));
+                    utenteBean.setDateOfBirth(dateOfBirth);
                 }
                 if (gender != null && !gender.equals("")) {
                     utenteBean.setGender(gender);

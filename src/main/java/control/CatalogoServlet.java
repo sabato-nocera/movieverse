@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.Document;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +30,7 @@ import java.util.logging.Logger;
 @WebServlet("/Catalogo")
 public class CatalogoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private final Logger logger = Logger.getLogger(LoginServlet.class.getName());
+    private final Logger logger = Logger.getLogger(CatalogoServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getSession().getAttribute("utente")==null){
@@ -76,14 +77,25 @@ public class CatalogoServlet extends HttpServlet {
             Iterator iterator = collection.iterator();
             while(iterator.hasNext()){
                 org.bson.Document document = (org.bson.Document) iterator.next();
+
                 // Istanzio un oggetto Gson per l'effettuazione di manipolazioni facili ed efficaci con JSON
                 Gson gson = new Gson();
-                // TODO: 03/06/21 Aggiustare le date convertendole da intero a data (formato attuale: "releaseDate": {"$date": 1518566400000}) 
-                logger.log(Level.WARNING, "JSON : "+document.toJson()+" FINE \n");
+
+                // Memorizzo a parte la data di rilascio del film e la tolgo dal documento,
+                // in quanto dà problemi con gson
+                Date date = (Date) document.get("releaseDate");
+                document.remove("releaseDate");
+
+                // logger.log(Level.WARNING, "JSON : "+document.toJson()+" FINE \n");
+
                 // Creo l'oggetto FilmBean utilizzando automaticamente il metodo fromJson(), passando come
                 // parametri il Document (convertito in Json) e la classe target e l'aggiungo all'ArrayList
                 FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+                // Setto la data giusta
+                film.setReleaseDate(date);
+
                 //logger.log(Level.WARNING, "JSON1 : "+film.toString()+" FINE \n");
+
                 movie.add(film);
             }
         } else {
@@ -95,7 +107,10 @@ public class CatalogoServlet extends HttpServlet {
             while(iterator.hasNext()) {
                 org.bson.Document document = (org.bson.Document) iterator.next();
                 Gson gson = new Gson();
+                Date date = (Date) document.get("releaseDate");
+                document.remove("releaseDate");
                 FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+                film.setReleaseDate(date);
                 movie.add(film);
             }
             //Collezione movies_in_theaters
@@ -105,7 +120,10 @@ public class CatalogoServlet extends HttpServlet {
             while(iterator.hasNext()) {
                 org.bson.Document document = (org.bson.Document) iterator.next();
                 Gson gson = new Gson();
+                Date date = (Date) document.get("releaseDate");
+                document.remove("releaseDate");
                 FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+                film.setReleaseDate(date);
                 movie.add(film);
             }
             //Collezione Coming_Soon
@@ -115,7 +133,10 @@ public class CatalogoServlet extends HttpServlet {
             while(iterator.hasNext()) {
                 org.bson.Document document = (org.bson.Document) iterator.next();
                 Gson gson = new Gson();
+                Date date = (Date) document.get("releaseDate");
+                document.remove("releaseDate");
                 FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+                film.setReleaseDate(date);
                 movie.add(film);
             }
             //Collezione Best Movies
@@ -125,12 +146,13 @@ public class CatalogoServlet extends HttpServlet {
             while(iterator.hasNext()) {
                 org.bson.Document document = (org.bson.Document) iterator.next();
                 Gson gson = new Gson();
+                Date date = (Date) document.get("releaseDate");
+                document.remove("releaseDate");
                 FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+                film.setReleaseDate(date);
                 movie.add(film);
             }
         }
-
-
 
         request.setAttribute("movie", movie);
         String url = response.encodeURL("WEB-INF/Catalogo.jsp");
