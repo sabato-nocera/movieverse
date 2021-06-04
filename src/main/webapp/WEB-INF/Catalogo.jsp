@@ -57,7 +57,7 @@
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">Profile</a></li>
+                <li><a class="dropdown-item" href="Profilo">Profile</a></li>
                 <li>
                     <hr class="dropdown-divider"/>
                 </li>
@@ -116,7 +116,7 @@
                     </a>
                     <% } else {%>
                     <div class="sb-sidenav-menu-heading">Options</div>
-                    <a class="nav-link" href="charts.html">
+                    <a class="nav-link" href="AggiornamentoCatalogo">
                         <div class="sb-nav-link-icon"><i class="fas fa-plus-circle"></i></div>
                         Add Movie
                     </a>
