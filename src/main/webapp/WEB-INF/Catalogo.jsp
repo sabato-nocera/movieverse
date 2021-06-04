@@ -42,7 +42,7 @@
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
             class="fas fa-bars"></i></button>
     <!-- Navbar Search-->
-    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" action="Catalogo">
         <div class="input-group">
             <input class="form-control" type="text" placeholder="Search by movie title " aria-label="Search for..."
                    aria-describedby="btnNavbarSearch" name="titleSearched"/>
@@ -159,7 +159,7 @@
 
                     <% int i;
                         for (i = 0; i < movie.size(); i++) {%>
-                    <div class="card mb-3" style="max-width: 540px; max-height: 310px; margin-right: 10px">
+                    <div class="card mb-3" style="max-width: 540px; margin-right: 10px">
                         <div class="row g-0">
                             <div class="col-md-4">
                                 <% if (movie.get(i).getPosterurl() == null || movie.get(i).getPosterurl().equalsIgnoreCase("null") || movie.get(i).getPosterurl().equals("")) {%>
