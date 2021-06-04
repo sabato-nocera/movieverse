@@ -2,6 +2,7 @@ package model;
 
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,10 +16,26 @@ public class UtenteBean {
     private String lastName;
     private String gender;
     private Date dateOfBirth;
-    private List<ObjectId> viewedMovies;
-    private List<ObjectId> moviesToSee;
+    private List<ObjectId> viewedMovies = new ArrayList<>();
+    private List<ObjectId> moviesToSee = new ArrayList<>();
 
     public UtenteBean() {
+    }
+
+    public void addViewedMovie(FilmBean filmBean){
+        viewedMovies.add(filmBean.getId());
+    }
+
+    public void addMovieToSee(FilmBean filmBean){
+        moviesToSee.add(filmBean.getId());
+    }
+
+    public void removeViewedMovie(FilmBean filmBean){
+        viewedMovies.remove(filmBean.getId());
+    }
+
+    public void removeMovieToSee(FilmBean filmBean){
+        moviesToSee.remove(filmBean.getId());
     }
 
     public ObjectId getId() {
