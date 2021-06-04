@@ -1,6 +1,7 @@
 package control;
 
 import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import model.FilmBean;
@@ -33,17 +34,20 @@ public class CatalogoServlet extends HttpServlet {
     private final Logger logger = Logger.getLogger(CatalogoServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getSession().getAttribute("utente")==null){
+        if (request.getSession().getAttribute("utente") == null) {
             logger.log(Level.WARNING, "Utente non loggato");
             String url = response.encodeURL("Login");
             request.getRequestDispatcher(url).forward(request, response);
-            return ;
+            return;
         }
-    //Verifico se l'utente ha scelto uno specifico catalogo da visualizzare andandone a prendere il valore
+        //Verifico se l'utente ha scelto uno specifico catalogo da visualizzare andandone a prendere il valore
         String el = request.getParameter("elenco");
+
+        logger.log(Level.WARNING, "Elenco: "+el);
+
         int elenco;
         //Controllo se il valore è nullo, e in quel caso gli assegno 1;
-        if( el==null) {
+        if (el == null) {
             el = "1";
         }
         //Trasformo in intero il valore preso;
@@ -53,14 +57,18 @@ public class CatalogoServlet extends HttpServlet {
         //effettuo uno switch, così da ottenere la collezione desiderata;
         MongoCollection mongoDatabase = null;
         boolean all = false;
-        switch (elenco){
-            case 1: mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies_in_theaters");
+        switch (elenco) {
+            case 1:
+                mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies_in_theaters");
                 break;
-            case 2: mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies_coming_soon");
+            case 2:
+                mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies_coming_soon");
                 break;
-            case 3: mongoDatabase = MongoDBConnection.getDatabase().getCollection("top_rated_movies");
+            case 3:
+                mongoDatabase = MongoDBConnection.getDatabase().getCollection("top_rated_movies");
                 break;
-            case 4: all=true;
+            case 4:
+                all = true;
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + elenco);
@@ -68,14 +76,14 @@ public class CatalogoServlet extends HttpServlet {
 
         ArrayList<FilmBean> movie = new ArrayList<FilmBean>();
 
-        if(!all){
+        if (!all) {
             //trasformo la collezione in un oggetto iterabile
             FindIterable<Document> collection = mongoDatabase.find();
 
             //Ho ottenuto la collezione, la trasformo in un ArrayList<FilmBean> in modo da passarlo al catalogo
 
             Iterator iterator = collection.iterator();
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
                 org.bson.Document document = (org.bson.Document) iterator.next();
 
                 // Istanzio un oggetto Gson per l'effettuazione di manipolazioni facili ed efficaci con JSON
@@ -99,12 +107,24 @@ public class CatalogoServlet extends HttpServlet {
                 movie.add(film);
             }
         } else {
+            logger.log(Level.WARNING, "Ricerca in tutte le collezioni");
+
+            // Per effettuare la ricerca filtrata, mi baso su una regex che sarà vuota nel caso in cui
+            // arrivo qui senza aver deciso di effettuare una ricerca filtrata per nome,
+            // altrimenti la regex avrà del contenuto che andrà a filtrare i risultati
+            BasicDBObject regexQuery = new BasicDBObject();
+            String titleSearched = request.getParameter("titleSearched");
+            if (titleSearched != null && !titleSearched.equals("")) {
+                logger.log(Level.WARNING, "Ricerca filtrata");
+                regexQuery.put("title", new BasicDBObject("$regex", ".*" + titleSearched + ".*").append("$options", "i"));
+            }
+
             //ripeto i passaggi sopra andando ad addizzionare nell'ArrayList<FilmBean> tutti i film di tutte le collezioni
             //Collezione Other_movies
             mongoDatabase = MongoDBConnection.getDatabase().getCollection("other_movies");
-            FindIterable<Document> collection = mongoDatabase.find();
+            FindIterable<Document> collection = mongoDatabase.find(regexQuery);
             Iterator iterator = collection.iterator();
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 org.bson.Document document = (org.bson.Document) iterator.next();
                 Gson gson = new Gson();
                 Date date = (Date) document.get("releaseDate");
@@ -115,9 +135,9 @@ public class CatalogoServlet extends HttpServlet {
             }
             //Collezione movies_in_theaters
             mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies_in_theaters");
-            collection = mongoDatabase.find();
+            collection = mongoDatabase.find(regexQuery);
             iterator = collection.iterator();
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 org.bson.Document document = (org.bson.Document) iterator.next();
                 Gson gson = new Gson();
                 Date date = (Date) document.get("releaseDate");
@@ -128,9 +148,9 @@ public class CatalogoServlet extends HttpServlet {
             }
             //Collezione Coming_Soon
             mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies_coming_soon");
-            collection = mongoDatabase.find();
+            collection = mongoDatabase.find(regexQuery);
             iterator = collection.iterator();
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 org.bson.Document document = (org.bson.Document) iterator.next();
                 Gson gson = new Gson();
                 Date date = (Date) document.get("releaseDate");
@@ -141,9 +161,9 @@ public class CatalogoServlet extends HttpServlet {
             }
             //Collezione Best Movies
             mongoDatabase = MongoDBConnection.getDatabase().getCollection("top_rated_movies");
-            collection = mongoDatabase.find();
+            collection = mongoDatabase.find(regexQuery);
             iterator = collection.iterator();
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 org.bson.Document document = (org.bson.Document) iterator.next();
                 Gson gson = new Gson();
                 Date date = (Date) document.get("releaseDate");

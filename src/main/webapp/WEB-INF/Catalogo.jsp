@@ -44,8 +44,9 @@
     <!-- Navbar Search-->
     <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div class="input-group">
-            <input class="form-control" type="text" placeholder="Ricerca  ..." aria-label="Search for..."
-                   aria-describedby="btnNavbarSearch"/>
+            <input class="form-control" type="text" placeholder="Search by movie title " aria-label="Search for..."
+                   aria-describedby="btnNavbarSearch" name="titleSearched"/>
+            <input type = "hidden" name="elenco" value="4"/>
             <button class="btn btn-outline-warning" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i>
             </button>
         </div>
