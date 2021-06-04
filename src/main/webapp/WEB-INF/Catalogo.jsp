@@ -23,13 +23,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Movies</title>
+    <title>Catalog</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
     <link href="css/styles.css" rel="stylesheet"/>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-film"
          viewBox="0 0 16 16">
         <path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0v6h8V1H4zm8 8H4v6h8V9zM1 1v2h2V1H1zm2 3H1v2h2V4zM1 7v2h2V7H1zm2 3H1v2h2v-2zm-2 3v2h2v-2H1zM15 1h-2v2h2V1zm-2 3v2h2V4h-2zm2 3h-2v2h2V7zm-2 3v2h2v-2h-2zm2 3h-2v2h2v-2z"/>
     </svg>
+    <script type="text/javascript" src="/js/AddMore.js"></script>
     <link rel="icon" href="css/Image/icon.png"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
             crossorigin="anonymous"></script>
@@ -47,7 +50,7 @@
             <input class="form-control" type="text" placeholder="Search by movie title " aria-label="Search for..."
                    aria-describedby="btnNavbarSearch" name="titleSearched"/>
             <input type = "hidden" name="elenco" value="4"/>
-            <button class="btn btn-outline-warning" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i>
+            <button class="btn btn-outline-warning" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i>
             </button>
         </div>
     </form>
@@ -237,6 +240,7 @@
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
+</div>
 </body>
 </html>
 

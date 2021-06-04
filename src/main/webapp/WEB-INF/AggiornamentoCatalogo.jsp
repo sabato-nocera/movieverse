@@ -8,10 +8,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" %>
 <%@ page import="model.*" %>
-<%@ page import="java.util.*" %>
-<%@ page import="java.time.LocalDateTime" %>
-<%@ page import="java.time.ZoneId" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
 <% UtenteBean user = (UtenteBean) session.getAttribute("utente"); %>
 <% FilmBean film = (FilmBean) request.getAttribute("Film");%>
 <!DOCTYPE html>
@@ -22,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Movies</title>
+    <title>Catalog update</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
     <link href="css/styles.css" rel="stylesheet"/>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -49,7 +45,7 @@
             <input class="form-control" type="text" placeholder="Search by movie title " aria-label="Search for..."
                    aria-describedby="btnNavbarSearch" name="titleSearched"/>
             <input type = "hidden" name="elenco" value="4"/>
-            <button class="btn btn-outline-warning" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i>
+            <button class="btn btn-outline-warning" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i>
             </button>
         </div>
     </form>
@@ -135,7 +131,7 @@
         <main>
             <div class="container-fluid px-4">
 
-                <%if(film==null){%>
+                <%if (film == null) {%>
                 <h1 class="mt-4" style="color: #ffc107">Add Movie</h1>
                 <%} else { %>
                 <h1 class="mt-4" style="color: #ffc107">Change Movie</h1>
@@ -143,13 +139,14 @@
 
                 <div class="row">
 
-                    <% if(film==null){ %>
+                    <% if (film == null) { %>
 
                     <div class="container" style="margin-bottom: 50px;">
-                        <div class="row justify-content-center" >
+                        <div class="row justify-content-center">
                             <div class="col-lg-7 mt-5" style="background-color: #212529">
                                 <div class="card shadow-lg border-0 rounded-lg">
-                                    <div class="card-header"><h3 class="text-center  my-4" style="color: #ffc107">Add Movie</h3></div>
+                                    <div class="card-header"><h3 class="text-center  my-4" style="color: #ffc107">Add
+                                        Movie</h3></div>
                                 </div>
                                 <div class="card-body">
                                     <form action="..." method="POST">
@@ -165,39 +162,44 @@
                                                 <div class="form-floating">
                                                     <input class="form-control" name="username" id="inputUsername"
                                                            type="text" placeholder="Url Poster" required/>
-                                                    <label for="inputUsername" style="color: #212529">Url Poster*</label>
+                                                    <label for="inputUsername" style="color: #212529">Url
+                                                        Poster*</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="year" id="inputyeard"
-                                                       type="date" placeholder="Enter Date of Relased"/>
-                                                <label for="inputyeard" style="color: #212529">Year</label>
+                                                    <input class="form-control" name="year" id="inputyeard"
+                                                           type="date" placeholder="Enter Date of Relased"/>
+                                                    <label for="inputyeard" style="color: #212529">Year</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="dateOfBirth" id="inputDateRelased"
                                                            type="date" placeholder="Enter Date of Relased"/>
-                                                    <label for="inputDateRelased" style="color: #212529">Date of Relased</label>
+                                                    <label for="inputDateRelased" style="color: #212529">Date of
+                                                        Relased</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="firstName" id="inputOriginalTitile"
+                                                    <input class="form-control" name="firstName"
+                                                           id="inputOriginalTitile"
                                                            type="text" placeholder="Original Title"/>
-                                                    <label for="inputOriginalTitile" style="color: #212529" class="overflow-auto" >Original Title</label>
+                                                    <label for="inputOriginalTitile" style="color: #212529"
+                                                           class="overflow-auto">Original Title</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
                                                     <input class="form-control" name="lastName" id="inputStory"
                                                            type="text" placeholder="Story"/>
-                                                    <label for="inputStory" style="color: #212529" class="overflow-auto" >Story</label>
+                                                    <label for="inputStory" style="color: #212529"
+                                                           class="overflow-auto">Story</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -213,7 +215,8 @@
                                                 <div class="form-floating">
                                                     <input class="form-control" name="lastName" id="inputimdbRating"
                                                            type="text" placeholder="Story"/>
-                                                    <label for="inputimdbRating" style="color: #212529">imdbRating</label>
+                                                    <label for="inputimdbRating"
+                                                           style="color: #212529">imdbRating</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -262,7 +265,7 @@
                                                             event.preventDefault();
 
                                                             var $selectGroup = $(this).closest('.input-group-select');
-                                                            var param = $(this).attr("href").replace("#","");
+                                                            var param = $(this).attr("href").replace("#", "");
                                                             var concept = $(this).text();
 
                                                             $selectGroup.find('.concept').text(concept);
@@ -284,11 +287,13 @@
 
                                             <div class="input-group mb-3 form-group multiple-form-group input-group">
                                                 <div class="input-group-btn input-group-select">
-                                                    <button type="button" class="btn btn-warning" data-toggle="dropdown">
+                                                    <button type="button" class="btn btn-warning"
+                                                            data-toggle="dropdown">
                                                         <span class="concept">Genres</span>
                                                     </button>
 
-                                                    <input type="hidden" class="input-group-select-val" name="genres['type'][]" value="phone">
+                                                    <input type="hidden" class="input-group-select-val"
+                                                           name="genres['type'][]" value="phone">
                                                 </div>
                                                 <input type="text" name="genres['value'][]" class="form-control">
                                                 <span class="input-group-btn">
@@ -297,14 +302,15 @@
                                             </div>
 
 
-
                                             <div class="input-group mb-3 form-group multiple-form-group input-group">
                                                 <div class="input-group-btn input-group-select">
-                                                    <button type="button" class="btn btn-warning" data-toggle="dropdown">
+                                                    <button type="button" class="btn btn-warning"
+                                                            data-toggle="dropdown">
                                                         <span class="concept">Actors</span>
                                                     </button>
 
-                                                    <input type="hidden" class="input-group-select-val" name="actors['type'][]" value="phone">
+                                                    <input type="hidden" class="input-group-select-val"
+                                                           name="actors['type'][]" value="phone">
                                                 </div>
                                                 <input type="text" name="actors['value'][]" class="form-control">
                                                 <span class="input-group-btn">
@@ -314,7 +320,7 @@
 
 
                                             <div class="input-group mb-3">
-                                                <label class="btn-warning input-group-text" for="inputGroupSelect00" >Movies</label>
+                                                <label class="btn-warning input-group-text" for="inputGroupSelect00">Movies</label>
                                                 <select class="form-select" id="inputGroupSelect00">
                                                     <option selected>Choose...</option>
                                                     <option value="1">Movies in Theaters</option>
@@ -339,14 +345,16 @@
                     </div>
 
 
-                <%} else {%>
+                    <%} else {%>
 
 
                     <div class="container" style="margin-bottom: 50px; ">
-                        <div class="row justify-content-center" >
+                        <div class="row justify-content-center">
                             <div class="col-lg-7 mt-5" style="background-color: #212529">
                                 <div class="card shadow-lg border-0 rounded-lg">
-                                    <div class="card-header"><h3 class="text-center  my-4" style="color: #ffc107"><%=film.getTitle()%></h3></div>
+                                    <div class="card-header"><h3 class="text-center  my-4"
+                                                                 style="color: #ffc107"><%=film.getTitle()%>
+                                    </h3></div>
                                 </div>
                                 <div class="card-body">
                                     <form action="..." method="POST">
@@ -355,7 +363,8 @@
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="email" id="inputTitle"
                                                            placeholder="Titolo Movie" required/>
-                                                    <label for="inputTitle" style="color: #212529"><%=film.getTitle()%>*</label>
+                                                    <label for="inputTitle" style="color: #212529"><%=film.getTitle()%>
+                                                        *</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -371,30 +380,39 @@
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="year" id="inputyeardm"
                                                            type="date" placeholder="Enter Date of Relased"/>
-                                                    <label for="inputyeardm" style="color: #212529"><%=film.getYear()%></label>
+                                                    <label for="inputyeardm" style="color: #212529"><%=film.getYear()%>
+                                                    </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="dateOfBirth" id="inputDateRelasedm"
+                                                    <input class="form-control" name="dateOfBirth"
+                                                           id="inputDateRelasedm"
                                                            type="date" placeholder="Enter Date of Relased"/>
-                                                    <label for="inputDateRelasedm" style="color: #212529"><%=film.getReleaseDate()%></label>
+                                                    <label for="inputDateRelasedm"
+                                                           style="color: #212529"><%=film.getReleaseDate()%>
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="firstName" id="inputOriginalTitilem"
+                                                    <input class="form-control" name="firstName"
+                                                           id="inputOriginalTitilem"
                                                            type="text" placeholder="Original Title"/>
-                                                    <label for="inputOriginalTitilem" style="color: #212529" class="overflow-auto" ><%=film.getOriginalTitle()%></label>
+                                                    <label for="inputOriginalTitilem" style="color: #212529"
+                                                           class="overflow-auto"><%=film.getOriginalTitle()%>
+                                                    </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
                                                     <input class="form-control" name="lastName" id="inputStorym"
                                                            type="text" placeholder="Story"/>
-                                                    <label for="inputStorym" style="color: #212529; " class="overflow-auto" ><%=film.getStoryline()%></label>
+                                                    <label for="inputStorym" style="color: #212529; "
+                                                           class="overflow-auto"><%=film.getStoryline()%>
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -403,14 +421,18 @@
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="firstName" id="inputDurationm"
                                                            type="text" placeholder="Original Title"/>
-                                                    <label for="inputDurationm" style="color: #212529"><%=film.getDuration()%></label>
+                                                    <label for="inputDurationm"
+                                                           style="color: #212529"><%=film.getDuration()%>
+                                                    </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
                                                     <input class="form-control" name="lastName" id="inputimdbRatingm"
                                                            type="text" placeholder="Rating"/>
-                                                    <label for="inputimdbRatingm" style="color: #212529"><%=film.getImdbRating()%></label>
+                                                    <label for="inputimdbRatingm"
+                                                           style="color: #212529"><%=film.getImdbRating()%>
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -459,7 +481,7 @@
                                                             event.preventDefault();
 
                                                             var $selectGroup = $(this).closest('.input-group-select');
-                                                            var param = $(this).attr("href").replace("#","");
+                                                            var param = $(this).attr("href").replace("#", "");
                                                             var concept = $(this).text();
 
                                                             $selectGroup.find('.concept').text(concept);
@@ -481,29 +503,34 @@
 
                                             <div class=" input-group mb-3 form-group multiple-form-group input-group">
                                                 <div class="input-group-btn input-group-select">
-                                                    <button type="button" class="btn btn-warning" data-toggle="dropdown">
+                                                    <button type="button" class="btn btn-warning"
+                                                            data-toggle="dropdown">
                                                         <span class="concept">Genres</span>
                                                     </button>
 
-                                                    <input type="hidden" class="input-group-select-val" name="genres['type'][]" value="phone">
+                                                    <input type="hidden" class="input-group-select-val"
+                                                           name="genres['type'][]" value="phone">
                                                 </div>
-                                                <input type="text" name="genres['value'][]" class="form-control" placeholder="<%=film.getGenres().toString()%>">
+                                                <input type="text" name="genres['value'][]" class="form-control"
+                                                       placeholder="<%=film.getGenres().toString()%>">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-success btn-add">+</button>
                                                 </span>
                                             </div>
 
 
-
                                             <div class=" input-group mb-3 form-group multiple-form-group input-group">
                                                 <div class="input-group-btn input-group-select">
-                                                    <button type="button" class="btn btn-warning" data-toggle="dropdown">
+                                                    <button type="button" class="btn btn-warning"
+                                                            data-toggle="dropdown">
                                                         <span class="concept">Actors</span>
                                                     </button>
 
-                                                    <input type="hidden" class="input-group-select-val" name="actors['type'][]" value="phone">
+                                                    <input type="hidden" class="input-group-select-val"
+                                                           name="actors['type'][]" value="phone">
                                                 </div>
-                                                <input type="text" name="actors['value'][]" class="form-control" placeholder="<%=film.getActors().toString()%>">
+                                                <input type="text" name="actors['value'][]" class="form-control"
+                                                       placeholder="<%=film.getActors().toString()%>">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-success btn-add">+</button>
                                                 </span>
@@ -521,10 +548,9 @@
                                             </div>
 
 
-
                                         </div>
                                         <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
-                                            <button type="submit" class="btn btn-warning">Change Movie </button>
+                                            <button type="submit" class="btn btn-warning">Change Movie</button>
                                         </div>
                                     </form>
                                 </div>
@@ -564,6 +590,7 @@
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
+</div>
 </body>
 </html>
 
