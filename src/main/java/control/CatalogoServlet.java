@@ -3,11 +3,8 @@ package control;
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
 import model.FilmBean;
-import model.UtenteBean;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 import utils.MongoDBConnection;
 
 import javax.servlet.ServletException;
@@ -55,9 +52,9 @@ public class CatalogoServlet extends HttpServlet {
         elenco = (Integer.parseInt(el));
         logger.log(Level.WARNING, "Elenco: " + elenco + ", versione stringa: " + el);
 
-        ArrayList<FilmBean> movie = new ArrayList<FilmBean>();
+        ArrayList<FilmBean> movie = new ArrayList<>();
 
-        Document filter = null;
+        Document filter;
 
         // Creo un filter che mi aiuta nel caso dovessi filtrare i risultati in accordo ad un particolare catalogo
         switch (elenco) {
