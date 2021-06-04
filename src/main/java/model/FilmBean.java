@@ -19,8 +19,25 @@ public class FilmBean {
     private Double imdbRating;
     private String posterurl;
     private List<RecensioneBean> reviews;
+    private String catalog;
 
     public FilmBean() {
+    }
+
+    public void addActor(String string){
+        actors.add(string);
+    }
+
+    public void addRecensione(RecensioneBean string){
+        reviews.add(string);
+    }
+
+    public void removeActors(String string){
+        actors.remove(string);
+    }
+
+    public void removeRecensione(RecensioneBean string){
+        reviews.remove(string);
     }
 
     public ObjectId getId() {
@@ -127,10 +144,18 @@ public class FilmBean {
         this.reviews = reviews;
     }
 
+    public String getCatalog() {
+        return catalog;
+    }
+
+    public void setCatalog(String catalog) {
+        this.catalog = catalog;
+    }
+
     @Override
     public String toString() {
         return "FilmBean{" +
-                "id=" + _id +
+                "_id=" + _id +
                 ", title='" + title + '\'' +
                 ", year=" + year +
                 ", genres=" + genres +
@@ -141,8 +166,9 @@ public class FilmBean {
                 ", storyline='" + storyline + '\'' +
                 ", actors=" + actors +
                 ", imdbRating=" + imdbRating +
-                ", posterUrl='" + posterurl + '\'' +
+                ", posterurl='" + posterurl + '\'' +
                 ", reviews=" + reviews +
+                ", catalog='" + catalog + '\'' +
                 '}';
     }
 }
