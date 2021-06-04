@@ -9,7 +9,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" %>
 <%@ page import="model.*" %>
-<%@ page import="control.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.ZoneId" %>
@@ -134,19 +133,22 @@
 
                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group me-2" role="group" aria-label="First group" style="margin-top: 10px;">
-                        <button type="button" class="btn btn-warning"> Data d'uscita</button>
-                        <button type="button" class="btn btn-warning"> Ordine alfabetico</button>
-                        <button type="button" class="btn btn-warning"> Voto sito</button>
-                        <button type="button" class="btn btn-warning"> Voto utenti</button>
+                        <div class="input-group-prepend btn-warning">
+                            <span class="input-group-text btn-warning">Order by :</span>
+                        </div>
+                        <button type="button" class="btn btn-light"> Title</button>
+                        <button type="button" class="btn btn-light"> Release Date</button>
+                        <button type="button" class="btn btn-light"> User Rating</button>
+                        <button type="button" class="btn btn-light"> Movieverse Rating</button>
                     </div>
                     <div class="input-group" style="margin-right:7px;margin-top: 10px;">
-                        <div class="input-group-text btn-warning" id="btnGroupAddonGen">Genere</div>
-                        <input type="text" class="form-control" placeholder="Ricerca film per un Genere"
+                        <div class="input-group-text btn-warning" id="btnGroupAddonGen">Genre</div>
+                        <input type="text" class="form-control" placeholder="Filter movies by genre"
                                aria-label="Input group example" aria-describedby="btnGroupAddon">
                     </div>
                     <div class="input-group" style="margin-top: 10px;">
-                        <div class="input-group-text btn-warning" id="btnGroupAddonAtt">Attore</div>
-                        <input type="text" class="form-control" placeholder="Ricerca film per un Attore"
+                        <div class="input-group-text btn-warning" id="btnGroupAddonAtt">Actor</div>
+                        <input type="text" class="form-control" placeholder="Filter movies by actor"
                                aria-label="Input group example" aria-describedby="btnGroupAddon">
                     </div>
                 </div>
@@ -161,7 +163,7 @@
                                 <img src="css/Image/locandina.png" style="width:180px; height:290px;margin-top: 10px">
                                 <%} else {%>
                                 <img src="<%=movie.get(i).getPosterurl()%>"
-                                     style="width:180px; height:290px;margin-top: 10px">
+                                     style="width:180px; height:290px;margin-top: 10px" onError="this.src = 'css/Image/locandina.png'" >
                                 <%}%>
                             </div>
                             <div class="col-md-8">
@@ -217,7 +219,9 @@
                             </div>
                         </div>
                     </footer>
+                </main>
             </div>
+        </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
             crossorigin="anonymous"></script>
