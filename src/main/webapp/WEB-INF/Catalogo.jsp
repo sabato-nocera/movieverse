@@ -146,17 +146,16 @@
                     </div>
                     <div class="input-group" style="margin-right:7px;margin-top: 10px;">
                         <div class="input-group-text btn-warning" id="btnGroupAddonGen">Genre</div>
-                        <input type="text" class="form-control" placeholder="Filter movies by genre"
+                        <input id="genreFilter" type="text" class="form-control" placeholder="Filter movies by genre"
                                aria-label="Input group example" aria-describedby="btnGroupAddon">
                     </div>
                     <div class="input-group" style="margin-top: 10px;">
                         <div class="input-group-text btn-warning" id="btnGroupAddonAtt">Actor</div>
-                        <input type="text" class="form-control" placeholder="Filter movies by actor"
+                        <input id="actorFilter" type="text" class="form-control" placeholder="Filter movies by actor"
                                aria-label="Input group example" aria-describedby="btnGroupAddon">
                     </div>
                 </div>
-                <div class="row">
-
+                <div id="allTheCards" class="row">
                     <% int i;
                         for (i = 0; i < movie.size(); i++) {%>
                     <div class="card mb-3" style="max-width: 540px; margin-right: 10px">
@@ -173,7 +172,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title"><%=movie.get(i).getTitle()%>
                                     </h5>
-                                    <p class="card-text">Genres: <%
+                                    <p class="card-text genre-label">Genres: <%
                                         int j;
                                         for (j = 0; j < movie.get(i).getGenres().size(); j++) {
                                             if (j != 0) {
@@ -181,7 +180,7 @@
                                         <%=", "%>
                                         <%}%>
                                         <%=movie.get(i).getGenres().get(j).toString() %><%}%></p>
-                                    <p class="card-text">Actors: <%
+                                    <p class="card-text actor-label">Actors: <%
                                         int h;
                                         for (h = 0; h < movie.get(i).getActors().size(); h++) {
                                             if (h != 0) {
@@ -226,6 +225,7 @@
             </div>
         </main>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
             crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
@@ -234,6 +234,23 @@
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#genreFilter").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#allTheCards .genre-label").filter(function() {
+                    $(this).parent().parent().parent().parent().toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+            $("#actorFilter").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#allTheCards .actor-label").filter(function() {
+                    $(this).parent().parent().parent().parent().toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        })
+    </script>
+</div>
 </body>
 </html>
 
