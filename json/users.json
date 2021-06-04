@@ -4,6 +4,17 @@
   },
   "email": "admin@movieverse.it",
   "isAdmin": true,
-  "password": "admin",
+  "password": "f3f2f1489a343cd5879b9a90000588abd49484d5",
   "username": "admin"
+},{
+  "_id": {
+    "$oid": "60b73fc0dc6bf30a4ea9e7f7"
+  },
+  "isAdmin": false,
+  "email": "sabato@gmail.com",
+  "username": "sabato",
+  "password": "56e0cf78d29b348b4b3c01c96f4d38385f03ec2b",
+  "firstName": "Sabato",
+  "lastName": "Nocera",
+  "gender": "male"
 }]
