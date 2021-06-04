@@ -37,7 +37,7 @@ public class FilmServlet extends HttpServlet {
         //Considerando che non so in che collezione ho quel film, vado a cercare in tutte e 4
         Gson gson = new Gson();
         FilmBean filmBean = new FilmBean();
-        MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("top_rated_movies");
+        MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies");
         org.bson.Document filter = new Document("title", titoloFilm);
         FindIterable<Document> findIterable = mongoDatabase.find(filter);
         MongoCursor<Document> cursor = findIterable.iterator();
@@ -50,59 +50,6 @@ public class FilmServlet extends HttpServlet {
             filmBean = gson.fromJson(document.toJson(), FilmBean.class);
             filmBean.setReleaseDate(date);
             filmBean.setId(idob);
-        } else if(!cursor.hasNext()){
-            mongoDatabase = MongoDBConnection.getDatabase().getCollection("other_movies");
-            filter = new Document("title", titoloFilm);
-            findIterable = mongoDatabase.find(filter);
-            cursor = findIterable.iterator();
-            if (cursor.hasNext()) {
-                Document document = cursor.next();
-                Date date = (Date) document.get("releaseDate");
-                ObjectId idob = (ObjectId) document.get("_id");
-                document.remove("releaseDate");
-                document.remove("_id");
-                filmBean = gson.fromJson(document.toJson(), FilmBean.class);
-                filmBean.setReleaseDate(date);
-                filmBean.setId(idob);
-            } else if(!cursor.hasNext()){
-                mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies_coming_soon");
-                logger.log(Level.WARNING, "Ottengo la collezione coming soon");
-                filter = new Document("title", titoloFilm);
-                logger.log(Level.WARNING, "filtro : "+ titoloFilm);
-                findIterable = mongoDatabase.find(filter);
-                logger.log(Level.WARNING, "Ottengo : "+findIterable.toString());
-                cursor = findIterable.iterator();
-                if (cursor.hasNext()) {
-                    Document document = cursor.next();
-                    logger.log(Level.WARNING, "Itero su : "+ document.toJson().toString());
-                    Date date = (Date) document.get("releaseDate");
-                    ObjectId idob = (ObjectId) document.get("_id");
-                    document.remove("releaseDate");
-                    document.remove("_id");
-                    filmBean = gson.fromJson(document.toJson(), FilmBean.class);
-                    filmBean.setReleaseDate(date);
-                    filmBean.setId(idob);
-                } else if(!cursor.hasNext()) {
-                    mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies_in_theaters");
-                    logger.log(Level.WARNING, "Ottengo la collezione in theaters");
-                    filter = new Document("title", titoloFilm);
-                    logger.log(Level.WARNING, "filtro : "+ titoloFilm);
-                    findIterable = mongoDatabase.find(filter);
-                    logger.log(Level.WARNING, "Ottengo : "+findIterable.toString());
-                    cursor = findIterable.iterator();
-                    if (cursor.hasNext()) {
-                        Document document = cursor.next();
-                        logger.log(Level.WARNING, "Itero su : "+ document.toJson().toString());
-                        Date date = (Date) document.get("releaseDate");
-                        ObjectId idob = (ObjectId) document.get("_id");
-                        document.remove("releaseDate");
-                        document.remove("_id");
-                        filmBean = gson.fromJson(document.toJson(), FilmBean.class);
-                        filmBean.setReleaseDate(date);
-                        filmBean.setId(idob);
-                    }
-                }
-            }
         }
 
         request.setAttribute("Film", filmBean);
