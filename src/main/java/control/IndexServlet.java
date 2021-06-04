@@ -19,11 +19,21 @@ public class IndexServlet extends HttpServlet {
     private final Logger logger = Logger.getLogger(IndexServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         if (request.getSession().getAttribute("utente") != null) {
-            logger.log(Level.WARNING, "Utente già loggato");
-            String url = response.encodeURL("Catalogo");
-            request.getRequestDispatcher(url).forward(request, response);
-            return;
+            logger.log(Level.WARNING, "Utente loggato");
+            String action = request.getParameter("action");
+            logger.log(Level.WARNING, "Action: "+action);
+            if(action!=null){
+                request.getSession().invalidate();
+                String url = response.encodeURL("WEB-INF/Login.jsp");
+                request.getRequestDispatcher(url).forward(request, response);
+                return;
+            } else {
+                String url = response.encodeURL("Catalogo");
+                request.getRequestDispatcher(url).forward(request, response);
+                return;
+            }
         }
 
         String url = response.encodeURL("WEB-INF/Login.jsp");
