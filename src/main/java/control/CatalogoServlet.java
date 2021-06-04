@@ -99,6 +99,7 @@ public class CatalogoServlet extends HttpServlet {
                 FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
                 // Setto la data giusta
                 film.setReleaseDate(date);
+                film.setId(document.getObjectId("_id"));
 
                 //logger.log(Level.WARNING, "JSON1 : "+film.toString()+" FINE \n");
 
@@ -124,6 +125,7 @@ public class CatalogoServlet extends HttpServlet {
                 document.remove("releaseDate");
                 FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
                 film.setReleaseDate(date);
+                film.setId(document.getObjectId("_id"));
                 movie.add(film);
             }
         }

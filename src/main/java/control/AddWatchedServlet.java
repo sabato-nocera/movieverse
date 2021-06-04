@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,40 +28,77 @@ import java.util.logging.Logger;
 @WebServlet("/AddWatched")
 public class AddWatchedServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private final Logger logger = Logger.getLogger(CatalogoServlet.class.getName());
+    private final Logger logger = Logger.getLogger(AddWatchedServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession().getAttribute("utente") == null) {
+            logger.log(Level.WARNING, "Utente non loggato");
+            String url = response.encodeURL("Login");
+            request.getRequestDispatcher(url).forward(request, response);
+            return;
+        }
+
         String titolo = request.getParameter("TitoloFilm");
+
+        if(titolo==null || titolo.equals("")){
+            String url = response.encodeURL("Catalogo");
+            request.getRequestDispatcher(url).forward(request, response);
+            return;
+        }
+
         UtenteBean user= (UtenteBean) request.getSession().getAttribute("utente");
-        String username = user.getUsername();
+
+        logger.log(Level.WARNING, "L'utente loggato è "+user.getUsername());
 
         MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("users");
-        org.bson.Document filter = new Document("username", user);
+        Document filter = new Document("username", user.getUsername());
         FindIterable<Document> findIterable = mongoDatabase.find(filter);
         MongoCursor<Document> cursor = findIterable.iterator();
         if (cursor.hasNext()) {
-            Document document = cursor.next();
-            Document userDocument = document;
-            Gson gson = new Gson();
-            UtenteBean utenteBean = gson.fromJson(document.toJson(), UtenteBean.class);
+            Document userDocument = cursor.next();
 
-            mongoDatabase = MongoDBConnection.getDatabase().getCollection("top_rated_movies");
+            Gson gson = new Gson();
+            UtenteBean utenteBean;
+            if(userDocument.get("dateOfBirth")!=null){
+                Date date = (Date) userDocument.get("dateOfBirth");
+                userDocument.remove("dateOfBirth");
+                utenteBean = gson.fromJson(userDocument.toJson(), UtenteBean.class);
+                utenteBean.setDateOfBirth(date);
+            } else {
+                utenteBean = gson.fromJson(userDocument.toJson(), UtenteBean.class);
+            }
+            utenteBean.setId(userDocument.getObjectId("_id"));
+            if(userDocument.get("viewedMovies")!=null){
+                utenteBean.setViewedMovies((List<ObjectId>) userDocument.get("viewedMovies"));
+            }
+
+            mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies");
             filter = new Document("title", titolo);
             findIterable = mongoDatabase.find(filter);
             cursor = findIterable.iterator();
             if (cursor.hasNext()) {
-                document = cursor.next();
-                Date date = (Date) document.get("releaseDate");
-                ObjectId id = (ObjectId) document.get("_id");
-                document.remove("releaseDate");
-                document.remove("_id");
-                FilmBean filmBean = gson.fromJson(document.toJson(), FilmBean.class);
+                Document filmDocument = cursor.next();
+                Date date = (Date) filmDocument.get("releaseDate");
+                ObjectId id = filmDocument.getObjectId("_id");
+
+                if(utenteBean.getViewedMovies()!=null){
+                    if(utenteBean.getViewedMovies().contains(id)){
+                        logger.log(Level.WARNING, "Non puoi aggiungere nuovamente uno stesso film alla lista dei film visti : " + filmDocument.get("title"));
+                        String url = response.encodeURL("Catalogo");
+                        request.getRequestDispatcher(url).forward(request, response);
+                        return;
+                    }
+                }
+
+                filmDocument.remove("releaseDate");
+                filmDocument.remove("_id");
+                FilmBean filmBean = gson.fromJson(filmDocument.toJson(), FilmBean.class);
                 filmBean.setReleaseDate(date);
-                filmBean.setId(id);
-                utenteBean.addViewedMovie(filmBean);
+                filmBean.setId(filmDocument.getObjectId("_id"));
+                utenteBean.addViewedMovie(id);
 
                 mongoDatabase = MongoDBConnection.getDatabase().getCollection("users");
-                filter = new Document("username", username);
+                filter = new Document("username", user.getUsername());
 
                 BasicDBObject documentUpdater = new BasicDBObject();
 
@@ -69,18 +107,14 @@ public class AddWatchedServlet extends HttpServlet {
                 BasicDBObject updateObject = new BasicDBObject();
                 updateObject.put("$set", documentUpdater);
 
-                System.out.println("DOC UPDATER : " + documentUpdater.toString());
-                System.out.println("OBJ UPDATER : " + updateObject.toString());
+                logger.log(Level.WARNING, "DOC UPDATER : " + documentUpdater.toString());
+                logger.log(Level.WARNING, "OBJ UPDATER : " + updateObject.toString());
 
                 MongoDBConnection.getDatabase().getCollection("users").updateOne(filter, updateObject);
-
             }
         }
 
-
-
-
-        String url = response.encodeURL("WEB-INF/Film.jsp");
+        String url = response.encodeURL("Film?TitoloFilm="+titolo);
         request.getRequestDispatcher(url).forward(request, response);
     }
 

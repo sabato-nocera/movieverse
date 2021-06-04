@@ -146,15 +146,21 @@ public class Prove {
 
         System.out.println(regexQuery.toString());
 
-        MongoCollection mongoCollection = MongoDBConnection.getDatabase().getCollection("top_rated_movies");
+        MongoCollection mongoCollection = MongoDBConnection.getDatabase().getCollection("movies");
         FindIterable<Document> findIterable = mongoCollection.find(regexQuery);
         MongoCursor<Document> cursor = findIterable.iterator();
-        int i = 1;
         while(cursor.hasNext()){
             Document document = cursor.next();
+            Gson gson = new Gson();
+            Date date = (Date) document.get("releaseDate");
+            System.out.println("Date retrieved: " + date);
+            document.remove("releaseDate");
             System.out.println(document.toJson());
-            System.out.println(i);
-            i++;
+            FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+            film.setReleaseDate(date);
+            ObjectId objectId = document.getObjectId("_id");
+            System.out.println(objectId);
+            System.out.println(document.get("_id"));
         }
 
 

@@ -44,12 +44,12 @@ public class FilmServlet extends HttpServlet {
         if (cursor.hasNext()) {
             Document document = cursor.next();
             Date date = (Date) document.get("releaseDate");
-            ObjectId idob = (ObjectId) document.get("_id");
             document.remove("releaseDate");
             document.remove("_id");
             filmBean = gson.fromJson(document.toJson(), FilmBean.class);
             filmBean.setReleaseDate(date);
-            filmBean.setId(idob);
+            filmBean.setId(document.getObjectId("_id"));
+
         }
 
         request.setAttribute("Film", filmBean);

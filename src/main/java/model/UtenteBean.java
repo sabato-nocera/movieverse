@@ -22,12 +22,12 @@ public class UtenteBean {
     public UtenteBean() {
     }
 
-    public void addViewedMovie(FilmBean filmBean){
-        viewedMovies.add(filmBean.getId());
+    public void addViewedMovie(ObjectId objectId){
+        viewedMovies.add(objectId);
     }
 
-    public void addMovieToSee(FilmBean filmBean){
-        moviesToSee.add(filmBean.getId());
+    public void addMovieToSee(ObjectId objectId){
+        moviesToSee.add(objectId);
     }
 
     public void removeViewedMovie(FilmBean filmBean){

@@ -75,6 +75,7 @@ public class LoginServlet extends HttpServlet {
                 // Creo l'oggetto UtenteBean utilizzando automaticamente il metodo fromJson(), passando come
                 // parametri il Document (convertito in Json) e la classe target
                 UtenteBean utenteBean = gson.fromJson(document.toJson(), UtenteBean.class);
+                utenteBean.setId(document.getObjectId("_id"));
                 logger.log(Level.WARNING, "Risultato della query: " + utenteBean.toString());
 
                 // Inserisco l'utente loggato in sessione

@@ -57,12 +57,11 @@ public class AggiornamentoCatalogoServlet extends HttpServlet {
             Document document = cursor.next();
 
             Date date = (Date) document.get("releaseDate");
-            ObjectId idob = (ObjectId) document.get("_id");
             document.remove("releaseDate");
             document.remove("_id");
             filmBean = gson.fromJson(document.toJson(), FilmBean.class);
             filmBean.setReleaseDate(date);
-            filmBean.setId(idob);
+            filmBean.setId(document.getObjectId("_id"));
         } else if(!cursor.hasNext()){
             mongoDatabase = MongoDBConnection.getDatabase().getCollection("other_movies");
 
@@ -72,12 +71,11 @@ public class AggiornamentoCatalogoServlet extends HttpServlet {
             if (cursor.hasNext()) {
                 Document document = cursor.next();
                 Date date = (Date) document.get("releaseDate");
-                ObjectId idob = (ObjectId) document.get("_id");
                 document.remove("releaseDate");
                 document.remove("_id");
                 filmBean = gson.fromJson(document.toJson(), FilmBean.class);
                 filmBean.setReleaseDate(date);
-                filmBean.setId(idob);
+                filmBean.setId(document.getObjectId("_id"));
             } else if(!cursor.hasNext()){
             mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies_coming_soon");
             filter = new Document("title", titoloFilm);
@@ -86,12 +84,11 @@ public class AggiornamentoCatalogoServlet extends HttpServlet {
             if (cursor.hasNext()) {
                 Document document = cursor.next();
                 Date date = (Date) document.get("releaseDate");
-                ObjectId idob = (ObjectId) document.get("_id");
                 document.remove("releaseDate");
                 document.remove("_id");
                 filmBean = gson.fromJson(document.toJson(), FilmBean.class);
                 filmBean.setReleaseDate(date);
-                filmBean.setId(idob);
+                filmBean.setId(document.getObjectId("_id"));
             } else if(!cursor.hasNext()) {
             mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies_in_theaters");
 
@@ -102,12 +99,11 @@ public class AggiornamentoCatalogoServlet extends HttpServlet {
             if (cursor.hasNext()) {
                 Document document = cursor.next();
                 Date date = (Date) document.get("releaseDate");
-                ObjectId idob = (ObjectId) document.get("_id");
                 document.remove("releaseDate");
                 document.remove("_id");
                 filmBean = gson.fromJson(document.toJson(), FilmBean.class);
                 filmBean.setReleaseDate(date);
-                filmBean.setId(idob);
+                filmBean.setId(document.getObjectId("_id"));
             }
           }
          }

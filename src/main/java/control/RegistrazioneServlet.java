@@ -125,6 +125,7 @@ public class RegistrazioneServlet extends HttpServlet {
                         if (cursor.hasNext()) {
                             document = cursor.next();
                             utenteBean = gson.fromJson(document.toJson(), UtenteBean.class);
+                            utenteBean.setId(document.getObjectId("_id"));
                             request.getSession().setAttribute("utente", utenteBean);
 
                             String url = response.encodeURL("Catalogo");
