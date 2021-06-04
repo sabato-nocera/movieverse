@@ -1,10 +1,9 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Giusy
-  Date: 04/06/2021
-  Time: 15:50
+  User: giusya
+  Date: 04/06/21
+  Time: 11:15
   To change this template use File | Settings | File Templates.
-
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" %>
@@ -14,7 +13,6 @@
 <%@ page import="java.time.ZoneId" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <% UtenteBean user = (UtenteBean) session.getAttribute("utente"); %>
-<% ArrayList<FilmBean> movie = (ArrayList<FilmBean>) request.getAttribute("movie"); %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,11 +22,15 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <title>Movies</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
     <link href="css/styles.css" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-film"
+         viewBox="0 0 16 16">
+        <path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0v6h8V1H4zm8 8H4v6h8V9zM1 1v2h2V1H1zm2 3H1v2h2V4zM1 7v2h2V7H1zm2 3H1v2h2v-2zm-2 3v2h2v-2H1zM15 1h-2v2h2V1zm-2 3v2h2V4h-2zm2 3h-2v2h2V7zm-2 3v2h2v-2h-2zm2 3h-2v2h2v-2z"/>
+    </svg>
     <link rel="icon" href="css/Image/icon.png"/>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+            crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -127,31 +129,31 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4" style="color: #ffc107">Profile</h1>
+                <h1 class="mt-4" style="color: #ffc107">Add Movie</h1>
 
                 <div class="row">
-                    <% if (!user.getAdmin()){%>
+
                     <div class="container" style="margin-bottom: 50px;">
                         <div class="row justify-content-center" >
                             <div class="col-lg-7 mt-5" style="background-color: #212529">
                                 <div class="card shadow-lg border-0 rounded-lg">
-                                    <div class="card-header"><h3 class="text-center  my-4" style="color: #ffc107"><%=user.getUsername()%></h3></div>
+                                    <div class="card-header"><h3 class="text-center  my-4" style="color: #ffc107">Add Movie</h3></div>
                                 </div>
                                 <div class="card-body">
-                                    <form action="..." method="POST">
+                                    <form action="Registrazione" method="POST">
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="email" id="inputEmail" type="email"
-                                                           placeholder="<name@example.com*>" required/>
-                                                    <label for="inputEmail" style="color: #212529"><%=user.getEmail()%>*</label>
+                                                           placeholder="name@example.com*" required/>
+                                                    <label for="inputEmail" style="color: #212529">Email address*</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
                                                     <input class="form-control" name="username" id="inputUsername"
                                                            type="text" placeholder="Enter your username*" required/>
-                                                    <label for="inputUsername" style="color: #212529"><%=user.getUsername()%>*</label>
+                                                    <label for="inputUsername" style="color: #212529">Username*</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -160,7 +162,7 @@
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="password" id="inputPassword"
                                                            type="password" placeholder="Create a password*" required/>
-                                                    <label for="inputPassword" style="color: #212529">Change Password*</label>
+                                                    <label for="inputPassword" style="color: #212529">Password*</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -178,14 +180,14 @@
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="firstName" id="inputFirstName"
                                                            type="text" placeholder="Enter your first name"/>
-                                                    <label for="inputFirstName" style="color: #212529"><%=user.getFirstName()%></label>
+                                                    <label for="inputFirstName" style="color: #212529">First name</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
                                                     <input class="form-control" name="lastName" id="inputLastName"
                                                            type="text" placeholder="Enter your last name"/>
-                                                    <label for="inputLastName" style="color: #212529"><%=user.getLastName()%></label>
+                                                    <label for="inputLastName" style="color: #212529">Last name</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -194,45 +196,30 @@
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="dateOfBirth" id="inputDateOfBirth"
                                                            type="date" placeholder="Enter your date of birth"/>
-                                                    <label for="inputDateOfBirth" style="color: #212529"><%=user.getDateOfBirth()%></label>
+                                                    <label for="inputDateOfBirth" style="color: #212529">Date of birth</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <span class="text-white">Gender</span> <br/>
                                                 <div class="form-check form-check-inline">
-                                                    <%if(user.getGender().equalsIgnoreCase("male")){%>
                                                     <input class="form-check-input" type="radio" name="gender" value="male"
-                                                           id="flexRadioDefault1" checked>
-                                                    <%}else {%>
-                                                    <input class="form-check-input" type="radio" name="gender" value="male"
-                                                           id="flexRadioDefault1" >
-                                                    <%}%>
+                                                           id="flexRadioDefault1">
                                                     <label class="form-check-label" for="flexRadioDefault1"
                                                            style="color: #ffc107">
                                                         Male
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <%if(user.getGender().equalsIgnoreCase("famale")){%>
-                                                    <input class="form-check-input" type="radio" name="gender"
-                                                           value="female" id="flexRadioDefault2" checked>
-                                                    <%}else{%>
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            value="female" id="flexRadioDefault2">
-                                                    <%}%>
                                                     <label class="form-check-label" for="flexRadioDefault2"
                                                            style="color: #ffc107">
                                                         Female
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <%if(user.getGender().equalsIgnoreCase("other")){%>
                                                     <input class="form-check-input" type="radio" name="gender" value="other"
-                                                           id="flexRadioDefault3" checked>
-                                                    <%}else{%>
-                                                    <input class="form-check-input" type="radio" name="gender" value="other"
-                                                           id="flexRadioDefault3" >
-                                                    <%}%>
+                                                           id="flexRadioDefault3">
                                                     <label class="form-check-label" for="flexRadioDefault3"
                                                            style="color: #ffc107">
                                                         Other
@@ -241,94 +228,16 @@
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
-                                            <button type="submit" class="btn btn-warning">Change Account</button>
+                                            <button type="submit" class="btn btn-warning">Create Account</button>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="card-footer text-center py-3">
+                                    <div class="small"><a href="Index">Have an account? Go to login</a></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-               <% }else { %>
-                    <div class="container" style="margin-bottom: 50px;">
-                        <div class="row justify-content-center" >
-                            <div class="col-lg-7 mt-5" style="background-color: #212529">
-                                <div class="card shadow-lg border-0 rounded-lg">
-                                    <div class="card-header"><h3 class="text-center  my-4" style="color: #ffc107"><%=user.getUsername()%></h3></div>
-                                </div>
-                                <div class="card-body">
-                                    <form action="..." method="POST">
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="email" id="inputEmailad" type="email"
-                                                           placeholder="<name@example.com*>" required/>
-                                                    <label for="inputEmail" style="color: #212529"><%=user.getEmail()%>*</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating">
-                                                    <input class="form-control" name="username" id="inputUsernamead"
-                                                           type="text" placeholder="Enter your username*" required/>
-                                                    <label for="inputUsername" style="color: #212529"><%=user.getUsername()%>*</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="password" id="inputPasswordad"
-                                                           type="password" placeholder="Create a password*" required/>
-                                                    <label for="inputPassword" style="color: #212529">Change Password*</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating">
-                                                    <input class="form-control" name="passwordConfirm"
-                                                           id="inputPasswordConfirmad" type="password"
-                                                           placeholder="Confirm password*" required/>
-                                                    <label for="inputPasswordConfirm" style="color: #212529">Confirm
-                                                        Password*</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
-                                            <button type="submit" class="btn btn-warning">Change Account</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="card-footer text-center py-3">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-area me-1"></i>
-                                    Statistic of Movieverse
-                                </div>
-                                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-bar me-1"></i>
-                                    Bar Chart Example
-                                </div>
-                                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                            </div>
-                        </div>
-
-                    </div>
-               <%}%>
 
 
                 </div>
@@ -359,5 +268,6 @@
     <script src="js/datatables-simple-demo.js"></script>
 </body>
 </html>
+
 
 
