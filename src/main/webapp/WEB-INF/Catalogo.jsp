@@ -200,7 +200,7 @@
                                     <p class="card-text">Movieverse Rating: <%=movie.get(i).getImdbRating()%>
                                     </p>
                                     <p class="card-text"><small class="text-muted">
-                                    <form action="AggiornamentoCatalogo" method="POST">
+                                    <form action="Film" method="POST">
                                         <button type="submit" class="btn btn-link" name="TitoloFilm" value="<%=movie.get(i).getTitle()%>">Dettagli</button>
                                     </form>
 
