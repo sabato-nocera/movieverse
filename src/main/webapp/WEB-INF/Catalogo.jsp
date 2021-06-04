@@ -73,7 +73,7 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <div class="sb-sidenav-menu-heading">Film</div>
+                    <div class="sb-sidenav-menu-heading">Movie</div>
 
                     <form action="Catalogo" method="POST">
                         <div class="nav-link">
@@ -171,8 +171,8 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title"><%=movie.get(i).getTitle()%>
-                                    </h5>
+                                    <h6 class="card-title"><%=movie.get(i).getTitle()%>
+                                    </h6>
                                     <p class="card-text">Genres: <%
                                         int j;
                                         for (j = 0; j < movie.get(i).getGenres().size(); j++) {
@@ -200,7 +200,10 @@
                                     <p class="card-text">Movieverse Rating: <%=movie.get(i).getImdbRating()%>
                                     </p>
                                     <p class="card-text"><small class="text-muted">
-                                        <button type="button" class="btn btn-link">Dettagli</button>
+                                    <form action="AggiornamentoCatalogo" method="POST">
+                                        <button type="submit" class="btn btn-link" name="TitoloFilm" value="<%=movie.get(i).getTitle()%>">Dettagli</button>
+                                    </form>
+
                                     </small></p>
                                 </div>
                             </div>
