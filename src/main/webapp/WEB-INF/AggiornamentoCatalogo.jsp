@@ -152,34 +152,32 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="title" id="inputEmail"
+                                                    <input class="form-control" name="title" id="inputTitle1"
                                                            placeholder="Titolo Movie" required/>
-                                                    <label for="inputEmail" style="color: #212529">Titolo*</label>
+                                                    <label for="inputTitle1" style="color: #212529">Title*</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <input class="form-control" name="poster" id="inputUsername"
+                                                    <input class="form-control" name="poster" id="inputUrlPoste"
                                                            type="text" placeholder="Url Poster" required/>
-                                                    <label for="inputUsername" style="color: #212529">Url
-                                                        Poster*</label>
+                                                    <label for="inputUrlPoste" style="color: #212529">Url Poster*</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="year" id="inputyeard"
-                                                           type="text" placeholder="Enter Date of Relased"/>
-                                                    <label for="inputyeard" style="color: #212529">Year</label>
+                                                    <input class="form-control" name="year" id="inputYear"
+                                                           type="number" placeholder="Year"/>
+                                                    <label for="inputYear" style="color: #212529">Year</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="dateOfRelased" id="inputDateRelased"
-                                                           type="date" placeholder="Enter Date of Relased"/>
-                                                    <label for="inputDateRelased" style="color: #212529">Date of
-                                                        Relased</label>
+                                                    <input class="form-control" name="releaseDate" id="releaseDate"
+                                                           type="date" placeholder="Release date"/>
+                                                    <label for="releaseDate" style="color: #212529">Release date</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -205,21 +203,21 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="firstName" id="inputDuration"
-                                                           type="text" placeholder="Original Title"/>
+                                                    <input class="form-control" name="duration" id="inputDuration"
+                                                           type="numer" min="0" placeholder="Duration"/>
                                                     <label for="inputDuration" style="color: #212529">Duration</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <input class="form-control" name="imbdRating" id="inputimdbRating"
-                                                           type="text" placeholder="Story"/>
-                                                    <label for="inputimdbRating"
+                                                    <input class="form-control" name="imbdRating" id="inputImdbRating"
+                                                           type="number" min="0" max="10" placeholder="ImbdRating"/>
+                                                    <label for="inputImdbRating"
                                                            style="color: #212529">ImbdRating</label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <p style="color: #adb5bd">insert , between actors or genres</p>
+                                        <p style="color: #adb5bd"><em>Insert a comma ( , ) between multiple genres</em></p>
                                         <div class="row mb-3">
 
                                             <div class=" mb-3">
@@ -232,6 +230,7 @@
                                             </div>
 
                                         </div>
+                                        <p style="color: #adb5bd"><em>Insert a comma ( , ) between multiple actors</em></p>
 
                                         <div class="row mb-3">
 
@@ -254,7 +253,7 @@
                                                     <option value="movies_in_theaters">Movies in Theaters</option>
                                                     <option value="movies_coming_soon">Movies Coming Soon</option>
                                                     <option value="top_rated_movies">Movie Top Rated</option>
-                                                    <option value="other">Other Movies</option>
+                                                    <option value="other_movies">Other Movies</option>
                                                 </select>
                                             </div>
 
