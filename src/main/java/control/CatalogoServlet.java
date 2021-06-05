@@ -38,6 +38,9 @@ public class CatalogoServlet extends HttpServlet {
             request.getRequestDispatcher(url).forward(request, response);
             return;
         }
+
+
+
         //Verifico se l'utente ha scelto uno specifico catalogo da visualizzare andandone a prendere il valore
         String el = request.getParameter("elenco");
 
@@ -130,7 +133,8 @@ public class CatalogoServlet extends HttpServlet {
             }
         }
 
-        request.setAttribute("movie", movie);
+        request.getSession().removeAttribute("movie");
+        request.getSession().setAttribute("movie", movie);
         String url = response.encodeURL("WEB-INF/Catalogo.jsp");
         request.getRequestDispatcher(url).forward(request, response);
     }

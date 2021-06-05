@@ -14,7 +14,7 @@
 <%@ page import="java.time.ZoneId" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <% UtenteBean user = (UtenteBean) session.getAttribute("utente"); %>
-<% ArrayList<FilmBean> movie = (ArrayList<FilmBean>) request.getAttribute("movie"); %>
+<% ArrayList<FilmBean> movie = (ArrayList<FilmBean>) request.getSession().getAttribute("movie"); %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
