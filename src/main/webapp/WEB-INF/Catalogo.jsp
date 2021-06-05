@@ -49,7 +49,7 @@
         <div class="input-group">
             <input class="form-control" type="text" placeholder="Search by movie title " aria-label="Search for..."
                    aria-describedby="btnNavbarSearch" name="titleSearched"/>
-            <input type = "hidden" name="elenco" value="4"/>
+            <input type="hidden" name="elenco" value="4"/>
             <button class="btn btn-outline-warning" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i>
             </button>
         </div>
@@ -139,7 +139,7 @@
 
                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group me-2" role="group" aria-label="First group" style="margin-top: 10px;">
-                        <div class="input-group-prepend btn-warning">
+                        <div class="input-group-prepend btn-warning pt-2 pb-1">
                             <span class="input-group-text btn-warning">Order by :</span>
                         </div>
                         <button type="button" class="btn btn-light"> Title</button>
@@ -147,16 +147,29 @@
                         <button type="button" class="btn btn-light"> User Rating</button>
                         <button type="button" class="btn btn-light"> Movieverse Rating</button>
                     </div>
-                    <div class="input-group" style="margin-right:7px;margin-top: 10px;">
-                        <div class="input-group-text btn-warning" id="btnGroupAddonGen">Genre</div>
-                        <input type="text" class="form-control" placeholder="Filter movies by genre"
-                               aria-label="Input group example" aria-describedby="btnGroupAddon">
-                    </div>
-                    <div class="input-group" style="margin-top: 10px;">
-                        <div class="input-group-text btn-warning" id="btnGroupAddonAtt">Actor</div>
-                        <input type="text" class="form-control" placeholder="Filter movies by actor"
-                               aria-label="Input group example" aria-describedby="btnGroupAddon">
-                    </div>
+
+                    <form class="d-none d-md-inline-block form-inline me-0 me-md-3 my-2" style="padding-top: 10px;"
+                          action="Catalogo">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Search by genre"
+                                   aria-label="Search for..."
+                                   aria-describedby="btnNavbarSearch" name="genreSearched"/>
+                            <button class="btn btn-warning" type="submit"><i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <form class="d-none d-md-inline-block form-inline me-0 me-md-3 my-2" style="padding-top: 10px;"
+                          action="Catalogo">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Search by actor"
+                                   aria-label="Search for..."
+                                   aria-describedby="btnNavbarSearch" name="actorSearched"/>
+                            <button class="btn btn-warning" type="submit"><i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+
+
                 </div>
                 <div class="row">
 
@@ -169,7 +182,8 @@
                                 <img src="css/Image/locandina.png" style="width:180px; height:290px;margin-top: 10px">
                                 <%} else {%>
                                 <img src="<%=movie.get(i).getPosterurl()%>"
-                                     style="width:180px; height:290px;margin-top: 10px" onError="this.src = 'css/Image/locandina.png'" >
+                                     style="width:180px; height:290px;margin-top: 10px"
+                                     onError="this.src = 'css/Image/locandina.png'">
                                 <%}%>
                             </div>
                             <div class="col-md-8">
@@ -188,7 +202,7 @@
                                         int h;
                                         for (h = 0; h < movie.get(i).getActors().size(); h++) {
                                             if (h != 0) {
-                                        %>
+                                    %>
                                         <%=", "%>
                                         <%}%>
                                         <%=movie.get(i).getActors().get(h).toString()%><%}%></p>
@@ -204,7 +218,9 @@
                                     </p>
                                     <p class="card-text"><small class="text-muted">
                                     <form action="Film" method="POST">
-                                        <button type="submit" class="btn btn-link" name="TitoloFilm" value="<%=movie.get(i).getTitle()%>">Dettagli</button>
+                                        <button type="submit" class="btn btn-link" name="TitoloFilm"
+                                                value="<%=movie.get(i).getTitle()%>">Dettagli
+                                        </button>
                                     </form>
 
                                     </small></p>
