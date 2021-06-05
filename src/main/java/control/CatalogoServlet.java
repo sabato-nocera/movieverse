@@ -162,6 +162,7 @@ public class CatalogoServlet extends HttpServlet {
                 film.setReleaseDate(date);
                 film.setId(document.getObjectId("_id"));
                 movie.add(film);
+                logger.log(Level.WARNING, "Il film "+film.getTitle()+" si trova nel catalogo :"+film.getCatalog());
             }
         }
 

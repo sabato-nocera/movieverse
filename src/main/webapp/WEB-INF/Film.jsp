@@ -13,6 +13,9 @@
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.ZoneId" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.util.logging.Logger" %>
+<%@ page import="control.AddToWatchServelt" %>
+<%@ page import="java.util.logging.Level" %>
 <% UtenteBean user = (UtenteBean) session.getAttribute("utente"); %>
 <% FilmBean film = (FilmBean) request.getAttribute("Film");%>
 <!DOCTYPE html>
@@ -32,7 +35,6 @@
          viewBox="0 0 16 16">
         <path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0v6h8V1H4zm8 8H4v6h8V9zM1 1v2h2V1H1zm2 3H1v2h2V4zM1 7v2h2V7H1zm2 3H1v2h2v-2zm-2 3v2h2v-2H1zM15 1h-2v2h2V1zm-2 3v2h2V4h-2zm2 3h-2v2h2V7zm-2 3v2h2v-2h-2zm2 3h-2v2h2v-2z"/>
     </svg>
-    <script type="text/javascript" src="/js/AddMore.js"></script>
     <link rel="icon" href="css/Image/icon.png"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
             crossorigin="anonymous"></script>
@@ -155,15 +157,16 @@
                                 </form>
                                 <% } else { %>
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                    <%if(!user.getViewedMovies().contains(film.getId())){%>
+                                    <%if (film.getCatalog() == null || !film.getCatalog().equalsIgnoreCase("movies_coming_soon")){%>
+                                    <% if(!user.getViewedMovies().contains(film.getId())){%>
                                     <form action="AddWatched" method="POST">
-                                    <button type="submit" class="btn btn-warning" name="TitoloFilm" value="<%=film.getTitle()%>">Add to Watched List</button>
+                                    <button type="submit" class="btn btn-warning" name="TitoloFilm" value="<%=film.getTitle()%>" style="margin-right: 5px;">Add to Watched List</button>
                                     </form>
                                     <%}else{%>
                                     <form action=" " method="POST">
-                                    <button type="submit" class="btn btn-outline-warning" name="TitoloFilm" value="<%=film.getTitle()%>">Remove form Watched List</button>
+                                    <button type="submit" class="btn btn-outline-warning" name="TitoloFilm" value="<%=film.getTitle()%>" style="margin-right: 5px;">Remove form Watched List</button>
                                     </form>
-                                    <%}
+                                    <%} }
                                     if(!user.getMoviesToSee().contains(film.getId())){%>
                                     <form action="AddToWatch" method="POST">
                                     <button type="submit" class="btn btn-warning" name="TitoloFilm" value="<%=film.getTitle()%>">Add to Watch List</button>

@@ -27,7 +27,6 @@
          viewBox="0 0 16 16">
         <path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0v6h8V1H4zm8 8H4v6h8V9zM1 1v2h2V1H1zm2 3H1v2h2V4zM1 7v2h2V7H1zm2 3H1v2h2v-2zm-2 3v2h2v-2H1zM15 1h-2v2h2V1zm-2 3v2h2V4h-2zm2 3h-2v2h2V7zm-2 3v2h2v-2h-2zm2 3h-2v2h2v-2z"/>
     </svg>
-    <script type="text/javascript" src="/js/AddMore.js"></script>
     <link rel="icon" href="css/Image/icon.png"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
             crossorigin="anonymous"></script>
@@ -149,18 +148,18 @@
                                         Movie</h3></div>
                                 </div>
                                 <div class="card-body">
-                                    <form action="..." method="POST">
+                                    <form action="AddMovie" method="POST">
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="email" id="inputEmail"
+                                                    <input class="form-control" name="title" id="inputEmail"
                                                            placeholder="Titolo Movie" required/>
                                                     <label for="inputEmail" style="color: #212529">Titolo*</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <input class="form-control" name="username" id="inputUsername"
+                                                    <input class="form-control" name="poster" id="inputUsername"
                                                            type="text" placeholder="Url Poster" required/>
                                                     <label for="inputUsername" style="color: #212529">Url
                                                         Poster*</label>
@@ -171,13 +170,13 @@
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="year" id="inputyeard"
-                                                           type="date" placeholder="Enter Date of Relased"/>
+                                                           type="text" placeholder="Enter Date of Relased"/>
                                                     <label for="inputyeard" style="color: #212529">Year</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="dateOfBirth" id="inputDateRelased"
+                                                    <input class="form-control" name="dateOfRelased" id="inputDateRelased"
                                                            type="date" placeholder="Enter Date of Relased"/>
                                                     <label for="inputDateRelased" style="color: #212529">Date of
                                                         Relased</label>
@@ -187,7 +186,7 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="firstName"
+                                                    <input class="form-control" name="originalTitle"
                                                            id="inputOriginalTitile"
                                                            type="text" placeholder="Original Title"/>
                                                     <label for="inputOriginalTitile" style="color: #212529"
@@ -196,7 +195,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <input class="form-control" name="lastName" id="inputStory"
+                                                    <input class="form-control" name="story" id="inputStory"
                                                            type="text" placeholder="Story"/>
                                                     <label for="inputStory" style="color: #212529"
                                                            class="overflow-auto">Story</label>
@@ -213,125 +212,52 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <input class="form-control" name="lastName" id="inputimdbRating"
+                                                    <input class="form-control" name="imbdRating" id="inputimdbRating"
                                                            type="text" placeholder="Story"/>
                                                     <label for="inputimdbRating"
-                                                           style="color: #212529">imdbRating</label>
+                                                           style="color: #212529">ImbdRating</label>
                                                 </div>
                                             </div>
                                         </div>
+                                        <p style="color: #adb5bd">insert , between actors or genres</p>
                                         <div class="row mb-3">
 
-                                            <script>
-                                                (function ($) {
-                                                    $(function () {
-
-                                                        var addFormGroup = function (event) {
-                                                            event.preventDefault();
-
-                                                            var $formGroup = $(this).closest('.form-group');
-                                                            var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
-                                                            var $formGroupClone = $formGroup.clone();
-
-                                                            $(this)
-                                                                .toggleClass('btn-success btn-add btn-danger btn-remove')
-                                                                .html('?');
-
-                                                            $formGroupClone.find('input').val('');
-                                                            $formGroupClone.find('.concept').text('+');
-                                                            $formGroupClone.insertAfter($formGroup);
-
-                                                            var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
-                                                            if ($multipleFormGroup.data('max') <= countFormGroup($multipleFormGroup)) {
-                                                                $lastFormGroupLast.find('.btn-add').attr('disabled', true);
-                                                            }
-                                                        };
-
-                                                        var removeFormGroup = function (event) {
-                                                            event.preventDefault();
-
-                                                            var $formGroup = $(this).closest('.form-group');
-                                                            var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
-
-                                                            var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
-                                                            if ($multipleFormGroup.data('max') >= countFormGroup($multipleFormGroup)) {
-                                                                $lastFormGroupLast.find('.btn-add').attr('disabled', false);
-                                                            }
-
-                                                            $formGroup.remove();
-                                                        };
-
-                                                        var selectFormGroup = function (event) {
-                                                            event.preventDefault();
-
-                                                            var $selectGroup = $(this).closest('.input-group-select');
-                                                            var param = $(this).attr("href").replace("#", "");
-                                                            var concept = $(this).text();
-
-                                                            $selectGroup.find('.concept').text(concept);
-                                                            $selectGroup.find('.input-group-select-val').val(param);
-
-                                                        }
-
-                                                        var countFormGroup = function ($form) {
-                                                            return $form.find('.form-group').length;
-                                                        };
-
-                                                        $(document).on('click', '.btn-add', addFormGroup);
-                                                        $(document).on('click', '.btn-remove', removeFormGroup);
-                                                        $(document).on('click', '.dropdown-menu a', selectFormGroup);
-
-                                                    });
-                                                })(jQuery);
-                                            </script>
-
-                                            <div class="input-group mb-3 form-group multiple-form-group input-group">
-                                                <div class="input-group-btn input-group-select">
-                                                    <button type="button" class="btn btn-warning"
-                                                            data-toggle="dropdown">
-                                                        <span class="concept">Genres</span>
-                                                    </button>
-
-                                                    <input type="hidden" class="input-group-select-val"
-                                                           name="genres['type'][]" value="phone">
+                                            <div class=" mb-3">
+                                                <div class="form-floating">
+                                                    <input class="form-control" name="gen" id="gen1"
+                                                           type="text" placeholder="Story"/>
+                                                    <label for="gen1"
+                                                           style="color: #212529">Genres</label>
                                                 </div>
-                                                <input type="text" name="genres['value'][]" class="form-control">
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-success btn-add">+</button>
-                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row mb-3">
+
+
+                                            <div class=" mb-3">
+                                                <div class="form-floating">
+                                                    <input class="form-control" name="act" id="act1"
+                                                           type="text" placeholder="Story"/>
+                                                    <label for="act1"
+                                                           style="color: #212529">Actors</label>
+                                                </div>
                                             </div>
 
 
-                                            <div class="input-group mb-3 form-group multiple-form-group input-group">
-                                                <div class="input-group-btn input-group-select">
-                                                    <button type="button" class="btn btn-warning"
-                                                            data-toggle="dropdown">
-                                                        <span class="concept">Actors</span>
-                                                    </button>
-
-                                                    <input type="hidden" class="input-group-select-val"
-                                                           name="actors['type'][]" value="phone">
-                                                </div>
-                                                <input type="text" name="actors['value'][]" class="form-control">
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-success btn-add">+</button>
-                                                </span>
-                                            </div>
-
-
+                                        </div>
                                             <div class="input-group mb-3">
                                                 <label class="btn-warning input-group-text" for="inputGroupSelect00">Movies</label>
-                                                <select class="form-select" id="inputGroupSelect00">
+                                                <select class="form-select" id="inputGroupSelect00" name="catalog">
                                                     <option selected>Choose...</option>
-                                                    <option value="1">Movies in Theaters</option>
-                                                    <option value="2">Movies Coming Soon</option>
-                                                    <option value="3">Movie Top Rated</option>
-                                                    <option value="4">Other Movies</option>
+                                                    <option value="movies_in_theaters">Movies in Theaters</option>
+                                                    <option value="movies_coming_soon">Movies Coming Soon</option>
+                                                    <option value="top_rated_movies">Movie Top Rated</option>
+                                                    <option value="other">Other Movies</option>
                                                 </select>
                                             </div>
 
-
-                                        </div>
                                         <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
                                             <button type="submit" class="btn btn-warning">Create Movie</button>
                                         </div>
@@ -369,9 +295,9 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <input class="form-control" name="username" id="UrlPoster"
+                                                    <input class="form-control" name="imdbRating" id="imdbRating"
                                                            type="text" placeholder="Url Poster" required/>
-                                                    <label for="UrlPoster" style="color: #212529;">Url Poster*</label>
+                                                    <label for="imdbRating" style="color: #212529;"><%=film.getImdbRating()%></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -428,114 +354,44 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <input class="form-control" name="lastName" id="inputimdbRatingm"
+                                                    <input class="form-control" name="poster" id="poster"
                                                            type="text" placeholder="Rating"/>
-                                                    <label for="inputimdbRatingm"
-                                                           style="color: #212529"><%=film.getImdbRating()%>
+                                                    <label for="poster"
+                                                           style="color: #212529">Poster
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <p style="color: #adb5bd">insert , between actors or genres</p>
                                         <div class="row mb-3">
 
-                                            <script>
-                                                (function ($) {
-                                                    $(function () {
-
-                                                        var addFormGroup = function (event) {
-                                                            event.preventDefault();
-
-                                                            var $formGroup = $(this).closest('.form-group');
-                                                            var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
-                                                            var $formGroupClone = $formGroup.clone();
-
-                                                            $(this)
-                                                                .toggleClass('btn-success btn-add btn-danger btn-remove')
-                                                                .html('?');
-
-                                                            $formGroupClone.find('input').val('');
-                                                            $formGroupClone.find('.concept').text('+');
-                                                            $formGroupClone.insertAfter($formGroup);
-
-                                                            var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
-                                                            if ($multipleFormGroup.data('max') <= countFormGroup($multipleFormGroup)) {
-                                                                $lastFormGroupLast.find('.btn-add').attr('disabled', true);
-                                                            }
-                                                        };
-
-                                                        var removeFormGroup = function (event) {
-                                                            event.preventDefault();
-
-                                                            var $formGroup = $(this).closest('.form-group');
-                                                            var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
-
-                                                            var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
-                                                            if ($multipleFormGroup.data('max') >= countFormGroup($multipleFormGroup)) {
-                                                                $lastFormGroupLast.find('.btn-add').attr('disabled', false);
-                                                            }
-
-                                                            $formGroup.remove();
-                                                        };
-
-                                                        var selectFormGroup = function (event) {
-                                                            event.preventDefault();
-
-                                                            var $selectGroup = $(this).closest('.input-group-select');
-                                                            var param = $(this).attr("href").replace("#", "");
-                                                            var concept = $(this).text();
-
-                                                            $selectGroup.find('.concept').text(concept);
-                                                            $selectGroup.find('.input-group-select-val').val(param);
-
-                                                        }
-
-                                                        var countFormGroup = function ($form) {
-                                                            return $form.find('.form-group').length;
-                                                        };
-
-                                                        $(document).on('click', '.btn-add', addFormGroup);
-                                                        $(document).on('click', '.btn-remove', removeFormGroup);
-                                                        $(document).on('click', '.dropdown-menu a', selectFormGroup);
-
-                                                    });
-                                                })(jQuery);
-                                            </script>
-
-                                            <div class=" input-group mb-3 form-group multiple-form-group input-group">
-                                                <div class="input-group-btn input-group-select">
-                                                    <button type="button" class="btn btn-warning"
-                                                            data-toggle="dropdown">
-                                                        <span class="concept">Genres</span>
-                                                    </button>
-
-                                                    <input type="hidden" class="input-group-select-val"
-                                                           name="genres['type'][]" value="phone">
+                                            <div class=" mb-3">
+                                                <div class="form-floating">
+                                                    <input class="form-control" name="gen" id="gen1i"
+                                                           type="text" placeholder="Story"/>
+                                                    <label for="gen1i"
+                                                           style="color: #212529"><%=film.getGenres()%></label>
                                                 </div>
-                                                <input type="text" name="genres['value'][]" class="form-control"
-                                                       placeholder="<%=film.getGenres().toString()%>">
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-success btn-add">+</button>
-                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row mb-3">
+
+
+                                            <div class=" mb-3">
+                                                <div class="form-floating">
+                                                    <input class="form-control" name="act" id="act1i"
+                                                           type="text" placeholder="Story"/>
+                                                    <label for="act1i"
+                                                           style="color: #212529"><%=film.getActors()%></label>
+                                                </div>
                                             </div>
 
 
-                                            <div class=" input-group mb-3 form-group multiple-form-group input-group">
-                                                <div class="input-group-btn input-group-select">
-                                                    <button type="button" class="btn btn-warning"
-                                                            data-toggle="dropdown">
-                                                        <span class="concept">Actors</span>
-                                                    </button>
-
-                                                    <input type="hidden" class="input-group-select-val"
-                                                           name="actors['type'][]" value="phone">
-                                                </div>
-                                                <input type="text" name="actors['value'][]" class="form-control"
-                                                       placeholder="<%=film.getActors().toString()%>">
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-success btn-add">+</button>
-                                                </span>
-                                            </div>
-
+                                        </div>
+                                        <div class="row mb-3">
                                             <div class="input-group mb-3">
                                                 <label class=" btn-warning input-group-text" for="inputGroupSelect01">Movies</label>
                                                 <select class="form-select" id="inputGroupSelect01">
