@@ -3,8 +3,10 @@ package control;
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.model.Filters;
 import model.FilmBean;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import utils.MongoDBConnection;
 
 import javax.servlet.ServletException;
@@ -13,9 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,8 +39,6 @@ public class CatalogoServlet extends HttpServlet {
             return;
         }
 
-
-
         //Verifico se l'utente ha scelto uno specifico catalogo da visualizzare andandone a prendere il valore
         String el = request.getParameter("elenco");
 
@@ -57,29 +55,61 @@ public class CatalogoServlet extends HttpServlet {
 
         ArrayList<FilmBean> movie = new ArrayList<>();
 
-        Document filter;
+        Bson filter;
 
         // Creo un filter che mi aiuta nel caso dovessi filtrare i risultati in accordo ad un particolare catalogo
         switch (elenco) {
             case 1:
                 filter = new Document("catalog", "movies_in_theaters");
+                request.setAttribute("elenco", ""+1);
                 break;
             case 2:
                 filter = new Document("catalog", "movies_coming_soon");
+                request.setAttribute("elenco", ""+2);
                 break;
             case 3:
                 filter = new Document("catalog", "top_rated_movies");
+                request.setAttribute("elenco", ""+3);
                 break;
             case 4:
                 filter = new Document();
+                request.setAttribute("elenco", ""+4);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + elenco);
         }
 
+        // Filtrare/ordinare i risultati di un catalogo
+        String genreSearched = request.getParameter("genreSearched");
+        String actorSearched = request.getParameter("actorSearched");
+        String order = request.getParameter("order");
+
+        BasicDBObject sorter = new BasicDBObject();
+
+        if(genreSearched!=null && !genreSearched.equals("")){
+            // Filtra in base al genere
+            Bson resultFilter = Filters.in("genres", genreSearched);
+            // Faccio un AND dei criteri che servono per effettuare la ricerca
+            filter = Filters.and(filter, resultFilter);
+        }else if(actorSearched!=null && !actorSearched.equals("")) {
+            // Filtra in base all'attore
+            Bson resultFilter = Filters.in("actors", actorSearched);
+            // Faccio un AND dei criteri che servono per effettuare la ricerca
+            filter = Filters.and(filter, resultFilter);
+        } else if(order!=null){
+            // Effettua l'ordinamento in base all'order passato
+            if(order.equals("title")){
+                // Ordinamento crescente (lessicografico)
+                sorter = new BasicDBObject(order, 1);
+                // Ordinamento decrescente
+            } else if(order.equals("releaseDate")||order.equals("averageRating")||order.equals("imdbRating")){
+                sorter = new BasicDBObject(order, -1);
+            }
+        }
+
         if (elenco != 4) {
             //trasformo la collezione in un oggetto iterabile
-            FindIterable<Document> collection = MongoDBConnection.getDatabase().getCollection("movies").find(filter);
+            FindIterable<Document> collection = MongoDBConnection.getDatabase().getCollection("movies").find(filter).sort(sorter);
 
             //Ho ottenuto la collezione, la trasformo in un ArrayList<FilmBean> in modo da passarlo al catalogo
 
@@ -117,9 +147,11 @@ public class CatalogoServlet extends HttpServlet {
             if (titleSearched != null && !titleSearched.equals("")) {
                 logger.log(Level.WARNING, "Ricerca filtrata");
                 regexQuery.put("title", new BasicDBObject("$regex", ".*" + titleSearched + ".*").append("$options", "i"));
+                // Faccio un AND dei criteri che servono per effettuare la ricerca
+                filter = Filters.and(filter, regexQuery);
             }
 
-            FindIterable<Document> collection = MongoDBConnection.getDatabase().getCollection("movies").find(regexQuery);
+            FindIterable<Document> collection = MongoDBConnection.getDatabase().getCollection("movies").find(filter).sort(sorter);
             Iterator iterator = collection.iterator();
             while (iterator.hasNext()) {
                 org.bson.Document document = (org.bson.Document) iterator.next();
@@ -133,8 +165,7 @@ public class CatalogoServlet extends HttpServlet {
             }
         }
 
-        request.getSession().removeAttribute("movie");
-        request.getSession().setAttribute("movie", movie);
+        request.setAttribute("movie", movie);
         String url = response.encodeURL("WEB-INF/Catalogo.jsp");
         request.getRequestDispatcher(url).forward(request, response);
     }

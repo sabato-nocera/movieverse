@@ -14,7 +14,8 @@
 <%@ page import="java.time.ZoneId" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <% UtenteBean user = (UtenteBean) session.getAttribute("utente"); %>
-<% ArrayList<FilmBean> movie = (ArrayList<FilmBean>) request.getSession().getAttribute("movie"); %>
+<% ArrayList<FilmBean> movie = (ArrayList<FilmBean>) request.getAttribute("movie"); %>
+<% String elenco = (String) request.getAttribute("elenco"); %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -142,10 +143,10 @@
                         <div class="input-group-prepend btn-warning pt-2 pb-1">
                             <span class="input-group-text btn-warning">Order by :</span>
                         </div>
-                        <button type="button" class="btn btn-light"> Title</button>
-                        <button type="button" class="btn btn-light"> Release Date</button>
-                        <button type="button" class="btn btn-light"> User Rating</button>
-                        <button type="button" class="btn btn-light"> Movieverse Rating</button>
+                            <button type="button" class="btn btn-light"> <a class="text-decoration-none text-black-50" href="Catalogo?order=title&elenco=<%=elenco%>">Title</a></button>
+                            <button type="button" class="btn btn-light"> <a class="text-decoration-none text-black-50" href="Catalogo?order=releaseDate&elenco=<%=elenco%>">Release Date</a></button>
+                            <button type="button" class="btn btn-light"> <a class="text-decoration-none text-black-50" href="Catalogo?order=averageRating&elenco=<%=elenco%>">User Rating</a></button>
+                            <button type="button" class="btn btn-light"> <a class="text-decoration-none text-black-50" href="Catalogo?order=imdbRating&elenco=<%=elenco%>">Movieverse Rating</a></button>
                     </div>
 
                     <form class="d-none d-md-inline-block form-inline me-0 me-md-3 my-2" style="padding-top: 10px;"
@@ -154,6 +155,7 @@
                             <input class="form-control" type="text" placeholder="Search by genre"
                                    aria-label="Search for..."
                                    aria-describedby="btnNavbarSearch" name="genreSearched"/>
+                            <input type="hidden" name="elenco" value="<%=elenco%>">
                             <button class="btn btn-warning" type="submit"><i class="fas fa-search"></i>
                             </button>
                         </div>
@@ -164,6 +166,7 @@
                             <input class="form-control" type="text" placeholder="Search by actor"
                                    aria-label="Search for..."
                                    aria-describedby="btnNavbarSearch" name="actorSearched"/>
+                            <input type="hidden" name="elenco" value="<%=elenco%>">
                             <button class="btn btn-warning" type="submit"><i class="fas fa-search"></i>
                             </button>
                         </div>
