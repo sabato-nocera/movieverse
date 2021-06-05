@@ -2,18 +2,8 @@ package control;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
-import jdk.vm.ci.meta.Local;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.*;
-
 import model.UtenteBean;
 import org.bson.Document;
 import utils.MongoDBConnection;
@@ -25,12 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static com.fasterxml.jackson.databind.type.LogicalType.DateTime;
 
 /**
  * Utilizzata per effettuare la registrazione di un utente.
@@ -111,6 +99,8 @@ public class RegistrazioneServlet extends HttpServlet {
                         Map<String, ?> map = mapper.readValue(jsonString, Map.class);
                         // Inserisco tutti gli elementi di Map nel documento
                         document.putAll(map);
+                        // Le date vanno inserite senza gson
+                        document.replace("dateOfBirth", utenteBean.getDateOfBirth());
                         // Effettuo l'inserimento effettivo nella collezione
                         logger.log(Level.WARNING, "Document: " + document.toJson());
                         MongoDBConnection.getDatabase().getCollection("users").insertOne(document);
@@ -124,8 +114,11 @@ public class RegistrazioneServlet extends HttpServlet {
                         cursor = findIterable.iterator();
                         if (cursor.hasNext()) {
                             document = cursor.next();
+                            Date dateRetrieved = document.getDate("dateOfBirth");
+                            document.remove("dateOfBirth");
                             utenteBean = gson.fromJson(document.toJson(), UtenteBean.class);
                             utenteBean.setId(document.getObjectId("_id"));
+                            utenteBean.setDateOfBirth(dateRetrieved);
                             request.getSession().setAttribute("utente", utenteBean);
 
                             String url = response.encodeURL("Catalogo");

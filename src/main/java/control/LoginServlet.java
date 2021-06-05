@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -74,8 +75,11 @@ public class LoginServlet extends HttpServlet {
 
                 // Creo l'oggetto UtenteBean utilizzando automaticamente il metodo fromJson(), passando come
                 // parametri il Document (convertito in Json) e la classe target
+                Date dateRetrieved = document.getDate("dateOfBirth");
+                document.remove("dateOfBirth");
                 UtenteBean utenteBean = gson.fromJson(document.toJson(), UtenteBean.class);
                 utenteBean.setId(document.getObjectId("_id"));
+                utenteBean.setDateOfBirth(dateRetrieved);
                 logger.log(Level.WARNING, "Risultato della query: " + utenteBean.toString());
 
                 // Inserisco l'utente loggato in sessione
