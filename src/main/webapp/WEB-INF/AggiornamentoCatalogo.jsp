@@ -210,7 +210,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <input class="form-control" name="imbdRating" id="inputImdbRating"
+                                                    <input class="form-control" name="imdbRating" id="inputImdbRating"
                                                            type="number" min="0" max="10" placeholder="ImbdRating"/>
                                                     <label for="inputImdbRating"
                                                            style="color: #212529">ImbdRating</label>

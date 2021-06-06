@@ -79,7 +79,7 @@ public class AddMovieServlet extends HttpServlet {
             film.setReleaseDate(dateOfRelased);
         }
         if (imbdRating != null && !imbdRating.equals("")) {
-            Double.parseDouble(imbdRating);
+            film.setImdbRating(Double.parseDouble(imbdRating));
         } else {
             film.setImdbRating(0.0);
         }
