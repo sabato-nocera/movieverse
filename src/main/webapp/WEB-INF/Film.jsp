@@ -224,7 +224,34 @@
                 </div>
 
 
+                <div class="card mb-3" >
+                    <div class="row g-0">
+                        <div class="col-md-4" style="width: 75%;">
+                            <h5 style="color: #ffc107">Reviews</h5>
+                          <p>Elenco Commenti </p>
+                        </div>
+                        <div class="col-md-8" style="width: 25%">
+                            <div class="card-body">
+                                <h6 style="color:#ffc107;">Write Review</h6>
+                                <form action="..." method="post">
+                                <div class="input-group">
+                                    <button class="input-group-text btn-outline-warning" id="basic-addon1" name="username" value="<%=user.getUsername()%>" disabled><%=user.getUsername()%></button>
+                                        <input type="number" min="1" max="10" class="form-control" placeholder="Vote" id="vote" name="vote">
+                                        <label for="vote" style="color: #212529">Vote</label>
+                                </div>
+                                <div class="mb-3" style="margin-top: 10px; margin-bottom: -10px;">
+                                    <textarea class="form-control" id="userReview" rows="3" placeholder="Write review ... "></textarea>
+                                    <label for="userReview" class="form-label" name="userReview"></label>
+                                </div>
+                                    <div class="text-center" style="margin-bottom: 5px;">
+                                        <button type="submit" class="btn btn-warning" name="addreview" value="<%=film.getTitle()%>">Add Rerview</button>
+                                    </div>
 
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 
