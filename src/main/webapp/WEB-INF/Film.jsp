@@ -224,13 +224,14 @@
                     </div>
                 </div>
 
-        <%if(!user.getAdmin()){%>
+
                 <div class="card mb-3" >
                     <div class="row g-0">
                         <div class="col-md-4" style="width: 75%;">
                             <h5 style="color: #ffc107">Reviews</h5>
                           <p>Elenco Commenti </p>
                         </div>
+                        <%if(!user.getAdmin()){%>
                         <div class="col-md-8" style="width: 25%">
                             <div class="card-body">
                                 <h6 style="color:#ffc107;">Write Review</h6>
@@ -251,10 +252,11 @@
                                 </form>
                             </div>
                         </div>
+                        <%}%>
                     </div>
                 </div>
 
-            <%}%>
+
 
                 </div>
                 <main>
