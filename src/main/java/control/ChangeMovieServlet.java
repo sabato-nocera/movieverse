@@ -38,8 +38,29 @@ public class ChangeMovieServlet extends HttpServlet {
             request.getRequestDispatcher(url).forward(request, response);
             return;
         }
+        //Prendo tutti i parametri dalla JSP
+        String idfilm = request.getParameter("id");
+        String titolo = request.getParameter("title");
+        String poster = request.getParameter("poster");
+        String duration = request.getParameter("duration");
+        String originalTitle = request.getParameter("originalTitle");
+        String story = request.getParameter("Story");
+        String catalogo = request.getParameter("catalog");
+        String data = request.getParameter("dateRelased");
+        String imbdRating = request.getParameter("imdbRating");
+        String genres = request.getParameter("gen");
+        String actors = request.getParameter("act");
+        String[] g = genres.split(",");
+        List<String> generi = new ArrayList<>();
+        String[] a = actors.split(",");
+        List<String> attori = new ArrayList<>();
+        for (int i = 0; i < g.length; i++) {
+            generi.add(g[i].trim());
+        }
+        for (int i = 0; i < a.length; i++) {
+            attori.add(a[i].trim());
+        }
 
-        String titolo = request.getParameter("TitoloFilm");
 
         if(titolo==null || titolo.equals("")){
             String url = response.encodeURL("Catalogo");
@@ -51,74 +72,90 @@ public class ChangeMovieServlet extends HttpServlet {
 
         logger.log(Level.WARNING, "L'utente loggato è "+user.getUsername());
 
-        MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("users");
-        Document filter = new Document("username", user.getUsername());
+        FilmBean filmBean = new FilmBean();
+
+        //Prendo il film da DB
+        MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies");
+        org.bson.Document filter = new Document("title", titolo);
         FindIterable<Document> findIterable = mongoDatabase.find(filter);
         MongoCursor<Document> cursor = findIterable.iterator();
         if (cursor.hasNext()) {
-            Document userDocument = cursor.next();
-
+            logger.log(Level.WARNING, "itero su "+cursor.toString());
+            Document filmDocument = cursor.next();
             Gson gson = new Gson();
-            UtenteBean utenteBean;
-            if(userDocument.get("dateOfBirth")!=null){
-                Date date = (Date) userDocument.get("dateOfBirth");
-                userDocument.remove("dateOfBirth");
-                utenteBean = gson.fromJson(userDocument.toJson(), UtenteBean.class);
-                utenteBean.setDateOfBirth(date);
-            } else {
-                utenteBean = gson.fromJson(userDocument.toJson(), UtenteBean.class);
-            }
-            utenteBean.setId(userDocument.getObjectId("_id"));
-            if(userDocument.get("moviesToSee")!=null){
-                utenteBean.setMoviesToSee((List<ObjectId>) userDocument.get("moviesToSee"));
-            }
-
-            mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies");
-            filter = new Document("title", titolo);
-            findIterable = mongoDatabase.find(filter);
-            cursor = findIterable.iterator();
-            if (cursor.hasNext()) {
-                Document filmDocument = cursor.next();
+            ObjectId id = filmDocument.getObjectId("_id");
+            filmDocument.remove("_id");
+            //Trasformo il film in un FilmBean andando a settare correttamente data e id
+            if(filmDocument.get("releaseDate")!=null){
                 Date date = (Date) filmDocument.get("releaseDate");
-                ObjectId id = filmDocument.getObjectId("_id");
-
-                if(utenteBean.getMoviesToSee()!=null){
-                    if(utenteBean.getMoviesToSee().contains(id)){
-                        logger.log(Level.WARNING, "Non puoi aggiungere nuovamente uno stesso film alla lista dei film da guardare : " + filmDocument.get("title"));
-                        String url = response.encodeURL("Catalogo");
-                        request.getRequestDispatcher(url).forward(request, response);
-                        return;
-                    }
-                }
-
                 filmDocument.remove("releaseDate");
-                filmDocument.remove("_id");
-                FilmBean filmBean = gson.fromJson(filmDocument.toJson(), FilmBean.class);
+                filmBean = gson.fromJson(filmDocument.toJson(), FilmBean.class);
                 filmBean.setReleaseDate(date);
-                filmBean.setId(filmDocument.getObjectId("_id"));
-                utenteBean.addMovieToSee(id);
+            } else {
+                filmBean = gson.fromJson(filmDocument.toJson(), FilmBean.class);
+            }
+            filmBean.setId(filmDocument.getObjectId("_id"));
 
-                mongoDatabase = MongoDBConnection.getDatabase().getCollection("users");
-                filter = new Document("username", user.getUsername());
+            //Vado a modificare tutti i campi di FilmBean andando a mettere quelli presi dalla JSP
+            //ho fatto in modo che i campi non risultassero MAI vuoti, ma che ogni campo contenesse già le informazioni presenti nel DB
+            filmBean.setTitle(titolo);
+            filmBean.setPosterurl(poster);
+            filmBean.setActors(attori);
+            filmBean.setGenres(generi);
+            if (originalTitle != null && !originalTitle.equals("")) {
+                filmBean.setOriginalTitle(originalTitle);
+            }
+            if (story != null && !story.equals("")) {
+                filmBean.setStoryline(story);
+            }
+            if (duration != null && !duration.equals("")) {
+                filmBean.setDuration("PT" + duration + "M");
+            }
+            if (catalogo != null && !catalogo.equals("") && !catalogo.equals("Choose...")) {
+                filmBean.setCatalog(catalogo);
+            }
+            if (data != null && !data.equals("")) {
+                String[] list = data.split("-");
+                String year = list[0];
+                String month = list[1];
+                String day = list[2];
+                Date dateOfRelased = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month), Integer.parseInt(day));
+                filmBean.setReleaseDate(dateOfRelased);
+            }
+            if (imbdRating != null && !imbdRating.equals("")) {
+                filmBean.setImdbRating(Double.parseDouble(imbdRating));
+            } else {
+                filmBean.setImdbRating(0.0);
+            }
 
+            //Creo un documento di modifica
                 BasicDBObject documentUpdater = new BasicDBObject();
+            //Effettuo le modifiche sul documento settando i parametri di FilmBean
+            documentUpdater.put("title", filmBean.getTitle());
+            documentUpdater.put("genres", filmBean.getGenres());
+            documentUpdater.put("duration", filmBean.getDuration());
+            documentUpdater.put("releaseDate", filmBean.getReleaseDate());
+            documentUpdater.put("averageRating", filmBean.getAverageRating());
+            documentUpdater.put("storyline", filmBean.getStoryline());
+            documentUpdater.put("actors", filmBean.getActors());
+            documentUpdater.put("imdbRating", filmBean.getImdbRating());
+            documentUpdater.put("posterurl", filmBean.getPosterurl());
+            documentUpdater.put("catalog", filmBean.getCatalog());
+            documentUpdater.put("originalTitle",filmBean.getOriginalTitle());
 
-                documentUpdater.put("moviesToSee", utenteBean.getMoviesToSee());
-
+            //Creo un oggetto di modifica e gli associo il documento di modifica creato prima
                 BasicDBObject updateObject = new BasicDBObject();
                 updateObject.put("$set", documentUpdater);
 
                 logger.log(Level.WARNING, "DOC UPDATER : " + documentUpdater.toString());
                 logger.log(Level.WARNING, "OBJ UPDATER : " + updateObject.toString());
+            //Inserisco l'oggetto di modifica nel DB andando a modificarlo al documento ricercato dal filtro
+            MongoDBConnection.getDatabase().getCollection("movies").updateOne(filter, updateObject);
 
-                MongoDBConnection.getDatabase().getCollection("users").updateOne(filter, updateObject);
-            }
         }
 
-        String url = response.encodeURL("Film?TitoloFilm="+titolo);
+        String url = response.encodeURL("Catalogo");
         request.getRequestDispatcher(url).forward(request, response);
-        // TODO: Agigungere i controlli che un film che è stato aggiunto alla watchlist non vi venga aggiunto nuovamente né compaia il pulsante che può aggiungerlo
-        // TODO: Non puoi aggiungere alla watched list dei film che ancora devono uscire
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

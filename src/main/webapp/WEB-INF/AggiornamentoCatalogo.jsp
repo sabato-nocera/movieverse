@@ -166,18 +166,12 @@
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="year" id="inputYear"
-                                                           type="number" placeholder="Year"/>
-                                                    <label for="inputYear" style="color: #212529">Year</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="releaseDate" id="releaseDate"
-                                                           type="date" placeholder="Release date"/>
-                                                    <label for="releaseDate" style="color: #212529">Release date</label>
+                                            <div class="mb-3">
+                                                <div class="form-floating">
+                                                    <input class="form-control" name="story" id="inputStory"
+                                                           type="text" placeholder="Story"/>
+                                                    <label for="inputStory" style="color: #212529"
+                                                           class="overflow-auto">Story</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -192,11 +186,10 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-floating">
-                                                    <input class="form-control" name="story" id="inputStory"
-                                                           type="text" placeholder="Story"/>
-                                                    <label for="inputStory" style="color: #212529"
-                                                           class="overflow-auto">Story</label>
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <input class="form-control" name="releaseDate" id="releaseDate"
+                                                           type="date" placeholder="Release date"/>
+                                                    <label for="releaseDate" style="color: #212529">Release date</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -276,67 +269,61 @@
                     <div class="container" style="margin-bottom: 50px; ">
                         <div class="row justify-content-center">
                             <div class="col-lg-7 mt-5" style="background-color: #212529">
+                                <form action="ChangeMovie" method="POST">
                                 <div class="card shadow-lg border-0 rounded-lg">
                                     <div class="card-header"><h3 class="text-center  my-4"
                                                                  style="color: #ffc107"><%=film.getTitle()%>
                                     </h3></div>
                                 </div>
                                 <div class="card-body">
-                                    <form action="..." method="POST">
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="email" id="inputTitle"
-                                                           placeholder="Titolo Movie" required/>
-                                                    <label for="inputTitle" style="color: #212529"><%=film.getTitle()%>
+                                                    <input class="form-control" name="title" id="inputTitle"
+                                                           placeholder="Titolo Movie" value="<%=film.getTitle()%>"  required/>
+                                                    <label for="inputTitle" style="color: #212529" >Title
                                                         *</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
                                                     <input class="form-control" name="imdbRating" id="imdbRating"
-                                                           type="text" placeholder="Url Poster" required/>
-                                                    <label for="imdbRating" style="color: #212529;"><%=film.getImdbRating()%></label>
+                                                           type="text" placeholder="Url Poster" value="<%=film.getImdbRating()%>" required/>
+                                                    <label for="imdbRating" style="color: #212529;">ImbdRating</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="year" id="inputyeardm"
-                                                           type="date" placeholder="Enter Date of Relased"/>
-                                                    <label for="inputyeardm" style="color: #212529"><%=film.getYear()%>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="dateOfBirth"
-                                                           id="inputDateRelasedm"
-                                                           type="date" placeholder="Enter Date of Relased"/>
-                                                    <label for="inputDateRelasedm"
-                                                           style="color: #212529"><%=film.getReleaseDate()%>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="firstName"
-                                                           id="inputOriginalTitilem"
-                                                           type="text" placeholder="Original Title"/>
-                                                    <label for="inputOriginalTitilem" style="color: #212529"
-                                                           class="overflow-auto"><%=film.getOriginalTitle()%>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
+
+                                            <div class="mb-3">
                                                 <div class="form-floating">
-                                                    <input class="form-control" name="lastName" id="inputStorym"
-                                                           type="text" placeholder="Story"/>
+                                                    <input class="form-control" name="Story" id="inputStorym"
+                                                           type="text" placeholder="Story" value="<%=film.getStoryline()%>"/>
                                                     <label for="inputStorym" style="color: #212529; "
-                                                           class="overflow-auto"><%=film.getStoryline()%>
+                                                           class="overflow-auto">StoryLine
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <input class="form-control" name="originalTitle"
+                                                           id="inputOriginalTitilem"
+                                                           type="text" placeholder="Original Title" value="<%=film.getOriginalTitle()%>"/>
+                                                    <label for="inputOriginalTitilem" style="color: #212529"
+                                                           class="overflow-auto">Original Title
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <input class="form-control" name="dateRelased"
+                                                           id="inputDateRelasedm"
+                                                           type="date" placeholder="Enter Date of Relased" value="<%=film.getReleaseDate()%>"/>
+                                                    <label for="inputDateRelasedm"
+                                                           style="color: #212529">Date of Relased
                                                     </label>
                                                 </div>
                                             </div>
@@ -344,17 +331,17 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="firstName" id="inputDurationm"
-                                                           type="text" placeholder="Original Title"/>
+                                                    <input class="form-control" name="duration" id="inputDurationm"
+                                                           type="text" placeholder="duration" value="<%=film.getDuration()%>"/>
                                                     <label for="inputDurationm"
-                                                           style="color: #212529"><%=film.getDuration()%>
+                                                           style="color: #212529">Duration
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
                                                     <input class="form-control" name="poster" id="poster"
-                                                           type="text" placeholder="Rating"/>
+                                                           type="text" placeholder="Rating" value="<%=film.getPosterurl()%>"/>
                                                     <label for="poster"
                                                            style="color: #212529">Poster
                                                     </label>
@@ -368,9 +355,9 @@
                                             <div class=" mb-3">
                                                 <div class="form-floating">
                                                     <input class="form-control" name="gen" id="gen1i"
-                                                           type="text" placeholder="Story"/>
+                                                           type="text" placeholder="Story" value="<%=film.getGenres()%>"/>
                                                     <label for="gen1i"
-                                                           style="color: #212529"><%=film.getGenres()%></label>
+                                                           style="color: #212529">Genres</label>
                                                 </div>
                                             </div>
 
@@ -382,9 +369,9 @@
                                             <div class=" mb-3">
                                                 <div class="form-floating">
                                                     <input class="form-control" name="act" id="act1i"
-                                                           type="text" placeholder="Story"/>
+                                                           type="text" placeholder="Story" value="<%=film.getActors()%>"/>
                                                     <label for="act1i"
-                                                           style="color: #212529"><%=film.getActors()%></label>
+                                                           style="color: #212529">Actors</label>
                                                 </div>
                                             </div>
 
@@ -393,13 +380,19 @@
                                         <div class="row mb-3">
                                             <div class="input-group mb-3">
                                                 <label class=" btn-warning input-group-text" for="inputGroupSelect01">Movies</label>
-                                                <select class="form-select" id="inputGroupSelect01">
-                                                    <option selected>Choose...</option>
+                                                <select class="form-select" id="inputGroupSelect01" name="catalog">
+                                                    <option selected="<%=film.getCatalog() %>"><%=film.getCatalog()%></option>
+                                                    <option>Choose...</option>
                                                     <option value="1">Movies in Theaters</option>
                                                     <option value="2">Movies Coming Soon</option>
                                                     <option value="3">Movie Top Rated</option>
-                                                    <option value="4">Other Movies</option>
                                                 </select>
+                                            </div>
+                                            <div style="display: none">
+                                                <input class="form-control" name="id" id="id"
+                                                       type="text" placeholder="Story" value="<%=film.getId()%>"/>
+                                                <label for="id"
+                                                       style="color: #212529">Actors</label>
                                             </div>
 
 

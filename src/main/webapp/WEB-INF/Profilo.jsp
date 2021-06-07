@@ -150,15 +150,15 @@
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="email" id="inputEmail" type="email"
-                                                           placeholder="<name@example.com*>" required/>
-                                                    <label for="inputEmail" style="color: #212529"><%=user.getEmail()%>*</label>
+                                                           placeholder="<name@example.com*>" value="<%=user.getEmail()%>" required/>
+                                                    <label for="inputEmail" style="color: #212529">Email*</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
                                                     <input class="form-control" name="username" id="inputUsername"
-                                                           type="text" placeholder="Enter your username*" required/>
-                                                    <label for="inputUsername" style="color: #212529"><%=user.getUsername()%>*</label>
+                                                           type="text" placeholder="Enter your username*" value="<%=user.getUsername()%>" required/>
+                                                    <label for="inputUsername" style="color: #212529">Username*</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -166,7 +166,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="password" id="inputPassword"
-                                                           type="password" placeholder="Create a password*" required/>
+                                                           type="password" placeholder="Create a password*" value="<%=user.getPassword()%>" required/>
                                                     <label for="inputPassword" style="color: #212529">Change Password*</label>
                                                 </div>
                                             </div>
@@ -174,7 +174,7 @@
                                                 <div class="form-floating">
                                                     <input class="form-control" name="passwordConfirm"
                                                            id="inputPasswordConfirm" type="password"
-                                                           placeholder="Confirm password*" required/>
+                                                           placeholder="Confirm password*" value="<%=user.getPassword()%>" required/>
                                                     <label for="inputPasswordConfirm" style="color: #212529">Confirm
                                                         Password*</label>
                                                 </div>
@@ -184,15 +184,15 @@
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="firstName" id="inputFirstName"
-                                                           type="text" placeholder="Enter your first name"/>
-                                                    <label for="inputFirstName" style="color: #212529"><%=user.getFirstName()%></label>
+                                                           type="text" placeholder="Enter your first name" value="<%=user.getFirstName()%>"/>
+                                                    <label for="inputFirstName" style="color: #212529">First Name</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
                                                     <input class="form-control" name="lastName" id="inputLastName"
-                                                           type="text" placeholder="Enter your last name"/>
-                                                    <label for="inputLastName" style="color: #212529"><%=user.getLastName()%></label>
+                                                           type="text" placeholder="Enter your last name" value="<%=user.getLastName()%>"/>
+                                                    <label for="inputLastName" style="color: #212529">Last Name</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -200,8 +200,8 @@
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="dateOfBirth" id="inputDateOfBirth"
-                                                           type="date" placeholder="Enter your date of birth"/>
-                                                    <label for="inputDateOfBirth" style="color: #212529"><%=user.getDateOfBirth()%></label>
+                                                           type="date" placeholder="Enter your date of birth" value="<%=user.getDateOfBirth()%>"/>
+                                                    <label for="inputDateOfBirth" style="color: #212529">Date Of Birth</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -272,15 +272,15 @@
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="email" id="inputEmailad" type="email"
-                                                           placeholder="<name@example.com*>" required/>
-                                                    <label for="inputEmail" style="color: #212529"><%=user.getEmail()%>*</label>
+                                                           placeholder="<name@example.com*>" value="<%=user.getEmail()%>" required/>
+                                                    <label for="inputEmail" style="color: #212529">Email*</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
                                                     <input class="form-control" name="username" id="inputUsernamead"
-                                                           type="text" placeholder="Enter your username*" required/>
-                                                    <label for="inputUsername" style="color: #212529"><%=user.getUsername()%>*</label>
+                                                           type="text" placeholder="Enter your username*" value="<%=user.getUsername()%>" required/>
+                                                    <label for="inputUsername" style="color: #212529">Usernsme*</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -288,7 +288,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="password" id="inputPasswordad"
-                                                           type="password" placeholder="Create a password*" required/>
+                                                           type="password" placeholder="Create a password*" value="<%=user.getPassword()%>" required/>
                                                     <label for="inputPassword" style="color: #212529">Change Password*</label>
                                                 </div>
                                             </div>
@@ -296,7 +296,7 @@
                                                 <div class="form-floating">
                                                     <input class="form-control" name="passwordConfirm"
                                                            id="inputPasswordConfirmad" type="password"
-                                                           placeholder="Confirm password*" required/>
+                                                           placeholder="Confirm password*" value="<%=user.getPassword()%>" required/>
                                                     <label for="inputPasswordConfirm" style="color: #212529">Confirm
                                                         Password*</label>
                                                 </div>

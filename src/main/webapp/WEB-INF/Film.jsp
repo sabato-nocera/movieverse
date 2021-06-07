@@ -152,9 +152,14 @@
 
                             <div class="text-center" style="margin-bottom: 10px;">
                                 <%if(user.getAdmin()){ %>
+                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                 <form action="AggiornamentoCatalogo" method="POST">
-                                    <button type="submit" class="btn btn-warning" name="TitoloFilm" value="<%=film.getTitle()%>">Change Movie</button>
+                                    <button type="submit" class="btn btn-warning" name="TitoloFilm" value="<%=film.getTitle()%>" style="margin-right: 5px;">Change Movie</button>
                                 </form>
+                                <form action="..." method="POST">
+                                    <button type="submit" class="btn btn-outline-danger" name="TitoloFilm" value="<%=film.getTitle()%>">Remove Movie</button>
+                                </form>
+                                </div>
                                 <% } else { %>
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                     <%if (film.getCatalog() == null || !film.getCatalog().equalsIgnoreCase("movies_coming_soon")){%>
@@ -219,7 +224,7 @@
                     </div>
                 </div>
 
-
+        <%if(!user.getAdmin()){%>
                 <div class="card mb-3" >
                     <div class="row g-0">
                         <div class="col-md-4" style="width: 75%;">
@@ -249,7 +254,7 @@
                     </div>
                 </div>
 
-
+            <%}%>
 
                 </div>
                 <main>
