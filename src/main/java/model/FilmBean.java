@@ -8,7 +8,6 @@ import java.util.List;
 public class FilmBean {
     private ObjectId _id;
     private String title;
-    private int year;
     private List<String> genres;
     private String duration;
     private Date releaseDate;
@@ -54,14 +53,6 @@ public class FilmBean {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
     }
 
     public List<String> getGenres() {
@@ -157,7 +148,6 @@ public class FilmBean {
         return "FilmBean{" +
                 "_id=" + _id +
                 ", title='" + title + '\'' +
-                ", year=" + year +
                 ", genres=" + genres +
                 ", duration='" + duration + '\'' +
                 ", releaseDate=" + releaseDate +

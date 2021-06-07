@@ -207,10 +207,6 @@
                                     <!-- Serve per stampare la data nel formato che ci interessa -->
                                     <%=LocalDateTime.ofInstant(film.getReleaseDate().toInstant(), ZoneId.of("Z")).format(DateTimeFormatter.ofPattern("d MMM uuuu"))%>
                                 </p>
-                                <p class="card-text">Year:
-                                    <!-- Serve per stampare la data nel formato che ci interessa -->
-                                    <%=film.getYear()%>
-                                </p>
                                 <%}%>
                                 <p class="card-text">User Rating: <%=film.getAverageRating()%>
                                 </p>

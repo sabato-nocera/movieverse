@@ -52,7 +52,6 @@ public class AddMovieServlet extends HttpServlet {
         String story = request.getParameter("story");
         String catalogo = request.getParameter("catalog");
         String date = request.getParameter("releaseDate");
-        String years = request.getParameter("year");
         String imbdRating = request.getParameter("imdbRating");
 
         String genres = request.getParameter("gen");
@@ -86,9 +85,6 @@ public class AddMovieServlet extends HttpServlet {
         // TODO: Bisogna fare un controllo che se il film è appena inserito, il rating degli utenti è 0
         // TODO: per ora lascio così, ma se "modifico" il film potrebbe dare problemi
         film.setAverageRating(0.0);
-        if (years != null && !years.equals("")) {
-            film.setYear(Integer.parseInt(years));
-        }
 
         String[] g = genres.split(",");
         List<String> generi = new ArrayList<>();
