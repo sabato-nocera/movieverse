@@ -163,7 +163,7 @@
                                 <% } else { %>
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                     <%if (film.getCatalog() == null || !film.getCatalog().equalsIgnoreCase("movies_coming_soon")){%>
-                                    <% if(!user.getViewedMovies().contains(film.getId())){%>
+                                    <% if(!user.getViewedMovies().contains(film.getId())){;%>
                                     <form action="AddWatched" method="POST">
                                     <button type="submit" class="btn btn-warning" name="TitoloFilm" value="<%=film.getTitle()%>" style="margin-right: 5px;">Add to Watched List</button>
                                     </form>

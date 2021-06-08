@@ -112,6 +112,7 @@ public class AddToWatchServelt extends HttpServlet {
                 logger.log(Level.WARNING, "OBJ UPDATER : " + updateObject.toString());
 
                 MongoDBConnection.getDatabase().getCollection("users").updateOne(filter, updateObject);
+                user.addMovieToSee(id);
                 }
             }
 

@@ -45,7 +45,6 @@ public class FilmServlet extends HttpServlet {
             Document document = cursor.next();
             Date date = (Date) document.get("releaseDate");
             document.remove("releaseDate");
-            document.remove("_id");
             filmBean = gson.fromJson(document.toJson(), FilmBean.class);
             filmBean.setReleaseDate(date);
             filmBean.setId(document.getObjectId("_id"));

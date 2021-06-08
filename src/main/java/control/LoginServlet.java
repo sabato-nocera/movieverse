@@ -6,6 +6,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import model.UtenteBean;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import utils.MongoDBConnection;
 import utils.Utils;
 
@@ -80,6 +81,8 @@ public class LoginServlet extends HttpServlet {
                 UtenteBean utenteBean = gson.fromJson(document.toJson(), UtenteBean.class);
                 utenteBean.setId(document.getObjectId("_id"));
                 utenteBean.setDateOfBirth(dateRetrieved);
+                utenteBean.setViewedMovies(document.getList("viewedMovies", ObjectId.class));
+                utenteBean.setMoviesToSee(document.getList("moviesToSee", ObjectId.class));
                 logger.log(Level.WARNING, "Risultato della query: " + utenteBean.toString());
 
                 // Inserisco l'utente loggato in sessione
