@@ -174,7 +174,7 @@
                                     <button type="submit" class="btn btn-warning" name="TitoloFilm" value="<%=film.getTitle()%>" style="margin-right: 5px;">Add to Watched List</button>
                                     </form>
                                     <%}else{%>
-                                    <form action=" " method="POST">
+                                    <form action="RemoveWatchedMovie" method="POST">
                                     <button type="submit" class="btn btn-outline-warning" name="TitoloFilm" value="<%=film.getTitle()%>" style="margin-right: 5px;">Remove form Watched List</button>
                                     </form>
                                     <%} }
@@ -183,7 +183,7 @@
                                     <button type="submit" class="btn btn-warning" name="TitoloFilm" value="<%=film.getTitle()%>">Add to Watch List</button>
                                     </form>
                                     <%}else{%>
-                                    <form action="..." method="POST">
+                                    <form action="RemoveToWatchMovie" method="POST">
                                     <button type="submit" class="btn btn-outline-warning" name="TitoloFilm" value="<%=film.getTitle()%>">Remove form Watch List</button>
                                     </form>
                                     <%}%>
