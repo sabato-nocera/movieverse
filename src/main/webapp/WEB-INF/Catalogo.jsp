@@ -109,14 +109,22 @@
 
                     <% if (!user.getAdmin()) {%>
                     <div class="sb-sidenav-menu-heading">List</div>
-                    <a class="nav-link" href="charts.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-eye"></i></div>
-                        Watched List
-                    </a>
-                    <a class="nav-link" href="tables.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-eye"></i></div>
-                        To Watch List
-                    </a>
+                    <form action="Catalogo" method="POST">
+                        <div class="nav-link">
+                            <div class="sb-nav-link-icon"><i
+                                    class="fas fa-eye"></i></div>
+                            <button type="submit" class="btn nav-link" name="elenco" value="5">Watched List
+                            </button>
+                        </div>
+                    </form>
+                    <form action="Catalogo" method="POST">
+                        <div class="nav-link">
+                            <div class="sb-nav-link-icon"><i
+                                    class="fas fa-eye"></i></div>
+                            <button type="submit" class="btn nav-link" name="elenco" value="6">To Watch List
+                            </button>
+                        </div>
+                    </form>
                     <% } else {%>
                     <div class="sb-sidenav-menu-heading">Options</div>
                     <a class="nav-link" href="AggiornamentoCatalogo">
@@ -142,10 +150,18 @@
                         <div class="input-group-prepend btn-warning pt-2 pb-1">
                             <span class="input-group-text btn-warning">Order by :</span>
                         </div>
-                            <button type="button" class="btn btn-light"> <a class="text-decoration-none text-black-50" href="Catalogo?order=title&elenco=<%=elenco%>">Title</a></button>
-                            <button type="button" class="btn btn-light"> <a class="text-decoration-none text-black-50" href="Catalogo?order=releaseDate&elenco=<%=elenco%>">Release Date</a></button>
-                            <button type="button" class="btn btn-light"> <a class="text-decoration-none text-black-50" href="Catalogo?order=averageRating&elenco=<%=elenco%>">User Rating</a></button>
-                            <button type="button" class="btn btn-light"> <a class="text-decoration-none text-black-50" href="Catalogo?order=imdbRating&elenco=<%=elenco%>">Movieverse Rating</a></button>
+                        <button type="button" class="btn btn-light"><a class="text-decoration-none text-black-50"
+                                                                       href="Catalogo?order=title&elenco=<%=elenco%>">Title</a>
+                        </button>
+                        <button type="button" class="btn btn-light"><a class="text-decoration-none text-black-50"
+                                                                       href="Catalogo?order=releaseDate&elenco=<%=elenco%>">Release
+                            Date</a></button>
+                        <button type="button" class="btn btn-light"><a class="text-decoration-none text-black-50"
+                                                                       href="Catalogo?order=averageRating&elenco=<%=elenco%>">User
+                            Rating</a></button>
+                        <button type="button" class="btn btn-light"><a class="text-decoration-none text-black-50"
+                                                                       href="Catalogo?order=imdbRating&elenco=<%=elenco%>">Movieverse
+                            Rating</a></button>
                     </div>
 
                     <form class="d-none d-md-inline-block form-inline me-0 me-md-3 my-2" style="padding-top: 10px;"

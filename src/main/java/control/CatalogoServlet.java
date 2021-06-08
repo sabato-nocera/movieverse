@@ -5,8 +5,10 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 import model.FilmBean;
+import model.UtenteBean;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 import utils.MongoDBConnection;
 
 import javax.servlet.ServletException;
@@ -32,7 +34,8 @@ public class CatalogoServlet extends HttpServlet {
     private final Logger logger = Logger.getLogger(CatalogoServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("utente") == null) {
+        UtenteBean utenteLoggato = (UtenteBean) request.getSession().getAttribute("utente");
+        if (utenteLoggato == null) {
             logger.log(Level.WARNING, "Utente non loggato");
             String url = response.encodeURL("Login");
             request.getRequestDispatcher(url).forward(request, response);
@@ -61,19 +64,27 @@ public class CatalogoServlet extends HttpServlet {
         switch (elenco) {
             case 1:
                 filter = new Document("catalog", "movies_in_theaters");
-                request.setAttribute("elenco", ""+1);
+                request.setAttribute("elenco", "" + 1);
                 break;
             case 2:
                 filter = new Document("catalog", "movies_coming_soon");
-                request.setAttribute("elenco", ""+2);
+                request.setAttribute("elenco", "" + 2);
                 break;
             case 3:
                 filter = new Document("catalog", "top_rated_movies");
-                request.setAttribute("elenco", ""+3);
+                request.setAttribute("elenco", "" + 3);
                 break;
             case 4:
                 filter = new Document();
-                request.setAttribute("elenco", ""+4);
+                request.setAttribute("elenco", "" + 4);
+                break;
+            case 5:
+                filter = new Document();
+                request.setAttribute("elenco", "" + 5);
+                break;
+            case 6:
+                filter = new Document();
+                request.setAttribute("elenco", "" + 6);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + elenco);
@@ -86,28 +97,28 @@ public class CatalogoServlet extends HttpServlet {
 
         BasicDBObject sorter = new BasicDBObject();
 
-        if(genreSearched!=null && !genreSearched.equals("")){
+        if (genreSearched != null && !genreSearched.equals("")) {
             // Filtra in base al genere
             Bson resultFilter = Filters.in("genres", genreSearched);
             // Faccio un AND dei criteri che servono per effettuare la ricerca
             filter = Filters.and(filter, resultFilter);
-        }else if(actorSearched!=null && !actorSearched.equals("")) {
+        } else if (actorSearched != null && !actorSearched.equals("")) {
             // Filtra in base all'attore
             Bson resultFilter = Filters.in("actors", actorSearched);
             // Faccio un AND dei criteri che servono per effettuare la ricerca
             filter = Filters.and(filter, resultFilter);
-        } else if(order!=null){
+        } else if (order != null) {
             // Effettua l'ordinamento in base all'order passato
-            if(order.equals("title")){
+            if (order.equals("title")) {
                 // Ordinamento crescente (lessicografico)
                 sorter = new BasicDBObject(order, 1);
                 // Ordinamento decrescente
-            } else if(order.equals("releaseDate")||order.equals("averageRating")||order.equals("imdbRating")){
+            } else if (order.equals("releaseDate") || order.equals("averageRating") || order.equals("imdbRating")) {
                 sorter = new BasicDBObject(order, -1);
             }
         }
 
-        if (elenco != 4) {
+        if (elenco == 1 || elenco == 2 || elenco == 3) {
             //trasformo la collezione in un oggetto iterabile
             FindIterable<Document> collection = MongoDBConnection.getDatabase().getCollection("movies").find(filter).sort(sorter);
 
@@ -138,7 +149,7 @@ public class CatalogoServlet extends HttpServlet {
 
                 movie.add(film);
             }
-        } else {
+        } else if (elenco == 4) {
             // Per effettuare la ricerca filtrata, mi baso su una regex che sarà vuota nel caso in cui
             // arrivo qui senza aver deciso di effettuare una ricerca filtrata per nome,
             // altrimenti la regex avrà del contenuto che andrà a filtrare i risultati
@@ -162,7 +173,77 @@ public class CatalogoServlet extends HttpServlet {
                 film.setReleaseDate(date);
                 film.setId(document.getObjectId("_id"));
                 movie.add(film);
-                logger.log(Level.WARNING, "Il film "+film.getTitle()+" si trova nel catalogo :"+film.getCatalog());
+                logger.log(Level.WARNING, "Il film " + film.getTitle() + " si trova nel catalogo :" + film.getCatalog());
+            }
+        } else if (elenco == 5) {
+            FindIterable<Document> collection = MongoDBConnection.getDatabase().getCollection("users").find(new Document("username", utenteLoggato.getUsername()));
+            Iterator iterator = collection.iterator();
+
+            if(iterator.hasNext()){
+                Document document = (Document) iterator.next();
+                Gson gson = new Gson();
+                Date dateRetrieved = document.getDate("dateOfBirth");
+                document.remove("dateOfBirth");
+                UtenteBean utenteBean = gson.fromJson(document.toJson(), UtenteBean.class);
+                utenteBean.setId(document.getObjectId("_id"));
+                utenteBean.setDateOfBirth(dateRetrieved);
+
+                List<ObjectId> watchedMoviesIds = document.getList("viewedMovies", ObjectId.class);
+                logger.log(Level.WARNING, "Watched movies Ids: "+watchedMoviesIds.toString());
+
+                BasicDBObject basicDBObject = new BasicDBObject();
+                // Questa query mi serve a recupera da "movies" tutti e soli i film i cui id sono quelli dei film guardati
+                basicDBObject.put("_id", new BasicDBObject("$in", watchedMoviesIds));
+
+                filter = Filters.and(filter, basicDBObject);
+
+                collection = MongoDBConnection.getDatabase().getCollection("movies").find(filter).sort(sorter);
+                iterator = collection.iterator();
+                while(iterator.hasNext()){
+                    document = (org.bson.Document) iterator.next();
+                    Date date = (Date) document.get("releaseDate");
+                    document.remove("releaseDate");
+                    FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+                    film.setReleaseDate(date);
+                    film.setId(document.getObjectId("_id"));
+                    logger.log(Level.WARNING, "Film: "+film.getTitle());
+                    movie.add(film);
+                }
+            }
+        } else if (elenco == 6) {
+            FindIterable<Document> collection = MongoDBConnection.getDatabase().getCollection("users").find(new Document("username", utenteLoggato.getUsername()));
+            Iterator iterator = collection.iterator();
+
+            if(iterator.hasNext()){
+                Document document = (Document) iterator.next();
+                Gson gson = new Gson();
+                Date dateRetrieved = document.getDate("dateOfBirth");
+                document.remove("dateOfBirth");
+                UtenteBean utenteBean = gson.fromJson(document.toJson(), UtenteBean.class);
+                utenteBean.setId(document.getObjectId("_id"));
+                utenteBean.setDateOfBirth(dateRetrieved);
+
+                List<ObjectId> moviesToSeeIds = document.getList("moviesToSee", ObjectId.class);
+                logger.log(Level.WARNING, "Watched movies Ids: "+moviesToSeeIds.toString());
+
+                BasicDBObject basicDBObject = new BasicDBObject();
+                // Questa query mi serve a recupera da "movies" tutti e soli i film i cui id sono quelli dei film guardati
+                basicDBObject.put("_id", new BasicDBObject("$in", moviesToSeeIds));
+
+                filter = Filters.and(filter, basicDBObject);
+
+                collection = MongoDBConnection.getDatabase().getCollection("movies").find(filter).sort(sorter);
+                iterator = collection.iterator();
+                while(iterator.hasNext()){
+                    document = (org.bson.Document) iterator.next();
+                    Date date = (Date) document.get("releaseDate");
+                    document.remove("releaseDate");
+                    FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+                    film.setReleaseDate(date);
+                    film.setId(document.getObjectId("_id"));
+                    logger.log(Level.WARNING, "Film: "+film.getTitle());
+                    movie.add(film);
+                }
             }
         }
 
