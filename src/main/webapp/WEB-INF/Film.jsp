@@ -111,14 +111,20 @@
 
                     <% if (!user.getAdmin()) {%>
                     <div class="sb-sidenav-menu-heading">List</div>
-                    <a class="nav-link" href="charts.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-eye"></i></div>
-                        Watched List
-                    </a>
-                    <a class="nav-link" href="tables.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-eye"></i></div>
-                        To Watch List
-                    </a>
+                    <form action="Catalogo" method="POST">
+                        <div class="nav-link">
+                            <div class="sb-nav-link-icon"><i
+                                    class="fas fa-eye"></i></div>
+                            <button type="submit" class="btn nav-link" name="elenco" value="5">Watched List
+                            </button>
+                        </div>
+                        <div class="nav-link">
+                            <div class="sb-nav-link-icon"><i
+                                    class="fas fa-eye"></i></div>
+                            <button type="submit" class="btn nav-link" name="elenco" value="6">To Watch List
+                            </button>
+                        </div>
+                    </form>
                     <% } else {%>
                     <div class="sb-sidenav-menu-heading">Options</div>
                     <a class="nav-link" href="AggiornamentoCatalogo">
@@ -156,7 +162,7 @@
                                 <form action="AggiornamentoCatalogo" method="POST">
                                     <button type="submit" class="btn btn-warning" name="TitoloFilm" value="<%=film.getTitle()%>" style="margin-right: 5px;">Change Movie</button>
                                 </form>
-                                <form action="..." method="POST">
+                                <form action="RemoveMovie" method="POST">
                                     <button type="submit" class="btn btn-outline-danger" name="TitoloFilm" value="<%=film.getTitle()%>">Remove Movie</button>
                                 </form>
                                 </div>
@@ -177,7 +183,7 @@
                                     <button type="submit" class="btn btn-warning" name="TitoloFilm" value="<%=film.getTitle()%>">Add to Watch List</button>
                                     </form>
                                     <%}else{%>
-                                    <form action="" method="POST">
+                                    <form action="..." method="POST">
                                     <button type="submit" class="btn btn-outline-warning" name="TitoloFilm" value="<%=film.getTitle()%>">Remove form Watch List</button>
                                     </form>
                                     <%}%>

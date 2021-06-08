@@ -116,8 +116,6 @@
                             <button type="submit" class="btn nav-link" name="elenco" value="5">Watched List
                             </button>
                         </div>
-                    </form>
-                    <form action="Catalogo" method="POST">
                         <div class="nav-link">
                             <div class="sb-nav-link-icon"><i
                                     class="fas fa-eye"></i></div>

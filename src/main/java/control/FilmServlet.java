@@ -50,7 +50,12 @@ public class FilmServlet extends HttpServlet {
             filmBean.setId(document.getObjectId("_id"));
 
         }
-
+        if(request.getSession().getAttribute("Film")!= null){
+            logger.log(Level.WARNING, "in sessione si trova : "+filmBean.toString());
+            request.getSession().removeAttribute("Film");
+        }
+        request.getSession().setAttribute("Film", filmBean);
+        logger.log(Level.WARNING, "ho aggiunto in sessione : "+filmBean.toString());
         request.setAttribute("Film", filmBean);
         String url = response.encodeURL("WEB-INF/Film.jsp");
         request.getRequestDispatcher(url).forward(request, response);

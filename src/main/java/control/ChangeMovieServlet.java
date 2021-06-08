@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,8 +39,11 @@ public class ChangeMovieServlet extends HttpServlet {
             request.getRequestDispatcher(url).forward(request, response);
             return;
         }
+
+            HttpSession session = request.getSession();
+
         //Prendo tutti i parametri dalla JSP
-        String idfilm = request.getParameter("id");
+        FilmBean sessionfilm = (FilmBean) session.getAttribute("Film");
         String titolo = request.getParameter("title");
         String poster = request.getParameter("poster");
         String duration = request.getParameter("duration");
@@ -61,6 +65,7 @@ public class ChangeMovieServlet extends HttpServlet {
             attori.add(a[i].trim());
         }
 
+        logger.log(Level.WARNING, "L'ID preso dalla sessione è : "+sessionfilm.toString());
 
         if(titolo==null || titolo.equals("")){
             String url = response.encodeURL("Catalogo");
@@ -76,7 +81,7 @@ public class ChangeMovieServlet extends HttpServlet {
 
         //Prendo il film da DB
         MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies");
-        org.bson.Document filter = new Document("title", titolo);
+        org.bson.Document filter = new Document("_id", sessionfilm.getId());
         FindIterable<Document> findIterable = mongoDatabase.find(filter);
         MongoCursor<Document> cursor = findIterable.iterator();
         if (cursor.hasNext()) {
