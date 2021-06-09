@@ -2,6 +2,7 @@ package model;
 
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class FilmBean {
     private List<String> actors;
     private Double imdbRating;
     private String posterurl;
-    private List<RecensioneBean> reviews;
+    private ArrayList<RecensioneBean> reviews;
     private String catalog;
 
     public FilmBean() {
@@ -127,11 +128,11 @@ public class FilmBean {
         this.posterurl = posterurl;
     }
 
-    public List<RecensioneBean> getReviews() {
+    public ArrayList<RecensioneBean> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<RecensioneBean> reviews) {
+    public void setReviews(ArrayList<RecensioneBean> reviews) {
         this.reviews = reviews;
     }
 

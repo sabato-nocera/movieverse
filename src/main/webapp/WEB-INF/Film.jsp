@@ -238,17 +238,43 @@
                           <p>Elenco Commenti </p>
                         </div>
                         <%if(!user.getAdmin()){%>
+                        <% boolean con=false;
+                        ArrayList<RecensioneBean> recensioni = (ArrayList<RecensioneBean>) film.getReviews();
+                        if(recensioni != null){
+                        for(int i=0; i<recensioni.size(); i++){ %>
                         <div class="col-md-8" style="width: 25%">
                             <div class="card-body">
                                 <h6 style="color:#ffc107;">Write Review</h6>
                                 <form action="..." method="post">
+                                    <div class="input-group">
+                                        <button class="input-group-text btn-outline-warning" name="username" value="<%=user.getUsername()%>" disabled><%=user.getUsername()%></button>
+                                        <input type="number" min="1" max="10" class="form-control" placeholder="Vote" id="vt" name="vote" value="<%=recensioni.get(i).getRating()%>">
+                                        <label for="vt" style="color: #212529">Vote</label>
+                                    </div>
+                                    <div class="mb-3" style="margin-top: 10px; margin-bottom: -10px;">
+                                        <textarea class="form-control" id="rw" rows="3" placeholder="Write review ... " value="<%=recensioni.get(i).getComment()%>"></textarea>
+                                        <label for="rw" class="form-label" name="userReview"></label>
+                                    </div>
+                                    <div class="text-center" style="margin-bottom: 5px;">
+                                        <button type="submit" class="btn btn-warning" name="addreview" value="<%=film.getTitle()%>">Add Rerview</button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                        <%}}else{%>
+                        <div class="col-md-8" style="width: 25%">
+                            <div class="card-body">
+                                <h6 style="color:#ffc107;">Write Review</h6>
+                                <form action="AddRecensione" method="post">
                                 <div class="input-group">
                                     <button class="input-group-text btn-outline-warning" id="basic-addon1" name="username" value="<%=user.getUsername()%>" disabled><%=user.getUsername()%></button>
                                         <input type="number" min="1" max="10" class="form-control" placeholder="Vote" id="vote" name="vote">
                                         <label for="vote" style="color: #212529">Vote</label>
                                 </div>
                                 <div class="mb-3" style="margin-top: 10px; margin-bottom: -10px;">
-                                    <textarea class="form-control" id="userReview" rows="3" placeholder="Write review ... "></textarea>
+                                    <textarea class="form-control" id="userReview" rows="3" placeholder="Write review ... " value="userReview"></textarea>
                                     <label for="userReview" class="form-label" name="userReview"></label>
                                 </div>
                                     <div class="text-center" style="margin-bottom: 5px;">
@@ -258,7 +284,7 @@
                                 </form>
                             </div>
                         </div>
-                        <%}%>
+                        <%}}%>
                     </div>
                 </div>
 
