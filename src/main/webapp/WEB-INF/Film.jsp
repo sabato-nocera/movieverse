@@ -13,9 +13,7 @@
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.ZoneId" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="java.util.logging.Logger" %>
-<%@ page import="control.AddToWatchServelt" %>
-<%@ page import="java.util.logging.Level" %>
+<%@ page import="org.bson.Document" %>
 <% UtenteBean user = (UtenteBean) session.getAttribute("utente"); %>
 <% FilmBean film = (FilmBean) request.getAttribute("Film");%>
 <!DOCTYPE html>
@@ -51,7 +49,7 @@
         <div class="input-group">
             <input class="form-control" type="text" placeholder="Search by movie title " aria-label="Search for..."
                    aria-describedby="btnNavbarSearch" name="titleSearched"/>
-            <input type = "hidden" name="elenco" value="4"/>
+            <input type="hidden" name="elenco" value="4"/>
             <button class="btn btn-outline-warning" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i>
             </button>
         </div>
@@ -143,48 +141,68 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4" style="color: #ffc107"><%=film.getTitle()%></h1>
+                <h1 class="mt-4" style="color: #ffc107"><%=film.getTitle()%>
+                </h1>
 
 
-                <div class="card mb-3" >
+                <div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-4" style="max-width: 360px;">
                             <% if (film.getPosterurl() == null || film.getPosterurl().equalsIgnoreCase("null") || film.getPosterurl().equals("")) {%>
                             <img src="css/Image/locandina.png" style="width:340px; height:490px; margin: 10px;">
                             <%} else {%>
                             <img src="<%=film.getPosterurl()%>"
-                                 style="width:340px; height:490px; margin: 10px;" onError="this.src = 'css/Image/locandina.png'" >
+                                 style="width:340px; height:490px; margin: 10px;"
+                                 onError="this.src = 'css/Image/locandina.png'">
                             <%}%>
 
                             <div class="text-center" style="margin-bottom: 10px;">
-                                <%if(user.getAdmin()){ %>
+                                <%if (user.getAdmin()) { %>
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                <form action="AggiornamentoCatalogo" method="POST">
-                                    <button type="submit" class="btn btn-warning" name="TitoloFilm" value="<%=film.getTitle()%>" style="margin-right: 5px;">Change Movie</button>
-                                </form>
-                                <form action="RemoveMovie" method="POST">
-                                    <button type="submit" class="btn btn-outline-danger" name="TitoloFilm" value="<%=film.getTitle()%>">Remove Movie</button>
-                                </form>
+                                    <form action="AggiornamentoCatalogo" method="POST">
+                                        <button type="submit" class="btn btn-warning" name="TitoloFilm"
+                                                value="<%=film.getTitle()%>" style="margin-right: 5px;">Change Movie
+                                        </button>
+                                    </form>
+                                    <form action="RemoveMovie" method="POST">
+                                        <button type="submit" class="btn btn-outline-danger" name="TitoloFilm"
+                                                value="<%=film.getTitle()%>">Remove Movie
+                                        </button>
+                                    </form>
                                 </div>
                                 <% } else { %>
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                    <%if (film.getCatalog() == null || !film.getCatalog().equalsIgnoreCase("movies_coming_soon")){%>
-                                    <% if(!user.getViewedMovies().contains(film.getId())){;%>
+                                    <%if (film.getCatalog() == null || !film.getCatalog().equalsIgnoreCase("movies_coming_soon")) {%>
+                                    <% if (!user.getViewedMovies().contains(film.getId())) {
+                                        ;%>
                                     <form action="AddWatched" method="POST">
-                                    <button type="submit" class="btn btn-warning" name="TitoloFilm" value="<%=film.getTitle()%>" style="margin-right: 5px;">Add to Watched List</button>
+                                        <button type="submit" class="btn btn-warning" name="TitoloFilm"
+                                                value="<%=film.getTitle()%>" style="margin-right: 5px;">Add to Watched
+                                            List
+                                        </button>
                                     </form>
-                                    <%}else{%>
+                                    <%} else {%>
                                     <form action="RemoveWatchedMovie" method="POST">
-                                    <button type="submit" class="btn btn-outline-warning" name="TitoloFilm" value="<%=film.getTitle()%>" style="margin-right: 5px;">Remove form Watched List</button>
+                                        <button type="submit" class="btn btn-outline-warning" name="TitoloFilm"
+                                                value="<%=film.getTitle()%>" style="margin-right: 5px;">Remove form
+                                            Watched List
+                                        </button>
                                     </form>
-                                    <%} }
-                                    if(!user.getMoviesToSee().contains(film.getId())){%>
+                                    <%
+                                            }
+                                        }
+                                        if (!user.getMoviesToSee().contains(film.getId())) {
+                                    %>
                                     <form action="AddToWatch" method="POST">
-                                    <button type="submit" class="btn btn-warning" name="TitoloFilm" value="<%=film.getTitle()%>">Add to Watch List</button>
+                                        <button type="submit" class="btn btn-warning" name="TitoloFilm"
+                                                value="<%=film.getTitle()%>">Add to Watch List
+                                        </button>
                                     </form>
-                                    <%}else{%>
+                                    <%} else {%>
                                     <form action="RemoveToWatchMovie" method="POST">
-                                    <button type="submit" class="btn btn-outline-warning" name="TitoloFilm" value="<%=film.getTitle()%>">Remove form Watch List</button>
+                                        <button type="submit" class="btn btn-outline-warning" name="TitoloFilm"
+                                                value="<%=film.getTitle()%>">Remove form Watch List
+                                        </button>
                                     </form>
                                     <%}%>
                                 </div>
@@ -231,91 +249,141 @@
                 </div>
 
 
-                <div class="card mb-3" >
+                <div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-4" style="width: 75%;">
                             <h5 style="color: #ffc107">Reviews</h5>
-                          <p>Elenco Commenti </p>
+                            <p>Elenco Commenti </p>
                         </div>
-                        <%if(!user.getAdmin()){%>
-                        <% boolean con=false;
-                        ArrayList<RecensioneBean> recensioni = (ArrayList<RecensioneBean>) film.getReviews();
-                        if(recensioni != null){
-                        for(int i=0; i<recensioni.size(); i++){ %>
+
+<!--
+<%if (!user.getAdmin()) {%>
+                        <% boolean con = false;
+                            List<Document> recensioni = film.getReviews();
+                            if (recensioni != null) {
+                                for (int i = 0; i < recensioni.size(); i++) { %>
                         <div class="col-md-8" style="width: 25%">
                             <div class="card-body">
                                 <h6 style="color:#ffc107;">Write Review</h6>
                                 <form action="..." method="post">
                                     <div class="input-group">
-                                        <button class="input-group-text btn-outline-warning" name="username" value="<%=user.getUsername()%>" disabled><%=user.getUsername()%></button>
-                                        <input type="number" min="1" max="10" class="form-control" placeholder="Vote" id="vt" name="vote" value="<%=recensioni.get(i).getRating()%>">
+                                        <button class="input-group-text btn-outline-warning" name="username"
+                                                value="<%=user.getUsername()%>" disabled><%=user.getUsername()%>
+                                        </button>
+                                        <input type="number" min="1" max="10" class="form-control" placeholder="Vote"
+                                               id="vt" name="vote" value="<%=recensioni.get(i).get("vote")%>">
                                         <label for="vt" style="color: #212529">Vote</label>
                                     </div>
                                     <div class="mb-3" style="margin-top: 10px; margin-bottom: -10px;">
-                                        <textarea class="form-control" id="rw" rows="3" placeholder="Write review ... " value="<%=recensioni.get(i).getComment()%>"></textarea>
+                                        <textarea class="form-control" id="rw" rows="3" placeholder="Write review ... "
+                                                  value="<%=recensioni.get(i).get("comment")%>"></textarea>
                                         <label for="rw" class="form-label" name="userReview"></label>
                                     </div>
                                     <div class="text-center" style="margin-bottom: 5px;">
-                                        <button type="submit" class="btn btn-warning" name="addreview" value="<%=film.getTitle()%>">Add Rerview</button>
+                                        <button type="submit" class="btn btn-warning" name="addreview"
+                                                value="<%=film.getTitle()%>">Add Review
+                                        </button>
                                     </div>
 
                                 </form>
                             </div>
                         </div>
 
-                        <%}}else{%>
+                        <%
+                            }
+                        } else {
+                        %>
                         <div class="col-md-8" style="width: 25%">
                             <div class="card-body">
                                 <h6 style="color:#ffc107;">Write Review</h6>
                                 <form action="AddRecensione" method="post">
-                                <div class="input-group">
-                                    <button class="input-group-text btn-outline-warning" id="basic-addon1" name="username" value="<%=user.getUsername()%>" disabled><%=user.getUsername()%></button>
-                                        <input type="number" min="1" max="10" class="form-control" placeholder="Vote" id="vote" name="vote">
+                                    <div class="input-group">
+                                        <button class="input-group-text btn-outline-warning" id="basic-addon1"
+                                                name="username" value="<%=user.getUsername()%>"
+                                                disabled><%=user.getUsername()%>
+                                        </button>
+                                        <input type="number" min="1" max="10" class="form-control" placeholder="Vote"
+                                               id="vote" name="vote">
                                         <label for="vote" style="color: #212529">Vote</label>
-                                </div>
-                                <div class="mb-3" style="margin-top: 10px; margin-bottom: -10px;">
-                                    <textarea class="form-control" id="userReview" rows="3" placeholder="Write review ... " value="userReview"></textarea>
-                                    <label for="userReview" class="form-label" name="userReview"></label>
-                                </div>
+                                    </div>
+                                    <div class="mb-3" style="margin-top: 10px; margin-bottom: -10px;">
+                                        <textarea class="form-control" id="userReview" rows="3"
+                                                  placeholder="Write review ... " value="userReview"></textarea>
+                                        <label for="userReview" class="form-label" name="userReview"></label>
+                                    </div>
                                     <div class="text-center" style="margin-bottom: 5px;">
-                                        <button type="submit" class="btn btn-warning" name="addreview" value="<%=film.getTitle()%>">Add Rerview</button>
+                                        <button type="submit" class="btn btn-warning" name="addreview"
+                                                value="<%=film.getTitle()%>">Add Rerview
+                                        </button>
                                     </div>
 
                                 </form>
                             </div>
                         </div>
-                        <%}}%>
+                        <%
+                                }
+                            }
+                        %>
+-->
+
+                        <div class="col-md-8" style="width: 25%">
+                            <div class="card-body">
+                                <h6 style="color:#ffc107;">Write Review</h6>
+                                <form action="AddRecensione" method="post">
+                                    <div class="input-group">
+                                        <button class="input-group-text btn-outline-warning" id="basic-addon1"
+                                                name="username" value="<%=user.getUsername()%>"
+                                                disabled><%=user.getUsername()%>
+                                        </button>
+                                        <input type="number" min="1" max="10" class="form-control" placeholder="Vote"
+                                               id="vote" name="vote">
+                                        <label for="vote" style="color: #212529">Vote</label>
+                                    </div>
+                                    <div class="mb-3" style="margin-top: 10px; margin-bottom: -10px;">
+                                        <textarea class="form-control" id="userReview" rows="3"
+                                                  placeholder="Write review ... " value="userReview" name="userReview"></textarea>
+                                        <label for="userReview" class="form-label" ></label>
+                                    </div>
+                                    <div class="text-center" style="margin-bottom: 5px;">
+                                        <button type="submit" class="btn btn-warning" name="addreview"
+                                                value="<%=film.getTitle()%>">Add Review
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
 
-
-                </div>
-                <main>
-                    <footer class="py-4  mt-auto" style="background-color: #212529">
-                        <div class="container-fluid px-4">
-                            <div class="d-flex align-items-center justify-content-between small">
-                                <div class="text-muted">Copyright &copy; Movieverse 2021</div>
-                                <div>
-                                    <a href="#">Privacy Policy</a>
-                                    &middot;
-                                    <a href="#">Terms &amp; Conditions</a>
-                                </div>
+            </div>
+            <main>
+                <footer class="py-4  mt-auto" style="background-color: #212529">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Movieverse 2021</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
                             </div>
                         </div>
-                    </footer>
-                </main>
-            </div>
-        </main>
+                    </div>
+                </footer>
+            </main>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-            crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
+    </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="assets/demo/chart-area-demo.js"></script>
+<script src="assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="js/datatables-simple-demo.js"></script>
 </body>
 </html>
 

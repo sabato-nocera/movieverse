@@ -48,6 +48,7 @@ public class FilmServlet extends HttpServlet {
             filmBean = gson.fromJson(document.toJson(), FilmBean.class);
             filmBean.setReleaseDate(date);
             filmBean.setId(document.getObjectId("_id"));
+            filmBean.setReviews(document.getList("reviews", Document.class));
 
         }
         if(request.getSession().getAttribute("Film")!= null){

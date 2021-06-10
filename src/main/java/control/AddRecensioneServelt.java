@@ -6,7 +6,6 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import model.FilmBean;
-import model.RecensioneBean;
 import model.UtenteBean;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -23,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Map;
 
 /**
  * Permette di aggiungere un film nella lista dei film da quadrare di un utente
@@ -43,17 +43,16 @@ public class AddRecensioneServelt extends HttpServlet {
         String vt = request.getParameter("vote");
         String review = request.getParameter("userReview");
         FilmBean film = (FilmBean) request.getSession().getAttribute("Film");
-        UtenteBean user= (UtenteBean) request.getSession().getAttribute("utente");
+        UtenteBean user = (UtenteBean) request.getSession().getAttribute("utente");
         double vote = (Double.parseDouble(vt));
 
-        //creo una recensione bean
-        RecensioneBean recensione = new RecensioneBean();
-        recensione.setComment(review);
-        recensione.setRating(vote);
-        recensione.setUserid(user.getId());
+        //creo una recensione come una mappa
+        Document nuovaRecensione = new Document();
+        nuovaRecensione.put("comment", review);
+        nuovaRecensione.put("vote", vote);
+        nuovaRecensione.put("userId", user.getId());
 
-
-        logger.log(Level.WARNING, "L'utente loggato è "+user.getUsername());
+        logger.log(Level.WARNING, "L'utente loggato è " + user.getUsername());
 
         MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies");
         Document filter = new Document("_id", film.getId());
@@ -69,32 +68,46 @@ public class AddRecensioneServelt extends HttpServlet {
             FilmBean filmBean = gson.fromJson(filmDocument.toJson(), FilmBean.class);
             filmBean.setReleaseDate(date);
             filmBean.setId(filmDocument.getObjectId("_id"));
+            filmBean.setReviews(filmDocument.getList("reviews", Document.class));
             logger.log(Level.WARNING, "Le recensioni del Film Sono : " + filmBean.getReviews());
-            logger.log(Level.WARNING, "Voglio aggiungere : " + recensione);
+            logger.log(Level.WARNING, "Voglio aggiungere : " + nuovaRecensione);
 
-            //TODO non inserisce la recensione da me creata nella lista di recensioni del FilmBean
-                //filmBean.getReviews().add(recensione);
-
-                BasicDBObject documentUpdater = new BasicDBObject();
-
-                //TODO ho provato a mettere una recensione singola e mi dava problemi dicendo che non trova nulla di cmpatibile su MongoDB
-                documentUpdater.put("Reviews", recensione);
-
-                BasicDBObject updateObject = new BasicDBObject();
-                updateObject.put("$set", documentUpdater);
-
-                logger.log(Level.WARNING, "DOC UPDATER : " + documentUpdater.toString());
-                logger.log(Level.WARNING, "OBJ UPDATER : " + updateObject.toString());
-
-                MongoDBConnection.getDatabase().getCollection("movies").updateOne(filter, updateObject);
-                user.addMovieToSee(id);
-
+            if(filmBean.getReviews()!=null){
+                for(Document m : filmBean.getReviews()) {
+                    logger.log(Level.WARNING, "UserId della recensione : " + m.get("userId"));
+                    logger.log(Level.WARNING, "Id utente loggato : " + user.getId());
+                    logger.log(Level.WARNING, "Id utente loggato == UserId della recensione ?  " + m.get("userId").equals(user.getId()));
+                    if(m.getObjectId("userId").equals(user.getId())){
+                        // Stai provando ad inserire una recensione per un film per cui hai già inserito una recensione
+                        String url = response.encodeURL("Film?TitoloFilm=" + film.getTitle());
+                        request.getRequestDispatcher(url).forward(request, response);
+                        return ;
+                    }
+                }
             }
 
-        String url = response.encodeURL("Film?TitoloFilm="+film.getTitle());
+            // Se non c'è l'array di recensione, bisogna istanziarlo
+            if(filmBean.getReviews()==null){
+                List<Document> list = new ArrayList<>();
+                list.add(nuovaRecensione);
+                filmBean.setReviews(list);
+            } else {
+                filmBean.addRecensione(nuovaRecensione);
+            }
+
+            BasicDBObject documentUpdater = new BasicDBObject();
+
+            documentUpdater.put("reviews", filmBean.getReviews());
+            BasicDBObject updateObject = new BasicDBObject();
+            updateObject.put("$set", documentUpdater);
+            logger.log(Level.WARNING, "DOC UPDATER : " + documentUpdater.toString());
+            logger.log(Level.WARNING, "OBJ UPDATER : " + updateObject.toString());
+
+            MongoDBConnection.getDatabase().getCollection("movies").updateOne(filter, updateObject);
+        }
+
+        String url = response.encodeURL("Film?TitoloFilm=" + film.getTitle());
         request.getRequestDispatcher(url).forward(request, response);
-        // TODO: Agigungere i controlli che un film che è stato aggiunto alla watchlist non vi venga aggiunto nuovamente né compaia il pulsante che può aggiungerlo
-        // TODO: Non puoi aggiungere alla watched list dei film che ancora devono uscire
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

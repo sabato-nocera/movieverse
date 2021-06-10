@@ -139,29 +139,29 @@ public class Prove {
 //            }
 //        }
 
-
-        // Ricerca per nome di un film
-        BasicDBObject regexQuery = new BasicDBObject();
-        regexQuery.put("title", new BasicDBObject("$regex", ".*ring.*").append("$options", "i"));
-
-        System.out.println(regexQuery.toString());
-
-        MongoCollection mongoCollection = MongoDBConnection.getDatabase().getCollection("movies");
-        FindIterable<Document> findIterable = mongoCollection.find(regexQuery);
-        MongoCursor<Document> cursor = findIterable.iterator();
-        while(cursor.hasNext()){
-            Document document = cursor.next();
-            Gson gson = new Gson();
-            Date date = (Date) document.get("releaseDate");
-            System.out.println("Date retrieved: " + date);
-            document.remove("releaseDate");
-            System.out.println(document.toJson());
-            FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
-            film.setReleaseDate(date);
-            ObjectId objectId = document.getObjectId("_id");
-            System.out.println(objectId);
-            System.out.println(document.get("_id"));
-        }
+//
+//        // Ricerca per nome di un film
+//        BasicDBObject regexQuery = new BasicDBObject();
+//        regexQuery.put("title", new BasicDBObject("$regex", ".*ring.*").append("$options", "i"));
+//
+//        System.out.println(regexQuery.toString());
+//
+//        MongoCollection mongoCollection = MongoDBConnection.getDatabase().getCollection("movies");
+//        FindIterable<Document> findIterable = mongoCollection.find(regexQuery);
+//        MongoCursor<Document> cursor = findIterable.iterator();
+//        while(cursor.hasNext()){
+//            Document document = cursor.next();
+//            Gson gson = new Gson();
+//            Date date = (Date) document.get("releaseDate");
+//            System.out.println("Date retrieved: " + date);
+//            document.remove("releaseDate");
+//            System.out.println(document.toJson());
+//            FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+//            film.setReleaseDate(date);
+//            ObjectId objectId = document.getObjectId("_id");
+//            System.out.println(objectId);
+//            System.out.println(document.get("_id"));
+//        }
 
 
 

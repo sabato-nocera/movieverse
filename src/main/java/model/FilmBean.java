@@ -1,10 +1,12 @@
 package model;
 
+import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class FilmBean {
     private ObjectId _id;
@@ -15,29 +17,29 @@ public class FilmBean {
     private Double averageRating;
     private String originalTitle;
     private String storyline;
-    private List<String> actors;
+    private List<String> actors = new ArrayList<>();
     private Double imdbRating;
     private String posterurl;
-    private ArrayList<RecensioneBean> reviews;
     private String catalog;
+    private List<Document> reviews = new ArrayList<>();
 
     public FilmBean() {
     }
 
-    public void addActor(String string){
+    public void addActor(String string) {
         actors.add(string);
     }
 
-    public void addRecensione(RecensioneBean string){
-        reviews.add(string);
+    public void addRecensione(Document map) {
+        reviews.add(map);
     }
 
-    public void removeActors(String string){
+    public void removeActors(String string) {
         actors.remove(string);
     }
 
-    public void removeRecensione(RecensioneBean string){
-        reviews.remove(string);
+    public void removeRecensione(Document map) {
+        reviews.remove(map);
     }
 
     public ObjectId getId() {
@@ -72,11 +74,11 @@ public class FilmBean {
         this.duration = duration;
     }
 
-    public Date  getReleaseDate() {
+    public Date getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date  releaseDate) {
+    public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -128,11 +130,11 @@ public class FilmBean {
         this.posterurl = posterurl;
     }
 
-    public ArrayList<RecensioneBean> getReviews() {
+    public List<Document> getReviews() {
         return reviews;
     }
 
-    public void setReviews(ArrayList<RecensioneBean> reviews) {
+    public void setReviews(List<Document> reviews) {
         this.reviews = reviews;
     }
 
