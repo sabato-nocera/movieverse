@@ -46,13 +46,16 @@ public class AddRecensioneServelt extends HttpServlet {
         UtenteBean user = (UtenteBean) request.getSession().getAttribute("utente");
         double vote = (Double.parseDouble(vt));
 
+        logger.log(Level.WARNING, "la recensione presa è :"+review);
+
         //creo una recensione come una mappa
         Document nuovaRecensione = new Document();
         nuovaRecensione.put("comment", review);
         nuovaRecensione.put("vote", vote);
-        nuovaRecensione.put("userId", user.getId());
+        nuovaRecensione.put("userUsername", user.getUsername());
 
-        logger.log(Level.WARNING, "L'utente loggato è " + user.getUsername());
+        logger.log(Level.WARNING, "la recensione nel document è :"+nuovaRecensione.getString("comment"));
+
 
         MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies");
         Document filter = new Document("_id", film.getId());
@@ -76,8 +79,7 @@ public class AddRecensioneServelt extends HttpServlet {
                 for(Document m : filmBean.getReviews()) {
                     logger.log(Level.WARNING, "UserId della recensione : " + m.get("userId"));
                     logger.log(Level.WARNING, "Id utente loggato : " + user.getId());
-                    logger.log(Level.WARNING, "Id utente loggato == UserId della recensione ?  " + m.get("userId").equals(user.getId()));
-                    if(m.getObjectId("userId").equals(user.getId())){
+                    if(m.getString("userUsername").equals(user.getUsername())){
                         // Stai provando ad inserire una recensione per un film per cui hai già inserito una recensione
                         String url = response.encodeURL("Film?TitoloFilm=" + film.getTitle());
                         request.getRequestDispatcher(url).forward(request, response);
@@ -95,9 +97,19 @@ public class AddRecensioneServelt extends HttpServlet {
                 filmBean.addRecensione(nuovaRecensione);
             }
 
+            double val=0;
+            for(Document m : filmBean.getReviews()){
+                double cost = m.getDouble("vote");
+                val=val+ cost;
+            }
+            val = val/filmBean.getReviews().size();
+
+            filmBean.setAverageRating(val);
+
             BasicDBObject documentUpdater = new BasicDBObject();
 
             documentUpdater.put("reviews", filmBean.getReviews());
+            documentUpdater.put("averageRating", val);
             BasicDBObject updateObject = new BasicDBObject();
             updateObject.put("$set", documentUpdater);
             logger.log(Level.WARNING, "DOC UPDATER : " + documentUpdater.toString());

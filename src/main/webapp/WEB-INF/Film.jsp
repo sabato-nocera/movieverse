@@ -173,8 +173,7 @@
                                 <% } else { %>
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                     <%if (film.getCatalog() == null || !film.getCatalog().equalsIgnoreCase("movies_coming_soon")) {%>
-                                    <% if (!user.getViewedMovies().contains(film.getId())) {
-                                        ;%>
+                                    <% if (!user.getViewedMovies().contains(film.getId())) {%>
                                     <form action="AddWatched" method="POST">
                                         <button type="submit" class="btn btn-warning" name="TitoloFilm"
                                                 value="<%=film.getTitle()%>" style="margin-right: 5px;">Add to Watched
@@ -248,20 +247,34 @@
                     </div>
                 </div>
 
-
+<%List<Document> recensioni = film.getReviews();%>
                 <div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-4" style="width: 75%;">
-                            <h5 style="color: #ffc107">Reviews</h5>
-                            <p>Elenco Commenti </p>
+                            <h3 style="color: #ffc107; margin: 10px;">Reviews</h3>
+                            <%if (recensioni != null) {%>
+                            <ul class=" list-group list-group-flush">
+                                <%for (int i = 0; i < recensioni.size(); i++) {%>
+                                    <li class="list-group-item" style="background: #212529; color: #adb5bd">
+                                        <h6 style="color: #ffc107"><%=recensioni.get(i).getString("userUsername")%>
+                                               Vote: <%=recensioni.get(i).getDouble("vote")%></h6>
+                                        <p-3> <%=recensioni.get(i).getString("comment")%> </p-3>
+
+                                    </li>
+                                <%}%>
+                            </ul>
+                            <%}else{%>
+                            <p style="margin: 15 px;">No Reviews Present</p>
+                            <%}%>
                         </div>
 
-<!--
+
 <%if (!user.getAdmin()) {%>
-                        <% boolean con = false;
-                            List<Document> recensioni = film.getReviews();
-                            if (recensioni != null) {
-                                for (int i = 0; i < recensioni.size(); i++) { %>
+                        <% if (recensioni != null) {
+                            boolean inserita = false;
+                                for (int i= 0; i < recensioni.size(); i++) {
+                                    if(recensioni.get(i).getString("userUsername").equals(user.getUsername())){ inserita=true;
+                                    %>
                         <div class="col-md-8" style="width: 25%">
                             <div class="card-body">
                                 <h6 style="color:#ffc107;">Write Review</h6>
@@ -271,17 +284,17 @@
                                                 value="<%=user.getUsername()%>" disabled><%=user.getUsername()%>
                                         </button>
                                         <input type="number" min="1" max="10" class="form-control" placeholder="Vote"
-                                               id="vt" name="vote" value="<%=recensioni.get(i).get("vote")%>">
+                                               id="vt" name="vote" value="<%=recensioni.get(i).getDouble("vote")%>">
                                         <label for="vt" style="color: #212529">Vote</label>
                                     </div>
                                     <div class="mb-3" style="margin-top: 10px; margin-bottom: -10px;">
-                                        <textarea class="form-control" id="rw" rows="3" placeholder="Write review ... "
-                                                  value="<%=recensioni.get(i).get("comment")%>"></textarea>
-                                        <label for="rw" class="form-label" name="userReview"></label>
+                                        <input class="form-control overflow-auto" name="rw" id="rw" rows="3"
+                                               type="text" placeholder="Write review ... " value="<%=recensioni.get(i).getString("comment")%>"/>
+                                        <label for="rw" class="form-label" style="color: #212529">Review</label>
                                     </div>
                                     <div class="text-center" style="margin-bottom: 5px;">
                                         <button type="submit" class="btn btn-warning" name="addreview"
-                                                value="<%=film.getTitle()%>">Add Review
+                                                value="<%=film.getTitle()%>">Change Review
                                         </button>
                                     </div>
 
@@ -289,8 +302,38 @@
                             </div>
                         </div>
 
-                        <%
-                            }
+                        <% } }
+                         if(!inserita){%>
+                        <div class="col-md-8" style="width: 25%">
+                            <div class="card-body">
+                                <h6 style="color:#ffc107;">Write Review</h6>
+                                <form action="AddRecensione" method="post">
+                                    <div class="input-group">
+                                        <button class="input-group-text btn-outline-warning" id="basic"
+                                                name="username" value="<%=user.getUsername()%>"
+                                                disabled><%=user.getUsername()%>
+                                        </button>
+                                        <input type="number" min="1" max="10" class="form-control" placeholder="Vote"
+                                               id="v" name="vote">
+                                        <label for="v" style="color: #212529">Vote</label>
+                                    </div>
+                                    <div class="mb-3" style="margin-top: 10px; margin-bottom: -10px;">
+                                        <textarea class="form-control" id="re" rows="3"
+                                                  placeholder="Write review ... " name="userReview"></textarea>
+                                        <label for="re" class="form-label" name="userReview"></label>
+                                    </div>
+                                    <div class="text-center" style="margin-bottom: 5px;">
+                                        <button type="submit" class="btn btn-warning" name="addreview"
+                                                value="<%=film.getTitle()%>">Add Rerview
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                        <% }
+
+
                         } else {
                         %>
                         <div class="col-md-8" style="width: 25%">
@@ -308,7 +351,7 @@
                                     </div>
                                     <div class="mb-3" style="margin-top: 10px; margin-bottom: -10px;">
                                         <textarea class="form-control" id="userReview" rows="3"
-                                                  placeholder="Write review ... " value="userReview"></textarea>
+                                                  placeholder="Write review ... " name="userReview"></textarea>
                                         <label for="userReview" class="form-label" name="userReview"></label>
                                     </div>
                                     <div class="text-center" style="margin-bottom: 5px;">
@@ -324,39 +367,6 @@
                                 }
                             }
                         %>
--->
-
-                        <div class="col-md-8" style="width: 25%">
-                            <div class="card-body">
-                                <h6 style="color:#ffc107;">Write Review</h6>
-                                <form action="AddRecensione" method="post">
-                                    <div class="input-group">
-                                        <button class="input-group-text btn-outline-warning" id="basic-addon1"
-                                                name="username" value="<%=user.getUsername()%>"
-                                                disabled><%=user.getUsername()%>
-                                        </button>
-                                        <input type="number" min="1" max="10" class="form-control" placeholder="Vote"
-                                               id="vote" name="vote">
-                                        <label for="vote" style="color: #212529">Vote</label>
-                                    </div>
-                                    <div class="mb-3" style="margin-top: 10px; margin-bottom: -10px;">
-                                        <textarea class="form-control" id="userReview" rows="3"
-                                                  placeholder="Write review ... " value="userReview" name="userReview"></textarea>
-                                        <label for="userReview" class="form-label" ></label>
-                                    </div>
-                                    <div class="text-center" style="margin-bottom: 5px;">
-                                        <button type="submit" class="btn btn-warning" name="addreview"
-                                                value="<%=film.getTitle()%>">Add Review
-                                        </button>
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
 
             </div>
             <main>
