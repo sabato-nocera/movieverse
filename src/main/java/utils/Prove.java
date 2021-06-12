@@ -4,9 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.model.Filters;
 import control.LoginServlet;
 import jdk.vm.ci.meta.Local;
 import model.FilmBean;
@@ -19,10 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 
 /**
@@ -163,7 +162,98 @@ public class Prove {
 //            System.out.println(document.get("_id"));
 //        }
 
+//        MongoCollection movies = MongoDBConnection.getDatabase().getCollection("movies");
+//        MongoCollection users = MongoDBConnection.getDatabase().getCollection("users");
+//
+//        // Male
+//        BasicDBObject eqMale = new BasicDBObject("$eq", Arrays.asList("$gender", "male"));
+//        BasicDBObject condMale = new BasicDBObject("$cond", Arrays.asList(eqMale, 1, 0));
+//
+//        // Female
+//        BasicDBObject eqFemale = new BasicDBObject("$eq", Arrays.asList("$gender", "female"));
+//        BasicDBObject condFemale = new BasicDBObject("$cond", Arrays.asList(eqFemale, 1, 0));
+//
+//        // Other
+//        BasicDBObject eqOther = new BasicDBObject("$eq", Arrays.asList("$gender", "other"));
+//        BasicDBObject condOther = new BasicDBObject("$cond", Arrays.asList(eqOther, 1, 0));
+//
+//        BasicDBObject singleProjects = new BasicDBObject();
+//        singleProjects.append("male", condMale);
+//        singleProjects.append("female", condFemale);
+//        singleProjects.append("other", condOther);
+//
+//        BasicDBObject project = new BasicDBObject("$project", singleProjects);
+//
+//        BasicDBObject groups = new BasicDBObject();
+//        groups.append("_id", null).append("male", new BasicDBObject("$sum", "$male")).
+//                append("female", new BasicDBObject("$sum", "$female")).
+//                append("other", new BasicDBObject("$sum", "$other")).
+//                append("total", new BasicDBObject("$sum", 1));
+//        BasicDBObject group = new BasicDBObject("$group", groups);
+//
+//        System.out.println(Arrays.asList(project, group));
+//
+//        AggregateIterable<Document> iterable = users.aggregate(Arrays.asList(project, group));
+//
+//        MongoCursor cursor = iterable.iterator();
+//        if(cursor.hasNext()){
+//            Document document = (Document) cursor.next();
+//            System.out.println(document);
+//            int nMale = document.getInteger("male");
+//            int nFemale = document.getInteger("female");
+//            int nOthers = document.getInteger("other");
+//            int nTotal = document.getInteger("total");
+//            System.out.println(nMale);
+//            System.out.println(nFemale);
+//            System.out.println(nOthers);
+//            System.out.println(nTotal-nFemale-nMale-nOthers);
+//        }
 
+        MongoCollection movies = MongoDBConnection.getDatabase().getCollection("movies");
+
+        // movies_coming_soon
+        BasicDBObject eqMoviesComingSoon = new BasicDBObject("$eq", Arrays.asList("$catalog", "movies_coming_soon"));
+        BasicDBObject condMoviesComingSoon = new BasicDBObject("$cond", Arrays.asList(eqMoviesComingSoon, 1, 0));
+
+        // movies_in_theaters
+        BasicDBObject eqMoviesInTheaters = new BasicDBObject("$eq", Arrays.asList("$catalog", "movies_in_theaters"));
+        BasicDBObject condMoviesInTheaters = new BasicDBObject("$cond", Arrays.asList(eqMoviesInTheaters, 1, 0));
+
+        // top_rated_movies
+        BasicDBObject eqTopRatedMovies = new BasicDBObject("$eq", Arrays.asList("$catalog", "top_rated_movies"));
+        BasicDBObject condTopRatedMovies = new BasicDBObject("$cond", Arrays.asList(eqTopRatedMovies, 1, 0));
+
+        BasicDBObject singleProjects = new BasicDBObject();
+        singleProjects.append("movies_coming_soon", condMoviesComingSoon);
+        singleProjects.append("movies_in_theaters", condMoviesInTheaters);
+        singleProjects.append("top_rated_movies", condTopRatedMovies);
+
+        BasicDBObject projectMovies = new BasicDBObject("$project", singleProjects);
+
+        BasicDBObject groups = new BasicDBObject();
+        groups.append("_id", null).append("movies_coming_soon", new BasicDBObject("$sum", "$movies_coming_soon")).
+                append("movies_in_theaters", new BasicDBObject("$sum", "$movies_in_theaters")).
+                append("top_rated_movies", new BasicDBObject("$sum", "$top_rated_movies")).
+                append("total", new BasicDBObject("$sum", 1));
+        BasicDBObject groupMovies = new BasicDBObject("$group", groups);
+
+        System.out.println(Arrays.asList(projectMovies, groupMovies));
+
+        AggregateIterable<Document> iterable = movies.aggregate(Arrays.asList(projectMovies, groupMovies));
+
+        MongoCursor cursor = iterable.iterator();
+        if(cursor.hasNext()){
+            Document document = (Document) cursor.next();
+            System.out.println(document);
+//            int nMale = document.getInteger("male");
+//            int nFemale = document.getInteger("female");
+//            int nOthers = document.getInteger("other");
+//            int nTotal = document.getInteger("total");
+//            System.out.println(nMale);
+//            System.out.println(nFemale);
+//            System.out.println(nOthers);
+//            System.out.println(nTotal-nFemale-nMale-nOthers);
+        }
 
     }
 }
