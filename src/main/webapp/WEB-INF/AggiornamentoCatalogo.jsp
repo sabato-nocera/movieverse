@@ -338,7 +338,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="duration" id="inputDurationm"
-                                                           type="text" placeholder="duration" value="<%=film.getDuration()%>"/>
+                                                           type="text" placeholder="duration" value="<%=film.getDuration().toString().substring(2,film.getDuration().toString().length()-2)%>"/>
                                                     <label for="inputDurationm"
                                                            style="color: #212529">Duration
                                                     </label>
@@ -355,13 +355,13 @@
                                             </div>
                                         </div>
 
-                                        <p style="color: #adb5bd">insert , between actors or genres</p>
+                                        <p style="color: #adb5bd">insert , between actors and genres</p>
                                         <div class="row mb-3">
 
                                             <div class=" mb-3">
                                                 <div class="form-floating">
                                                     <input class="form-control" name="gen" id="gen1i"
-                                                           type="text" placeholder="Story" value="<%=film.getGenres()%>"/>
+                                                           type="text" placeholder="Story" value="<%=film.getGenres().toString().substring(1,film.getGenres().toString().length()-1)%>"/>
                                                     <label for="gen1i"
                                                            style="color: #212529">Genres</label>
                                                 </div>
@@ -375,7 +375,7 @@
                                             <div class=" mb-3">
                                                 <div class="form-floating">
                                                     <input class="form-control" name="act" id="act1i"
-                                                           type="text" placeholder="Story" value="<%=film.getActors()%>"/>
+                                                           type="text" placeholder="Story" value="<%=film.getActors().toString().substring(1,film.getActors().toString().length()-1)%>"/>
                                                     <label for="act1i"
                                                            style="color: #212529">Actors</label>
                                                 </div>
@@ -387,7 +387,6 @@
                                             <div class="input-group mb-3">
                                                 <label class=" btn-warning input-group-text" for="inputGroupSelect01">Movies</label>
                                                 <select class="form-select" id="inputGroupSelect01" name="catalog">
-                                                    <option selected="<%=film.getCatalog() %>"><%=film.getCatalog()%></option>
                                                     <option>Choose...</option>
                                                     <option value="1">Movies in Theaters</option>
                                                     <option value="2">Movies Coming Soon</option>

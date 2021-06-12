@@ -161,7 +161,7 @@
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                     <form action="AggiornamentoCatalogo" method="POST">
                                         <button type="submit" class="btn btn-warning" name="TitoloFilm"
-                                                value="<%=film.getTitle()%>" style="margin-right: 5px;">Change Movie
+                                                value="<%=film.getTitle()%>" style="margin-right: 5px;">Edit Movie
                                         </button>
                                     </form>
                                     <form action="RemoveMovie" method="POST">
@@ -247,34 +247,41 @@
                     </div>
                 </div>
 
-<%List<Document> recensioni = film.getReviews();%>
-                <div class="card mb-3">
+                    <%List<Document> recensioni = film.getReviews();%>
+                <div class="card mb-3 p-3">
                     <div class="row g-0">
                         <div class="col-md-4" style="width: 75%;">
                             <h3 style="color: #ffc107; margin: 10px;">Reviews</h3>
                             <%if (recensioni != null) {%>
                             <ul class=" list-group list-group-flush">
                                 <%for (int i = 0; i < recensioni.size(); i++) {%>
-                                    <li class="list-group-item" style="background: #212529; color: #adb5bd">
-                                        <h6 style="color: #ffc107"><%=recensioni.get(i).getString("userUsername")%>
-                                               Vote: <%=recensioni.get(i).getDouble("vote")%></h6>
-                                        <p-3> <%=recensioni.get(i).getString("comment")%> </p-3>
+                                <li class="list-group-item" style="background: #212529; color: #adb5bd">
+                                    <h6 style="color: #ffc107">
+                                        <%=recensioni.get(i).getString("userUsername")%>
+                                        <span class="badge bg-warning">
+                                            <span class="fa fa-star"></span>
+                                            <span class="pl-3"><%=recensioni.get(i).getDouble("vote")%></span>
+                                        </span>
+                                    </h6>
+                                    <p-3><%=recensioni.get(i).getString("comment")%>
+                                    </p-3>
 
-                                    </li>
+                                </li>
                                 <%}%>
                             </ul>
-                            <%}else{%>
-                            <p style="margin: 15 px;">No Reviews Present</p>
+                            <%} else {%>
+                            <p class="m-3 p-3">No Reviews Present</p>
                             <%}%>
                         </div>
 
 
-<%if (!user.getAdmin()) {%>
+                        <%if (!user.getAdmin()) {%>
                         <% if (recensioni != null) {
                             boolean inserita = false;
-                                for (int i= 0; i < recensioni.size(); i++) {
-                                    if(recensioni.get(i).getString("userUsername").equals(user.getUsername())){ inserita=true;
-                                    %>
+                            for (int i = 0; i < recensioni.size(); i++) {
+                                if (recensioni.get(i).getString("userUsername").equals(user.getUsername())) {
+                                    inserita = true;
+                        %>
                         <div class="col-md-8" style="width: 25%">
                             <div class="card-body">
                                 <h6 style="color:#ffc107;">Write Review</h6>
@@ -289,7 +296,8 @@
                                     </div>
                                     <div class="mb-3" style="margin-top: 10px; margin-bottom: -10px;">
                                         <input class="form-control overflow-auto" name="rw" id="rw" rows="3"
-                                               type="text" placeholder="Write review ... " value="<%=recensioni.get(i).getString("comment")%>"/>
+                                               type="text" placeholder="Write review ... "
+                                               value="<%=recensioni.get(i).getString("comment")%>"/>
                                         <label for="rw" class="form-label" style="color: #212529">Review</label>
                                     </div>
                                     <div class="text-center" style="margin-bottom: 5px;">
@@ -302,8 +310,9 @@
                             </div>
                         </div>
 
-                        <% } }
-                         if(!inserita){%>
+                        <% }
+                        }
+                            if (!inserita) {%>
                         <div class="col-md-8" style="width: 25%">
                             <div class="card-body">
                                 <h6 style="color:#ffc107;">Write Review</h6>
@@ -368,32 +377,32 @@
                             }
                         %>
 
-            </div>
-            <main>
-                <footer class="py-4  mt-auto" style="background-color: #212529">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Movieverse 2021</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
                     </div>
-                </footer>
-            </main>
+                    <main>
+                        <footer class="py-4  mt-auto" style="background-color: #212529">
+                            <div class="container-fluid px-4">
+                                <div class="d-flex align-items-center justify-content-between small">
+                                    <div class="text-muted">Copyright &copy; Movieverse 2021</div>
+                                    <div>
+                                        <a href="#">Privacy Policy</a>
+                                        &middot;
+                                        <a href="#">Terms &amp; Conditions</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </footer>
+                    </main>
+                </div>
+        </main>
     </div>
-    </main>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
-<script src="js/scripts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="assets/demo/chart-area-demo.js"></script>
-<script src="assets/demo/chart-bar-demo.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-<script src="js/datatables-simple-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="assets/demo/chart-area-demo.js"></script>
+    <script src="assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    <script src="js/datatables-simple-demo.js"></script>
 </body>
 </html>
 

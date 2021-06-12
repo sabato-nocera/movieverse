@@ -172,7 +172,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="password" id="inputPassword"
-                                                           type="password" placeholder="Create a password*" value="<%=user.getPassword()%>" required/>
+                                                           type="password" placeholder="Create a password*">" required/>
                                                     <label for="inputPassword" style="color: #212529">Change Password*</label>
                                                 </div>
                                             </div>
@@ -180,7 +180,7 @@
                                                 <div class="form-floating">
                                                     <input class="form-control" name="passwordConfirm"
                                                            id="inputPasswordConfirm" type="password"
-                                                           placeholder="Confirm password*" value="<%=user.getPassword()%>" required/>
+                                                           placeholder="Confirm password*">" required/>
                                                     <label for="inputPasswordConfirm" style="color: #212529">Confirm
                                                         Password*</label>
                                                 </div>
@@ -254,7 +254,7 @@
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
-                                            <button type="submit" class="btn btn-warning">Change Account</button>
+                                            <button type="submit" class="btn btn-warning">Update</button>
                                         </div>
                                     </form>
                                 </div>
