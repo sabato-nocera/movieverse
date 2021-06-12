@@ -179,7 +179,7 @@ public class CatalogoServlet extends HttpServlet {
             FindIterable<Document> collection = MongoDBConnection.getDatabase().getCollection("users").find(new Document("username", utenteLoggato.getUsername()));
             Iterator iterator = collection.iterator();
 
-            if(iterator.hasNext()){
+            if (iterator.hasNext()) {
                 Document document = (Document) iterator.next();
                 Gson gson = new Gson();
                 Date dateRetrieved = document.getDate("dateOfBirth");
@@ -189,7 +189,7 @@ public class CatalogoServlet extends HttpServlet {
                 utenteBean.setDateOfBirth(dateRetrieved);
 
                 List<ObjectId> watchedMoviesIds = document.getList("viewedMovies", ObjectId.class);
-                logger.log(Level.WARNING, "Watched movies Ids: "+watchedMoviesIds.toString());
+                logger.log(Level.WARNING, "Watched movies Ids: " + watchedMoviesIds.toString());
 
                 BasicDBObject basicDBObject = new BasicDBObject();
                 // Questa query mi serve a recupera da "movies" tutti e soli i film i cui id sono quelli dei film guardati
@@ -199,14 +199,14 @@ public class CatalogoServlet extends HttpServlet {
 
                 collection = MongoDBConnection.getDatabase().getCollection("movies").find(filter).sort(sorter);
                 iterator = collection.iterator();
-                while(iterator.hasNext()){
+                while (iterator.hasNext()) {
                     document = (org.bson.Document) iterator.next();
                     Date date = (Date) document.get("releaseDate");
                     document.remove("releaseDate");
                     FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
                     film.setReleaseDate(date);
                     film.setId(document.getObjectId("_id"));
-                    logger.log(Level.WARNING, "Film: "+film.getTitle());
+                    logger.log(Level.WARNING, "Film: " + film.getTitle());
                     movie.add(film);
                 }
             }
@@ -214,7 +214,7 @@ public class CatalogoServlet extends HttpServlet {
             FindIterable<Document> collection = MongoDBConnection.getDatabase().getCollection("users").find(new Document("username", utenteLoggato.getUsername()));
             Iterator iterator = collection.iterator();
 
-            if(iterator.hasNext()){
+            if (iterator.hasNext()) {
                 Document document = (Document) iterator.next();
                 Gson gson = new Gson();
                 Date dateRetrieved = document.getDate("dateOfBirth");
@@ -224,7 +224,7 @@ public class CatalogoServlet extends HttpServlet {
                 utenteBean.setDateOfBirth(dateRetrieved);
 
                 List<ObjectId> moviesToSeeIds = document.getList("moviesToSee", ObjectId.class);
-                logger.log(Level.WARNING, "Watched movies Ids: "+moviesToSeeIds.toString());
+                logger.log(Level.WARNING, "Watched movies Ids: " + moviesToSeeIds.toString());
 
                 BasicDBObject basicDBObject = new BasicDBObject();
                 // Questa query mi serve a recupera da "movies" tutti e soli i film i cui id sono quelli dei film guardati
@@ -234,14 +234,14 @@ public class CatalogoServlet extends HttpServlet {
 
                 collection = MongoDBConnection.getDatabase().getCollection("movies").find(filter).sort(sorter);
                 iterator = collection.iterator();
-                while(iterator.hasNext()){
+                while (iterator.hasNext()) {
                     document = (org.bson.Document) iterator.next();
                     Date date = (Date) document.get("releaseDate");
                     document.remove("releaseDate");
                     FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
                     film.setReleaseDate(date);
                     film.setId(document.getObjectId("_id"));
-                    logger.log(Level.WARNING, "Film: "+film.getTitle());
+                    logger.log(Level.WARNING, "Film: " + film.getTitle());
                     movie.add(film);
                 }
             }

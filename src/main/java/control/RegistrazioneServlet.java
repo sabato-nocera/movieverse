@@ -71,7 +71,7 @@ public class RegistrazioneServlet extends HttpServlet {
                     String year = list[0];
                     String month = list[1];
                     String day = list[2];
-                    Date dateOfBirth = new Date(Integer.parseInt(year)-1900, Integer.parseInt(month), Integer.parseInt(day));
+                    Date dateOfBirth = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month), Integer.parseInt(day));
                     utenteBean.setDateOfBirth(dateOfBirth);
                 }
                 if (gender != null && !gender.equals("")) {
@@ -130,7 +130,7 @@ public class RegistrazioneServlet extends HttpServlet {
                         e.printStackTrace();
                     }
                 } else {
-                    logger.log(Level.WARNING, "Impossibile registrare utente " + utenteBean.getUsername()+" perché già presente nel database");
+                    logger.log(Level.WARNING, "Impossibile registrare utente " + utenteBean.getUsername() + " perché già presente nel database");
                     request.setAttribute("errorMessage", "Username already exists");
                 }
             } else {

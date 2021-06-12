@@ -28,7 +28,7 @@ public class RemoveWatchedServlet extends HttpServlet {
     private final Logger logger = Logger.getLogger(AddToWatchServelt.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("utente") == null) {
+        if (request.getSession().getAttribute("utente") == null || ((UtenteBean) request.getSession().getAttribute("utente")).getAdmin() == true) {
             logger.log(Level.WARNING, "Utente non loggato");
             String url = response.encodeURL("Login");
             request.getRequestDispatcher(url).forward(request, response);
@@ -39,14 +39,14 @@ public class RemoveWatchedServlet extends HttpServlet {
         //Prendo l'id del film da rimuovere
         FilmBean sessionfilm = (FilmBean) session.getAttribute("Film");
 
-        if(session==null ){
+        if (session == null) {
             String url = response.encodeURL("Catalogo");
             request.getRequestDispatcher(url).forward(request, response);
             return;
         }
 
-        UtenteBean user= (UtenteBean) session.getAttribute("utente");
-        logger.log(Level.WARNING, "L'utente loggato è "+user.getUsername());
+        UtenteBean user = (UtenteBean) session.getAttribute("utente");
+        logger.log(Level.WARNING, "L'utente loggato è " + user.getUsername());
 
         //rimuovo il film dalle liste
         user.getViewedMovies().remove(sessionfilm.getId());

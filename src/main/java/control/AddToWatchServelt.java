@@ -32,7 +32,7 @@ public class AddToWatchServelt extends HttpServlet {
     private final Logger logger = Logger.getLogger(AddToWatchServelt.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("utente") == null) {
+        if (request.getSession().getAttribute("utente") == null || ((UtenteBean) request.getSession().getAttribute("utente")).getAdmin() == true) {
             logger.log(Level.WARNING, "Utente non loggato");
             String url = response.encodeURL("Login");
             request.getRequestDispatcher(url).forward(request, response);
@@ -41,15 +41,15 @@ public class AddToWatchServelt extends HttpServlet {
 
         String titolo = request.getParameter("TitoloFilm");
 
-        if(titolo==null || titolo.equals("")){
+        if (titolo == null || titolo.equals("")) {
             String url = response.encodeURL("Catalogo");
             request.getRequestDispatcher(url).forward(request, response);
             return;
         }
 
-        UtenteBean user= (UtenteBean) request.getSession().getAttribute("utente");
+        UtenteBean user = (UtenteBean) request.getSession().getAttribute("utente");
 
-        logger.log(Level.WARNING, "L'utente loggato è "+user.getUsername());
+        logger.log(Level.WARNING, "L'utente loggato è " + user.getUsername());
 
         MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("users");
         Document filter = new Document("username", user.getUsername());
@@ -60,7 +60,7 @@ public class AddToWatchServelt extends HttpServlet {
 
             Gson gson = new Gson();
             UtenteBean utenteBean;
-            if(userDocument.get("dateOfBirth")!=null){
+            if (userDocument.get("dateOfBirth") != null) {
                 Date date = (Date) userDocument.get("dateOfBirth");
                 userDocument.remove("dateOfBirth");
                 utenteBean = gson.fromJson(userDocument.toJson(), UtenteBean.class);
@@ -69,7 +69,7 @@ public class AddToWatchServelt extends HttpServlet {
                 utenteBean = gson.fromJson(userDocument.toJson(), UtenteBean.class);
             }
             utenteBean.setId(userDocument.getObjectId("_id"));
-            if(userDocument.get("moviesToSee")!=null){
+            if (userDocument.get("moviesToSee") != null) {
                 utenteBean.setMoviesToSee((List<ObjectId>) userDocument.get("moviesToSee"));
             }
 
@@ -82,8 +82,8 @@ public class AddToWatchServelt extends HttpServlet {
                 Date date = (Date) filmDocument.get("releaseDate");
                 ObjectId id = filmDocument.getObjectId("_id");
 
-                if(utenteBean.getMoviesToSee()!=null){
-                    if(utenteBean.getMoviesToSee().contains(id)){
+                if (utenteBean.getMoviesToSee() != null) {
+                    if (utenteBean.getMoviesToSee().contains(id)) {
                         logger.log(Level.WARNING, "Non puoi aggiungere nuovamente uno stesso film alla lista dei film da guardare : " + filmDocument.get("title"));
                         String url = response.encodeURL("Catalogo");
                         request.getRequestDispatcher(url).forward(request, response);
@@ -113,10 +113,10 @@ public class AddToWatchServelt extends HttpServlet {
 
                 MongoDBConnection.getDatabase().getCollection("users").updateOne(filter, updateObject);
                 user.addMovieToSee(id);
-                }
             }
+        }
 
-        String url = response.encodeURL("Film?TitoloFilm="+titolo);
+        String url = response.encodeURL("Film?TitoloFilm=" + titolo);
         request.getRequestDispatcher(url).forward(request, response);
         // TODO: Agigungere i controlli che un film che è stato aggiunto alla watchlist non vi venga aggiunto nuovamente né compaia il pulsante che può aggiungerlo
         // TODO: Non puoi aggiungere alla watched list dei film che ancora devono uscire

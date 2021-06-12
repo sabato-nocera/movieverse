@@ -33,7 +33,7 @@ public class RemoveMovieServlet extends HttpServlet {
     private final Logger logger = Logger.getLogger(AddToWatchServelt.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("utente") == null) {
+        if (request.getSession().getAttribute("utente") == null || ((UtenteBean) request.getSession().getAttribute("utente")).getAdmin() == false) {
             logger.log(Level.WARNING, "Utente non loggato");
             String url = response.encodeURL("Login");
             request.getRequestDispatcher(url).forward(request, response);

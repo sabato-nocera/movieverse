@@ -5,6 +5,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import model.FilmBean;
+import model.UtenteBean;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import utils.MongoDBConnection;
@@ -31,6 +32,14 @@ public class FilmServlet extends HttpServlet {
     private final Logger logger = Logger.getLogger(CatalogoServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UtenteBean utenteLoggato = (UtenteBean) request.getSession().getAttribute("utente");
+        if (utenteLoggato == null) {
+            logger.log(Level.WARNING, "Utente non loggato");
+            String url = response.encodeURL("Login");
+            request.getRequestDispatcher(url).forward(request, response);
+            return;
+        }
+
         String titoloFilm = request.getParameter("TitoloFilm");
 
         //Dato un filter vado ad ottenere il film e ad esso creo un FilmBean da passare alla JSP
@@ -51,12 +60,12 @@ public class FilmServlet extends HttpServlet {
             filmBean.setReviews(document.getList("reviews", Document.class));
 
         }
-        if(request.getSession().getAttribute("Film")!= null){
-            logger.log(Level.WARNING, "in sessione si trova : "+filmBean.toString());
+        if (request.getSession().getAttribute("Film") != null) {
+            logger.log(Level.WARNING, "in sessione si trova : " + filmBean.toString());
             request.getSession().removeAttribute("Film");
         }
         request.getSession().setAttribute("Film", filmBean);
-        logger.log(Level.WARNING, "ho aggiunto in sessione : "+filmBean.toString());
+        logger.log(Level.WARNING, "ho aggiunto in sessione : " + filmBean.toString());
         request.setAttribute("Film", filmBean);
         String url = response.encodeURL("WEB-INF/Film.jsp");
         request.getRequestDispatcher(url).forward(request, response);

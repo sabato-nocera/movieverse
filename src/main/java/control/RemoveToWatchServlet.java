@@ -32,7 +32,7 @@ public class RemoveToWatchServlet extends HttpServlet {
     private final Logger logger = Logger.getLogger(AddToWatchServelt.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("utente") == null) {
+        if (request.getSession().getAttribute("utente") == null || ((UtenteBean) request.getSession().getAttribute("utente")).getAdmin() == true) {
             logger.log(Level.WARNING, "Utente non loggato");
             String url = response.encodeURL("Login");
             request.getRequestDispatcher(url).forward(request, response);
@@ -43,15 +43,15 @@ public class RemoveToWatchServlet extends HttpServlet {
         //Prendo l'id del film da rimuovere
         FilmBean sessionfilm = (FilmBean) session.getAttribute("Film");
 
-        if(session==null ){
+        if (session == null) {
             String url = response.encodeURL("Catalogo");
             request.getRequestDispatcher(url).forward(request, response);
             return;
         }
 
-        UtenteBean user= (UtenteBean) session.getAttribute("utente");
+        UtenteBean user = (UtenteBean) session.getAttribute("utente");
 
-        logger.log(Level.WARNING, "L'utente loggato è "+user.getUsername());
+        logger.log(Level.WARNING, "L'utente loggato è " + user.getUsername());
 
         //rimuovo il film dalle liste
         user.getMoviesToSee().remove(sessionfilm.getId());
@@ -63,18 +63,18 @@ public class RemoveToWatchServlet extends HttpServlet {
         MongoCursor<Document> cursor = findIterable.iterator();
         if (cursor.hasNext()) {
 
-                BasicDBObject documentUpdater = new BasicDBObject();
+            BasicDBObject documentUpdater = new BasicDBObject();
 
-                documentUpdater.put("moviesToSee", user.getMoviesToSee());
+            documentUpdater.put("moviesToSee", user.getMoviesToSee());
 
-                BasicDBObject updateObject = new BasicDBObject();
-                updateObject.put("$set", documentUpdater);
+            BasicDBObject updateObject = new BasicDBObject();
+            updateObject.put("$set", documentUpdater);
 
-                logger.log(Level.WARNING, "DOC UPDATER : " + documentUpdater.toString());
-                logger.log(Level.WARNING, "OBJ UPDATER : " + updateObject.toString());
+            logger.log(Level.WARNING, "DOC UPDATER : " + documentUpdater.toString());
+            logger.log(Level.WARNING, "OBJ UPDATER : " + updateObject.toString());
 
-                MongoDBConnection.getDatabase().getCollection("users").updateOne(filter, updateObject);
-            }
+            MongoDBConnection.getDatabase().getCollection("users").updateOne(filter, updateObject);
+        }
 
 
         String url = response.encodeURL("Catalogo");

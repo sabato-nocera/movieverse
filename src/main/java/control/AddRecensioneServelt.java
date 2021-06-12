@@ -33,7 +33,7 @@ public class AddRecensioneServelt extends HttpServlet {
     private final Logger logger = Logger.getLogger(AddRecensioneServelt.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("utente") == null) {
+        if (request.getSession().getAttribute("utente") == null || ((UtenteBean) request.getSession().getAttribute("utente")).getAdmin() == true) {
             logger.log(Level.WARNING, "Utente non loggato");
             String url = response.encodeURL("Login");
             request.getRequestDispatcher(url).forward(request, response);
@@ -46,7 +46,7 @@ public class AddRecensioneServelt extends HttpServlet {
         UtenteBean user = (UtenteBean) request.getSession().getAttribute("utente");
         double vote = (Double.parseDouble(vt));
 
-        logger.log(Level.WARNING, "la recensione presa è :"+review);
+        logger.log(Level.WARNING, "la recensione presa è :" + review);
 
         //creo una recensione come una mappa
         Document nuovaRecensione = new Document();
@@ -54,7 +54,7 @@ public class AddRecensioneServelt extends HttpServlet {
         nuovaRecensione.put("vote", vote);
         nuovaRecensione.put("userUsername", user.getUsername());
 
-        logger.log(Level.WARNING, "la recensione nel document è :"+nuovaRecensione.getString("comment"));
+        logger.log(Level.WARNING, "la recensione nel document è :" + nuovaRecensione.getString("comment"));
 
 
         MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("movies");
@@ -75,21 +75,21 @@ public class AddRecensioneServelt extends HttpServlet {
             logger.log(Level.WARNING, "Le recensioni del Film Sono : " + filmBean.getReviews());
             logger.log(Level.WARNING, "Voglio aggiungere : " + nuovaRecensione);
 
-            if(filmBean.getReviews()!=null){
-                for(Document m : filmBean.getReviews()) {
+            if (filmBean.getReviews() != null) {
+                for (Document m : filmBean.getReviews()) {
                     logger.log(Level.WARNING, "UserId della recensione : " + m.get("userId"));
                     logger.log(Level.WARNING, "Id utente loggato : " + user.getId());
-                    if(m.getString("userUsername").equals(user.getUsername())){
+                    if (m.getString("userUsername").equals(user.getUsername())) {
                         // Stai provando ad inserire una recensione per un film per cui hai già inserito una recensione
                         String url = response.encodeURL("Film?TitoloFilm=" + film.getTitle());
                         request.getRequestDispatcher(url).forward(request, response);
-                        return ;
+                        return;
                     }
                 }
             }
 
             // Se non c'è l'array di recensione, bisogna istanziarlo
-            if(filmBean.getReviews()==null){
+            if (filmBean.getReviews() == null) {
                 List<Document> list = new ArrayList<>();
                 list.add(nuovaRecensione);
                 filmBean.setReviews(list);
@@ -97,12 +97,12 @@ public class AddRecensioneServelt extends HttpServlet {
                 filmBean.addRecensione(nuovaRecensione);
             }
 
-            double val=0;
-            for(Document m : filmBean.getReviews()){
+            double val = 0;
+            for (Document m : filmBean.getReviews()) {
                 double cost = m.getDouble("vote");
-                val=val+ cost;
+                val = val + cost;
             }
-            val = val/filmBean.getReviews().size();
+            val = val / filmBean.getReviews().size();
 
             filmBean.setAverageRating(val);
 

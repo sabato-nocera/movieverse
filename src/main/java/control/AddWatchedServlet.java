@@ -31,7 +31,7 @@ public class AddWatchedServlet extends HttpServlet {
     private final Logger logger = Logger.getLogger(AddWatchedServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("utente") == null) {
+        if (request.getSession().getAttribute("utente") == null || ((UtenteBean) request.getSession().getAttribute("utente")).getAdmin() == true) {
             logger.log(Level.WARNING, "Utente non loggato");
             String url = response.encodeURL("Login");
             request.getRequestDispatcher(url).forward(request, response);
@@ -40,15 +40,15 @@ public class AddWatchedServlet extends HttpServlet {
 
         String titolo = request.getParameter("TitoloFilm");
 
-        if(titolo==null || titolo.equals("")){
+        if (titolo == null || titolo.equals("")) {
             String url = response.encodeURL("Catalogo");
             request.getRequestDispatcher(url).forward(request, response);
             return;
         }
 
-        UtenteBean user= (UtenteBean) request.getSession().getAttribute("utente");
+        UtenteBean user = (UtenteBean) request.getSession().getAttribute("utente");
 
-        logger.log(Level.WARNING, "L'utente loggato è "+user.getUsername());
+        logger.log(Level.WARNING, "L'utente loggato è " + user.getUsername());
 
         MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("users");
         Document filter = new Document("username", user.getUsername());
@@ -59,7 +59,7 @@ public class AddWatchedServlet extends HttpServlet {
 
             Gson gson = new Gson();
             UtenteBean utenteBean;
-            if(userDocument.get("dateOfBirth")!=null){
+            if (userDocument.get("dateOfBirth") != null) {
                 Date date = (Date) userDocument.get("dateOfBirth");
                 userDocument.remove("dateOfBirth");
                 utenteBean = gson.fromJson(userDocument.toJson(), UtenteBean.class);
@@ -68,7 +68,7 @@ public class AddWatchedServlet extends HttpServlet {
                 utenteBean = gson.fromJson(userDocument.toJson(), UtenteBean.class);
             }
             utenteBean.setId(userDocument.getObjectId("_id"));
-            if(userDocument.get("viewedMovies")!=null){
+            if (userDocument.get("viewedMovies") != null) {
                 utenteBean.setViewedMovies((List<ObjectId>) userDocument.get("viewedMovies"));
             }
 
@@ -81,8 +81,8 @@ public class AddWatchedServlet extends HttpServlet {
                 Date date = (Date) filmDocument.get("releaseDate");
                 ObjectId id = filmDocument.getObjectId("_id");
 
-                if(utenteBean.getViewedMovies()!=null){
-                    if(utenteBean.getViewedMovies().contains(id)){
+                if (utenteBean.getViewedMovies() != null) {
+                    if (utenteBean.getViewedMovies().contains(id)) {
                         logger.log(Level.WARNING, "Non puoi aggiungere nuovamente uno stesso film alla lista dei film visti : " + filmDocument.get("title"));
                         String url = response.encodeURL("Catalogo");
                         request.getRequestDispatcher(url).forward(request, response);
@@ -115,7 +115,7 @@ public class AddWatchedServlet extends HttpServlet {
             }
         }
 
-        String url = response.encodeURL("Film?TitoloFilm="+titolo);
+        String url = response.encodeURL("Film?TitoloFilm=" + titolo);
         request.getRequestDispatcher(url).forward(request, response);
     }
 

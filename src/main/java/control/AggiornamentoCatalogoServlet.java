@@ -10,6 +10,7 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 import utils.MongoDBConnection;
 import utils.Utils;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -34,8 +35,15 @@ public class AggiornamentoCatalogoServlet extends HttpServlet {
     private final Logger logger = Logger.getLogger(CatalogoServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession().getAttribute("utente") == null || ((UtenteBean) request.getSession().getAttribute("utente")).getAdmin() == false) {
+            logger.log(Level.WARNING, "Utente non loggato");
+            String url = response.encodeURL("Login");
+            request.getRequestDispatcher(url).forward(request, response);
+            return;
+        }
+
         String titoloFilm = request.getParameter("TitoloFilm");
-        if ( titoloFilm == null) {
+        if (titoloFilm == null) {
             logger.log(Level.WARNING, "Non si tratta di una modifica ma di un add");
 
             String url = response.encodeURL("WEB-INF/AggiornamentoCatalogo.jsp");
