@@ -164,7 +164,7 @@
                                     </h3></div>
                                 </div>
                                 <div class="card-body">
-                                    <form action="..." method="POST">
+                                    <form action="ChangeProfile" method="POST">
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
@@ -301,7 +301,7 @@
                                     </h3></div>
                                 </div>
                                 <div class="card-body">
-                                    <form action="..." method="POST">
+                                    <form action="ChangeProfile" method="POST">
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">

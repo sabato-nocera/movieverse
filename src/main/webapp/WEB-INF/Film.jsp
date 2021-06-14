@@ -285,7 +285,7 @@
                         <div class="col-md-8" style="width: 25%">
                             <div class="card-body">
                                 <h6 style="color:#ffc107;">Write Review</h6>
-                                <form action="..." method="post">
+                                <form action="ChangeReview" method="post">
                                     <div class="input-group">
                                         <button class="input-group-text btn-outline-warning" name="username"
                                                 value="<%=user.getUsername()%>" disabled><%=user.getUsername()%>
@@ -295,10 +295,10 @@
                                         <label for="vt" style="color: #212529">Vote</label>
                                     </div>
                                     <div class="mb-3" style="margin-top: 10px; margin-bottom: -10px;">
-                                        <input class="form-control overflow-auto" name="rw" id="rw" rows="3"
+                                        <input class="form-control overflow-auto" name="userReview" id="rw" rows="3"
                                                type="text" placeholder="Write review ... "
                                                value="<%=recensioni.get(i).getString("comment")%>"/>
-                                        <label for="rw" class="form-label" style="color: #212529">Review</label>
+                                        <label for="rw" class="form-label" style="color: #212529" name="userReview">Review</label>
                                     </div>
                                     <div class="text-center" style="margin-bottom: 5px;">
                                         <button type="submit" class="btn btn-warning" name="addreview"
