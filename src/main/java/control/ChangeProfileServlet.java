@@ -49,7 +49,7 @@ public class ChangeProfileServlet extends HttpServlet {
             temp.setEmail(emaila);
             temp.setAdmin(true);
             temp.setUsername(usernamea);
-            if(passa!=null && passCa!= null && passCa.equals(passa)){
+            if(!passa.equals("") && !passCa.equals("") && passCa.equals(passa)){
                 temp.setPassword(Utils.generatePwd(passa));
             }
             //Prendo il film da DB
@@ -66,7 +66,7 @@ public class ChangeProfileServlet extends HttpServlet {
                 //Effettuo le modifiche sul documento settando i parametri di FilmBean
                 documentUpdater.put("email", temp.getEmail() );
                 documentUpdater.put("username", temp.getUsername() );
-                if(passa!=null){
+                if(!passa.equals("")){
                     documentUpdater.put("password", temp.getPassword());
                 }
 
@@ -105,7 +105,7 @@ public class ChangeProfileServlet extends HttpServlet {
                 Date dateOfBirth = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month), Integer.parseInt(day));
                 temp.setDateOfBirth(dateOfBirth);
             }
-            if(passu!=null && passCu!= null && passCu.equals(passu)){
+            if(!passu.equals("") && !passCu.equals("") && passCu.equals(passu)){
                 temp.setPassword(Utils.generatePwd(passu));
             }
 
@@ -122,13 +122,13 @@ public class ChangeProfileServlet extends HttpServlet {
                 BasicDBObject documentUpdater = new BasicDBObject();
                 //Effettuo le modifiche sul documento settando i parametri di FilmBean
                 documentUpdater.put("email", temp.getEmail() );
-                if(passu!=null){
+                if(!passu.equals("")){
                     documentUpdater.put("password", temp.getPassword());
                 }
                 documentUpdater.put("username", temp.getUsername() );
-                documentUpdater.put("firstName", temp.getEmail() );
-                documentUpdater.put("lastName", temp.getFirstName() );
-                documentUpdater.put("gender", temp.getLastName() );
+                documentUpdater.put("firstName", temp.getFirstName() );
+                documentUpdater.put("lastName", temp.getLastName() );
+                documentUpdater.put("gender", temp.getGender() );
                 documentUpdater.put("dateOfBirth", temp.getDateOfBirth() );
 
                 //Creo un oggetto di modifica e gli associo il documento di modifica creato prima
