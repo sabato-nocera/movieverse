@@ -1,15 +1,11 @@
 package control;
 
-import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.StringNode;
-import model.FilmBean;
 import model.UtenteBean;
 import org.bson.Document;
-import org.bson.types.ObjectId;
 import utils.MongoDBConnection;
 import utils.Utils;
 
@@ -18,11 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

@@ -16,15 +16,15 @@
 <% UtenteBean user = (UtenteBean) session.getAttribute("utente"); %>
 <% ArrayList<FilmBean> movie = (ArrayList<FilmBean>) request.getAttribute("movie"); %>
 <%
-    int numeroMaschi = (int) request.getAttribute("numeroMaschi");
-    int numeroDonne = (int) request.getAttribute("numeroDonne");
-    int numeroAltri = (int) request.getAttribute("numeroAltri");
-    int numeroGenereNonEspresso = (int) request.getAttribute("numeroGenereNonEspresso");
+    Integer numeroMaschi = (Integer) request.getAttribute("numeroMaschi");
+    Integer numeroDonne = (Integer) request.getAttribute("numeroDonne");
+    Integer numeroAltri = (Integer) request.getAttribute("numeroAltri");
+    Integer numeroGenereNonEspresso = (Integer) request.getAttribute("numeroGenereNonEspresso");
 
-    int numeroMoviesComingSoon = (int) request.getAttribute("numeroMoviesComingSoon");
-    int numeroMoviesInTheaters = (int) request.getAttribute("numeroMoviesInTheaters");
-    int numeroTopRatedMovies = (int) request.getAttribute("numeroTopRatedMovies");
-    int numeroFilmNonInCatalogo = (int) request.getAttribute("numeroFilmNonInCatalogo");
+    Integer numeroMoviesComingSoon = (Integer) request.getAttribute("numeroMoviesComingSoon");
+    Integer numeroMoviesInTheaters = (Integer) request.getAttribute("numeroMoviesInTheaters");
+    Integer numeroTopRatedMovies = (Integer) request.getAttribute("numeroTopRatedMovies");
+    Integer numeroFilmNonInCatalogo = (Integer) request.getAttribute("numeroFilmNonInCatalogo");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -188,7 +188,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="password" id="inputPassword"
-                                                           type="password" placeholder="Create a password*">" required/>
+                                                           type="password" placeholder="Create a password*">"
                                                     <label for="inputPassword" style="color: #212529">Change
                                                         Password*</label>
                                                 </div>
@@ -197,7 +197,7 @@
                                                 <div class="form-floating">
                                                     <input class="form-control" name="passwordConfirm"
                                                            id="inputPasswordConfirm" type="password"
-                                                           placeholder="Confirm password*">" required/>
+                                                           placeholder="Confirm password*">"
                                                     <label for="inputPasswordConfirm" style="color: #212529">Confirm
                                                         Password*</label>
                                                 </div>
@@ -325,8 +325,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" name="password" id="inputPasswordad"
-                                                           type="password" placeholder="Create a password*"
-                                                           value="<%=user.getPassword()%>" required/>
+                                                           type="password" placeholder="Create a password*"/>
                                                     <label for="inputPassword" style="color: #212529">Change
                                                         Password*</label>
                                                 </div>
@@ -335,8 +334,7 @@
                                                 <div class="form-floating">
                                                     <input class="form-control" name="passwordConfirm"
                                                            id="inputPasswordConfirmad" type="password"
-                                                           placeholder="Confirm password*"
-                                                           value="<%=user.getPassword()%>" required/>
+                                                           placeholder="Confirm password*"/>
                                                     <label for="inputPasswordConfirm" style="color: #212529">Confirm
                                                         Password*</label>
                                                 </div>
