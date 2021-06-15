@@ -21,6 +21,10 @@ public class FilmBean {
     private Double imdbRating;
     private String posterurl;
     private String catalog;
+    private String productionCompany;
+    private List<String> country;
+    private List<String> director;
+    private List<String> language;
     private List<Document> reviews = new ArrayList<>();
 
     public FilmBean() {
@@ -146,6 +150,38 @@ public class FilmBean {
         this.catalog = catalog;
     }
 
+    public String getProductionCompany() {
+        return productionCompany;
+    }
+
+    public void setProductionCompany(String productionCompany) {
+        this.productionCompany = productionCompany;
+    }
+
+    public List<String> getCountry() {
+        return country;
+    }
+
+    public void setCountry(List<String> country) {
+        this.country = country;
+    }
+
+    public List<String> getDirector() {
+        return director;
+    }
+
+    public void setDirector(List<String> director) {
+        this.director = director;
+    }
+
+    public List<String> getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(List<String> language) {
+        this.language = language;
+    }
+
     @Override
     public String toString() {
         return "FilmBean{" +
@@ -162,6 +198,10 @@ public class FilmBean {
                 ", posterurl='" + posterurl + '\'' +
                 ", reviews=" + reviews +
                 ", catalog='" + catalog + '\'' +
+                ", country=" + country +
+                ", director=" + director +
+                ", language=" + language +
+                ", productionCompany='" + productionCompany + '\'' +
                 '}';
     }
 }

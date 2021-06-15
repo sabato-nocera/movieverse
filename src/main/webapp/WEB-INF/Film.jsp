@@ -138,6 +138,9 @@
             </div>
         </nav>
     </div>
+
+
+
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
@@ -147,7 +150,7 @@
 
                 <div class="card mb-3">
                     <div class="row g-0">
-                        <div class="col-md-4" style="max-width: 360px;">
+                        <div class="col-md-4" style="max-width: 360px; min-width: 360px;">
                             <% if (film.getPosterurl() == null || film.getPosterurl().equalsIgnoreCase("null") || film.getPosterurl().equals("")) {%>
                             <img src="css/Image/locandina.png" style="width:340px; height:490px; margin: 10px;">
                             <%} else {%>
@@ -208,13 +211,23 @@
                                 <%}%>
                             </div>
                         </div>
+
+
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h3 class="card-title"><%=film.getTitle()%>
                                 </h3>
+
+                                <%if (!film.getOriginalTitle().equals("") || film.getOriginalTitle() == null) {%>
                                 <h5 class="card-title">Original Title: <%=film.getTitle()%>
+                                </h5> <%}%>
+
+                                <h5 class="card-title">Movieverse Rating: <%=film.getImdbRating()%>
                                 </h5>
-                                <p class="card-text">Genres: <%
+                                <h6 class="card-title">User Rating: <%=film.getAverageRating()%>
+                                </h6>
+
+                                <p class="card-title">Genres: <%
                                     int j;
                                     for (j = 0; j < film.getGenres().size(); j++) {
                                         if (j != 0) {
@@ -222,7 +235,7 @@
                                     <%=", "%>
                                     <%}%>
                                     <%=film.getGenres().get(j).toString() %><%}%></p>
-                                <p class="card-text">Actors: <%
+                                <p class="card-title">Actors: <%
                                     int h;
                                     for (h = 0; h < film.getActors().size(); h++) {
                                         if (h != 0) {
@@ -231,17 +244,48 @@
                                     <%}%>
                                     <%=film.getActors().get(h).toString()%><%}%></p>
                                 <%if (film.getReleaseDate() != null) {%>
-                                <p class="card-text">Release Date:
+                                <p class="card-title">Release Date:
                                     <!-- Serve per stampare la data nel formato che ci interessa -->
                                     <%=LocalDateTime.ofInstant(film.getReleaseDate().toInstant(), ZoneId.of("Z")).format(DateTimeFormatter.ofPattern("d MMM uuuu"))%>
                                 </p>
                                 <%}%>
-                                <p class="card-text">User Rating: <%=film.getAverageRating()%>
+
+
+                                <p class="card-text">Production Company : <%=film.getProductionCompany()%>
                                 </p>
-                                <p class="card-text">Movieverse Rating: <%=film.getImdbRating()%>
+
+                                <p class="card-text">Director : <%
+                                    int z;
+                                    for (z = 0; z < film.getDirector().size(); z++) {
+                                        if (z != 0) {
+                                %>
+                                    <%=", "%>
+                                    <%}%>
+                                    <%=film.getDirector().get(z).toString()%><%}%></p>
+
+                                <p class="card-text">Language : <%
+                                    int w;
+                                    for (w = 0; w < film.getLanguage().size(); w++) {
+                                        if (w != 0) {
+                                %>
+                                    <%=", "%>
+                                    <%}%>
+                                    <%=film.getLanguage().get(w).toString()%><%}%></p>
+
+                                <p class="card-text">Country : <%
+                                    int y;
+                                    for (y = 0; y < film.getCountry().size(); y++) {
+                                        if (y != 0) {
+                                %>
+                                    <%=", "%>
+                                    <%}%>
+                                    <%=film.getLanguage().get(y).toString()%><%}%></p>
+
+
+                                <p class="card-title">Story: <%=film.getStoryline()%>
                                 </p>
-                                <p class="card-text">Story: <%=film.getStoryline()%>
-                                </p>
+
+
                             </div>
                         </div>
                     </div>
@@ -395,6 +439,7 @@
                 </div>
         </main>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
             crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
@@ -403,6 +448,8 @@
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
+
 </body>
 </html>
+
 
