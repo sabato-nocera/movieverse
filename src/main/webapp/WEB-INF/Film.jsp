@@ -140,7 +140,6 @@
     </div>
 
 
-
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
@@ -218,7 +217,7 @@
                                 <h3 class="card-title"><%=film.getTitle()%>
                                 </h3>
 
-                                <%if (!film.getOriginalTitle().equals("") || film.getOriginalTitle() == null) {%>
+                                <%if (film.getOriginalTitle() != null && !film.getOriginalTitle().equals("")) {%>
                                 <h5 class="card-title">Original Title: <%=film.getTitle()%>
                                 </h5> <%}%>
 
@@ -229,57 +228,77 @@
 
                                 <p class="card-title">Genres: <%
                                     int j;
-                                    for (j = 0; j < film.getGenres().size(); j++) {
-                                        if (j != 0) {
+                                    if (film.getGenres() != null) {
+                                        for (j = 0; j < film.getGenres().size(); j++) {
+                                            if (j != 0) {
                                 %>
                                     <%=", "%>
                                     <%}%>
-                                    <%=film.getGenres().get(j).toString() %><%}%></p>
+                                    <%=film.getGenres().get(j).toString() %><%
+                                            }
+                                        }
+                                    %></p>
                                 <p class="card-title">Actors: <%
                                     int h;
-                                    for (h = 0; h < film.getActors().size(); h++) {
-                                        if (h != 0) {
+                                    if (film.getGenres() != null) {
+                                            for (h = 0; h < film.getActors().size(); h++) {
+                                                if (h != 0) {
                                 %>
                                     <%=", "%>
                                     <%}%>
-                                    <%=film.getActors().get(h).toString()%><%}%></p>
+                                    <%=film.getActors().get(h).toString()%><%
+                                            }
+                                        }
+                                    %></p>
                                 <%if (film.getReleaseDate() != null) {%>
-                                <p class="card-title">Release Date:
+                                <p class="card-title">Release date:
                                     <!-- Serve per stampare la data nel formato che ci interessa -->
                                     <%=LocalDateTime.ofInstant(film.getReleaseDate().toInstant(), ZoneId.of("Z")).format(DateTimeFormatter.ofPattern("d MMM uuuu"))%>
                                 </p>
                                 <%}%>
 
-
+                                <% if (film.getProductionCompany() != null) { %>
                                 <p class="card-text">Production Company : <%=film.getProductionCompany()%>
-                                </p>
-
+                                </p><% } %>
+                               <% if (film.getDirector() != null) { %>
                                 <p class="card-text">Director : <%
                                     int z;
-                                    for (z = 0; z < film.getDirector().size(); z++) {
-                                        if (z != 0) {
+                                        for (z = 0; z < film.getDirector().size(); z++) {
+                                            if (z != 0) {
                                 %>
                                     <%=", "%>
                                     <%}%>
-                                    <%=film.getDirector().get(z).toString()%><%}%></p>
-
+                                    <%=film.getDirector().get(z).toString()%><%
+                                            }
+                                    %></p>
+                                <%}%>
+                                <%if (film.getLanguage() != null) {%>
                                 <p class="card-text">Language : <%
                                     int w;
-                                    for (w = 0; w < film.getLanguage().size(); w++) {
-                                        if (w != 0) {
+
+                                        for (w = 0; w < film.getLanguage().size(); w++) {
+                                            if (w != 0) {
                                 %>
                                     <%=", "%>
                                     <%}%>
-                                    <%=film.getLanguage().get(w).toString()%><%}%></p>
-
+                                    <%=film.getLanguage().get(w).toString()%><%
+                                            }
+                                    %></p>
+                                <%}%>
+                                <%if (film.getCountry() != null) {%>
                                 <p class="card-text">Country : <%
                                     int y;
-                                    for (y = 0; y < film.getCountry().size(); y++) {
-                                        if (y != 0) {
+
+                                        for (y = 0; y < film.getCountry().size(); y++) {
+                                            if (y != 0) {
                                 %>
                                     <%=", "%>
                                     <%}%>
-                                    <%=film.getLanguage().get(y).toString()%><%}%></p>
+                                    <%=film.getLanguage().get(y).toString()%><%
+                                            }
+
+                                    %></p>
+                                <%}%>
 
 
                                 <p class="card-title">Story: <%=film.getStoryline()%>
