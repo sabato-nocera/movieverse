@@ -53,27 +53,30 @@ public class RemoveToWatchServlet extends HttpServlet {
 
         logger.log(Level.WARNING, "L'utente loggato è " + user.getUsername());
 
-        //rimuovo il film dalle liste
-        user.getMoviesToSee().remove(sessionfilm.getId());
 
-        //Salvo la modifica sul database
-        MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("users");
-        Document filter = new Document("username", user.getUsername());
-        FindIterable<Document> findIterable = mongoDatabase.find(filter);
-        MongoCursor<Document> cursor = findIterable.iterator();
-        if (cursor.hasNext()) {
+        if (user.getMoviesToSee() != null) {
+            //rimuovo il film dalle liste
+            user.getMoviesToSee().remove(sessionfilm.getId());
 
-            BasicDBObject documentUpdater = new BasicDBObject();
+            //Salvo la modifica sul database
+            MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("users");
+            Document filter = new Document("username", user.getUsername());
+            FindIterable<Document> findIterable = mongoDatabase.find(filter);
+            MongoCursor<Document> cursor = findIterable.iterator();
+            if (cursor.hasNext()) {
 
-            documentUpdater.put("moviesToSee", user.getMoviesToSee());
+                BasicDBObject documentUpdater = new BasicDBObject();
 
-            BasicDBObject updateObject = new BasicDBObject();
-            updateObject.put("$set", documentUpdater);
+                documentUpdater.put("moviesToSee", user.getMoviesToSee());
 
-            logger.log(Level.WARNING, "DOC UPDATER : " + documentUpdater.toString());
-            logger.log(Level.WARNING, "OBJ UPDATER : " + updateObject.toString());
+                BasicDBObject updateObject = new BasicDBObject();
+                updateObject.put("$set", documentUpdater);
 
-            MongoDBConnection.getDatabase().getCollection("users").updateOne(filter, updateObject);
+                logger.log(Level.WARNING, "DOC UPDATER : " + documentUpdater.toString());
+                logger.log(Level.WARNING, "OBJ UPDATER : " + updateObject.toString());
+
+                MongoDBConnection.getDatabase().getCollection("users").updateOne(filter, updateObject);
+            }
         }
 
 

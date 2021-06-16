@@ -114,6 +114,7 @@ public class CatalogoServlet extends HttpServlet {
                 sorter = new BasicDBObject(order, 1);
                 // Ordinamento decrescente
             } else if (order.equals("releaseDate") || order.equals("averageRating") || order.equals("imdbRating")) {
+                logger.log(Level.WARNING, "order : "+order);
                 sorter = new BasicDBObject(order, -1);
             }
         }
@@ -189,25 +190,28 @@ public class CatalogoServlet extends HttpServlet {
                 utenteBean.setDateOfBirth(dateRetrieved);
 
                 List<ObjectId> watchedMoviesIds = document.getList("viewedMovies", ObjectId.class);
-                logger.log(Level.WARNING, "Watched movies Ids: " + watchedMoviesIds.toString());
+                if(watchedMoviesIds!=null){
+                    logger.log(Level.WARNING, "Watched movies Ids: " + watchedMoviesIds.toString());
+                    BasicDBObject basicDBObject = new BasicDBObject();
+                    // Questa query mi serve a recupera da "movies" tutti e soli i film i cui id sono quelli dei film guardati
+                    basicDBObject.put("_id", new BasicDBObject("$in", watchedMoviesIds));
 
-                BasicDBObject basicDBObject = new BasicDBObject();
-                // Questa query mi serve a recupera da "movies" tutti e soli i film i cui id sono quelli dei film guardati
-                basicDBObject.put("_id", new BasicDBObject("$in", watchedMoviesIds));
+                    filter = Filters.and(filter, basicDBObject);
 
-                filter = Filters.and(filter, basicDBObject);
-
-                collection = MongoDBConnection.getDatabase().getCollection("movies").find(filter).sort(sorter);
-                iterator = collection.iterator();
-                while (iterator.hasNext()) {
-                    document = (org.bson.Document) iterator.next();
-                    Date date = (Date) document.get("releaseDate");
-                    document.remove("releaseDate");
-                    FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
-                    film.setReleaseDate(date);
-                    film.setId(document.getObjectId("_id"));
-                    logger.log(Level.WARNING, "Film: " + film.getTitle());
-                    movie.add(film);
+                    collection = MongoDBConnection.getDatabase().getCollection("movies").find(filter).sort(sorter);
+                    iterator = collection.iterator();
+                    while (iterator.hasNext()) {
+                        document = (org.bson.Document) iterator.next();
+                        Date date = (Date) document.get("releaseDate");
+                        document.remove("releaseDate");
+                        FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+                        film.setReleaseDate(date);
+                        film.setId(document.getObjectId("_id"));
+                        logger.log(Level.WARNING, "Film: " + film.getTitle());
+                        movie.add(film);
+                    }
+                } else {
+                    logger.log(Level.WARNING, "Watched movies Ids è null");
                 }
             }
         } else if (elenco == 6) {
@@ -224,25 +228,28 @@ public class CatalogoServlet extends HttpServlet {
                 utenteBean.setDateOfBirth(dateRetrieved);
 
                 List<ObjectId> moviesToSeeIds = document.getList("moviesToSee", ObjectId.class);
-                logger.log(Level.WARNING, "Watched movies Ids: " + moviesToSeeIds.toString());
+                if(moviesToSeeIds!=null){
+                    logger.log(Level.WARNING, "Watched movies Ids: " + moviesToSeeIds.toString());
+                    BasicDBObject basicDBObject = new BasicDBObject();
+                    // Questa query mi serve a recupera da "movies" tutti e soli i film i cui id sono quelli dei film guardati
+                    basicDBObject.put("_id", new BasicDBObject("$in", moviesToSeeIds));
 
-                BasicDBObject basicDBObject = new BasicDBObject();
-                // Questa query mi serve a recupera da "movies" tutti e soli i film i cui id sono quelli dei film guardati
-                basicDBObject.put("_id", new BasicDBObject("$in", moviesToSeeIds));
+                    filter = Filters.and(filter, basicDBObject);
 
-                filter = Filters.and(filter, basicDBObject);
-
-                collection = MongoDBConnection.getDatabase().getCollection("movies").find(filter).sort(sorter);
-                iterator = collection.iterator();
-                while (iterator.hasNext()) {
-                    document = (org.bson.Document) iterator.next();
-                    Date date = (Date) document.get("releaseDate");
-                    document.remove("releaseDate");
-                    FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
-                    film.setReleaseDate(date);
-                    film.setId(document.getObjectId("_id"));
-                    logger.log(Level.WARNING, "Film: " + film.getTitle());
-                    movie.add(film);
+                    collection = MongoDBConnection.getDatabase().getCollection("movies").find(filter).sort(sorter);
+                    iterator = collection.iterator();
+                    while (iterator.hasNext()) {
+                        document = (org.bson.Document) iterator.next();
+                        Date date = (Date) document.get("releaseDate");
+                        document.remove("releaseDate");
+                        FilmBean film = gson.fromJson(document.toJson(), FilmBean.class);
+                        film.setReleaseDate(date);
+                        film.setId(document.getObjectId("_id"));
+                        logger.log(Level.WARNING, "Film: " + film.getTitle());
+                        movie.add(film);
+                    }
+                } else {
+                    logger.log(Level.WARNING, "Watched movies Ids è null");
                 }
             }
         }

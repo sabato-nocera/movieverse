@@ -112,6 +112,8 @@ public class AddWatchedServlet extends HttpServlet {
 
                 MongoDBConnection.getDatabase().getCollection("users").updateOne(filter, updateObject);
                 user.addViewedMovie(id);
+                request.getSession().removeAttribute("utente");
+                request.getSession().setAttribute("utente", user);
             }
         }
 

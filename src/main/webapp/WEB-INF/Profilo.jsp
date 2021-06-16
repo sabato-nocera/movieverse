@@ -484,7 +484,7 @@
                         ticks: {
                             fontColor: "white",
                             fontSize: 18,
-                            stepSize: 40,
+                            stepSize: 1000,
                             beginAtZero: true
                         }
                     }],

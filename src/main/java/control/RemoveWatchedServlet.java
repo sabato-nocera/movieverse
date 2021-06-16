@@ -49,27 +49,34 @@ public class RemoveWatchedServlet extends HttpServlet {
         logger.log(Level.WARNING, "L'utente loggato è " + user.getUsername());
 
         //rimuovo il film dalle liste
-        user.getViewedMovies().remove(sessionfilm.getId());
+        if(user.getViewedMovies()!=null){
+            user.getViewedMovies().remove(sessionfilm.getId());
 
-        //Salvo la modifica sul Database
-        MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("users");
-        Document filter = new Document("username", user.getUsername());
-        FindIterable<Document> findIterable = mongoDatabase.find(filter);
-        MongoCursor<Document> cursor = findIterable.iterator();
-        if (cursor.hasNext()) {
+            //Salvo la modifica sul Database
+            MongoCollection mongoDatabase = MongoDBConnection.getDatabase().getCollection("users");
+            Document filter = new Document("username", user.getUsername());
+            FindIterable<Document> findIterable = mongoDatabase.find(filter);
+            MongoCursor<Document> cursor = findIterable.iterator();
+            if (cursor.hasNext()) {
 
-            BasicDBObject documentUpdater = new BasicDBObject();
+                BasicDBObject documentUpdater = new BasicDBObject();
 
-            documentUpdater.put("viewedMovies", user.getViewedMovies());
+                documentUpdater.put("viewedMovies", user.getViewedMovies());
 
-            BasicDBObject updateObject = new BasicDBObject();
-            updateObject.put("$set", documentUpdater);
+                BasicDBObject updateObject = new BasicDBObject();
+                updateObject.put("$set", documentUpdater);
 
-            logger.log(Level.WARNING, "DOC UPDATER : " + documentUpdater.toString());
-            logger.log(Level.WARNING, "OBJ UPDATER : " + updateObject.toString());
+                logger.log(Level.WARNING, "DOC UPDATER : " + documentUpdater.toString());
+                logger.log(Level.WARNING, "OBJ UPDATER : " + updateObject.toString());
 
-            MongoDBConnection.getDatabase().getCollection("users").updateOne(filter, updateObject);
+                MongoDBConnection.getDatabase().getCollection("users").updateOne(filter, updateObject);
+
+                request.getSession().removeAttribute("utente");
+                request.getSession().setAttribute("utente", user);
+            }
         }
+
+
 
         String url = response.encodeURL("Catalogo");
         request.getRequestDispatcher(url).forward(request, response);

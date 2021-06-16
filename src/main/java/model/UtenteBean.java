@@ -23,10 +23,16 @@ public class UtenteBean {
     }
 
     public void addViewedMovie(ObjectId objectId){
+        if(this.viewedMovies==null){
+            this.viewedMovies=new ArrayList<>();
+        }
         viewedMovies.add(objectId);
     }
 
     public void addMovieToSee(ObjectId objectId){
+        if(this.moviesToSee==null){
+            this.moviesToSee=new ArrayList<>();
+        }
         moviesToSee.add(objectId);
     }
 

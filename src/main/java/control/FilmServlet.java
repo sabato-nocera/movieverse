@@ -41,6 +41,7 @@ public class FilmServlet extends HttpServlet {
         }
 
         String titoloFilm = request.getParameter("TitoloFilm");
+        logger.log(Level.WARNING, "Film da visualizzare : " + titoloFilm);
 
         //Dato un filter vado ad ottenere il film e ad esso creo un FilmBean da passare alla JSP
         //Considerando che non so in che collezione ho quel film, vado a cercare in tutte e 4

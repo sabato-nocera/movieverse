@@ -175,11 +175,10 @@
                                 <% } else { %>
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                     <%if (film.getCatalog() == null || !film.getCatalog().equalsIgnoreCase("movies_coming_soon")) {%>
-                                    <% if (!user.getViewedMovies().contains(film.getId())) {%>
+                                    <% if (user.getViewedMovies()==null || !user.getViewedMovies().contains(film.getId())) {%>
                                     <form action="AddWatched" method="POST">
                                         <button type="submit" class="btn btn-warning" name="TitoloFilm"
-                                                value="<%=film.getTitle()%>" style="margin-right: 5px;">Add to Watched
-                                            List
+                                                value="<%=film.getTitle()%>" style="margin-right: 5px;">Add to Watched List
                                         </button>
                                     </form>
                                     <%} else {%>
@@ -192,7 +191,7 @@
                                     <%
                                             }
                                         }
-                                        if (!user.getMoviesToSee().contains(film.getId())) {
+                                        if (user.getMoviesToSee()==null || !user.getMoviesToSee().contains(film.getId())) {
                                     %>
                                     <form action="AddToWatch" method="POST">
                                         <button type="submit" class="btn btn-warning" name="TitoloFilm"
@@ -218,7 +217,7 @@
                                 </h3>
 
                                 <%if (film.getOriginalTitle() != null && !film.getOriginalTitle().equals("")) {%>
-                                <h5 class="card-title">Original Title: <%=film.getTitle()%>
+                                <h5 class="card-title">Original Title: <%=film.getOriginalTitle()%>
                                 </h5> <%}%>
 
                                 <h5 class="card-title">Movieverse Rating: <%=film.getImdbRating()%>
@@ -396,7 +395,7 @@
                                     </div>
                                     <div class="text-center" style="margin-bottom: 5px;">
                                         <button type="submit" class="btn btn-warning" name="addreview"
-                                                value="<%=film.getTitle()%>">Add Rerview
+                                                value="<%=film.getTitle()%>">Add Review
                                         </button>
                                     </div>
 
@@ -428,7 +427,7 @@
                                     </div>
                                     <div class="text-center" style="margin-bottom: 5px;">
                                         <button type="submit" class="btn btn-warning" name="addreview"
-                                                value="<%=film.getTitle()%>">Add Rerview
+                                                value="<%=film.getTitle()%>">Add Review
                                         </button>
                                     </div>
 

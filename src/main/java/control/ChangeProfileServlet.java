@@ -139,7 +139,8 @@ public class ChangeProfileServlet extends HttpServlet {
                 logger.log(Level.WARNING, "OBJ UPDATER : " + updateObject.toString());
                 //Inserisco l'oggetto di modifica nel DB andando a modificarlo al documento ricercato dal filtro
                 MongoDBConnection.getDatabase().getCollection("users").updateOne(filter, updateObject);
-
+                request.getSession().removeAttribute("utente");
+                request.getSession().setAttribute("utente", temp);
             }
         }
 

@@ -113,13 +113,13 @@ public class AddToWatchServelt extends HttpServlet {
 
                 MongoDBConnection.getDatabase().getCollection("users").updateOne(filter, updateObject);
                 user.addMovieToSee(id);
+                request.getSession().removeAttribute("utente");
+                request.getSession().setAttribute("utente", user);
             }
         }
 
         String url = response.encodeURL("Film?TitoloFilm=" + titolo);
         request.getRequestDispatcher(url).forward(request, response);
-        // TODO: Agigungere i controlli che un film che è stato aggiunto alla watchlist non vi venga aggiunto nuovamente né compaia il pulsante che può aggiungerlo
-        // TODO: Non puoi aggiungere alla watched list dei film che ancora devono uscire
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
