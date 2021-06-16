@@ -172,12 +172,19 @@
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <div class="mb-3">
+                                            <div class="col-md-6">
                                                 <div class="form-floating">
                                                     <input class="form-control" name="story" id="inputStory"
-                                                           type="text" placeholder="Story"/>
+                                                           type="text" placeholder="Story" overflow="scroll"/>
                                                     <label for="inputStory" style="color: #212529"
                                                            class="overflow-auto">Story</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input class="form-control" name="product" id="product"
+                                                           type="text" placeholder="Url Poster" />
+                                                    <label for="product" style="color: #212529">Production Company</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -245,6 +252,49 @@
 
 
                                         </div>
+
+                                        <p style="color: #adb5bd"><em>Insert a comma ( , ) between multiple Director</em></p>
+                                        <div class="row mb-3">
+
+                                            <div class=" mb-3">
+                                                <div class="form-floating">
+                                                    <input class="form-control" name="director" id="dir"
+                                                           type="text" placeholder="Story"/>
+                                                    <label for="gen1"
+                                                           style="color: #212529">Director</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <p style="color: #adb5bd"><em>Insert a comma ( , ) between multiple Languages</em></p>
+                                        <div class="row mb-3">
+
+                                            <div class=" mb-3">
+                                                <div class="form-floating">
+                                                    <input class="form-control" name="language" id="lan"
+                                                           type="text" placeholder="Story"/>
+                                                    <label for="lan"
+                                                           style="color: #212529">Language</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <p style="color: #adb5bd"><em>Insert a comma ( , ) between multiple Country</em></p>
+                                        <div class="row mb-3">
+
+                                            <div class=" mb-3">
+                                                <div class="form-floating">
+                                                    <input class="form-control" name="country" id="country"
+                                                           type="text" placeholder="Story"/>
+                                                    <label for="country"
+                                                           style="color: #212529">Country</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
                                             <div class="input-group mb-3">
                                                 <label class="btn-warning input-group-text" for="inputGroupSelect00">Movies</label>
                                                 <select class="form-select" id="inputGroupSelect00" name="catalog">
@@ -252,7 +302,7 @@
                                                     <option value="movies_in_theaters">Movies in Theaters</option>
                                                     <option value="movies_coming_soon">Movies Coming Soon</option>
                                                     <option value="top_rated_movies">Movie Top Rated</option>
-                                                    <option value="other_movies">Other Movies</option>
+                                                    <option value="other">Other</option>
                                                 </select>
                                             </div>
 
@@ -299,19 +349,23 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
-
-                                            <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input class="form-control" name="Story" id="inputStorym"
-                                                           type="text" placeholder="Story" value="<%=film.getStoryline()%>"/>
-                                                    <label for="inputStorym" style="color: #212529; "
-                                                           class="overflow-auto">StoryLine
-                                                    </label>
-                                                </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input class="form-control" name="story" id="inputStorym"
+                                                       type="text" placeholder="Story" overflow="scroll" value="<%=film.getStoryline()%>"/>
+                                                <label for="inputStorym" style="color: #212529"
+                                                       class="overflow-auto">Story</label>
                                             </div>
-
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input class="form-control" name="product" id="productm"
+                                                       type="text" placeholder="Product Company" value="<%=film.getProductionCompany()%>"/>
+                                                <label for="productm" style="color: #212529">Production Company</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
@@ -383,21 +437,59 @@
 
 
                                         </div>
+
+                                    <p style="color: #adb5bd"><em>Insert a comma ( , ) between multiple Director</em></p>
+                                    <div class="row mb-3">
+
+                                        <div class=" mb-3">
+                                            <div class="form-floating">
+                                                <input class="form-control" name="director" id="dirm"
+                                                       type="text" placeholder="Director" value="<%=film.getDirector().toString().substring(1,film.getDirector().toString().length()-1)%>"/>
+                                                <label for="dirm"
+                                                       style="color: #212529">Director</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <p style="color: #adb5bd"><em>Insert a comma ( , ) between multiple Languages</em></p>
+                                    <div class="row mb-3">
+
+                                        <div class=" mb-3">
+                                            <div class="form-floating">
+                                                <input class="form-control" name="language" id="lanm"
+                                                       type="text" placeholder="Story" value="<%=film.getLanguage().toString().substring(1,film.getLanguage().toString().length()-1)%>"/>
+                                                <label for="lanm"
+                                                       style="color: #212529">Language</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <p style="color: #adb5bd"><em>Insert a comma ( , ) between multiple Country</em></p>
+                                    <div class="row mb-3">
+
+                                        <div class=" mb-3">
+                                            <div class="form-floating">
+                                                <input class="form-control" name="country" id="countrym"
+                                                       type="text" placeholder="Story" value="<%=film.getCountry().toString().substring(1,film.getCountry().toString().length()-1)%>"/>
+                                                <label for="countrym"
+                                                       style="color: #212529">Country</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                         <div class="row mb-3">
                                             <div class="input-group mb-3">
                                                 <label class=" btn-warning input-group-text" for="inputGroupSelect01">Movies</label>
                                                 <select class="form-select" id="inputGroupSelect01" name="catalog">
                                                     <option>Choose...</option>
-                                                    <option value="1">Movies in Theaters</option>
-                                                    <option value="2">Movies Coming Soon</option>
-                                                    <option value="3">Movie Top Rated</option>
+                                                    <option value="movies_in_theaters">Movies in Theaters</option>
+                                                    <option value="movies_coming_soon">Movies Coming Soon</option>
+                                                    <option value="top_rated_movies">Movie Top Rated</option>
+                                                    <option value="other">Other</option>
                                                 </select>
-                                            </div>
-                                            <div style="display: none">
-                                                <input class="form-control" name="id" id="id"
-                                                       type="text" placeholder="Story" value="<%=film.getId()%>"/>
-                                                <label for="id"
-                                                       style="color: #212529">Actors</label>
                                             </div>
 
 

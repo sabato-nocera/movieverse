@@ -52,17 +52,43 @@ public class ChangeMovieServlet extends HttpServlet {
         String catalogo = request.getParameter("catalog");
         String data = request.getParameter("dateRelased");
         String imbdRating = request.getParameter("imdbRating");
+        String product = request.getParameter("product");
         String genres = request.getParameter("gen");
         String actors = request.getParameter("act");
+        String dir = request.getParameter("director");
+        String lan = request.getParameter("language");
+        String cou = request.getParameter("country");
+
+        if(catalogo.equals("other")){
+            catalogo="";
+        }
+
+        //trasformo le stringhe in un array di stringhe da inserire nel DB
         String[] g = genres.split(",");
         List<String> generi = new ArrayList<>();
         String[] a = actors.split(",");
         List<String> attori = new ArrayList<>();
+        String[] d = dir.split(",");
+        List<String> director = new ArrayList<>();
+        String[] l = lan.split(",");
+        List<String> language = new ArrayList<>();
+        String[] c = cou.split(",");
+        List<String> country = new ArrayList<>();
+
         for (int i = 0; i < g.length; i++) {
             generi.add(g[i].trim());
         }
         for (int i = 0; i < a.length; i++) {
             attori.add(a[i].trim());
+        }
+        for (int i = 0; i < d.length; i++) {
+            director.add(d[i].trim());
+        }
+        for (int i = 0; i < l.length; i++) {
+            language.add(l[i].trim());
+        }
+        for (int i = 0; i < c.length; i++) {
+            country.add(c[i].trim());
         }
 
         logger.log(Level.WARNING, "L'ID preso dalla sessione è : "+sessionfilm.toString());
@@ -107,6 +133,10 @@ public class ChangeMovieServlet extends HttpServlet {
             filmBean.setPosterurl(poster);
             filmBean.setActors(attori);
             filmBean.setGenres(generi);
+            filmBean.setProductionCompany(product);
+            filmBean.setCountry(country);
+            filmBean.setLanguage(language);
+            filmBean.setDirector(director);
             if (originalTitle != null && !originalTitle.equals("")) {
                 filmBean.setOriginalTitle(originalTitle);
             }
@@ -116,7 +146,7 @@ public class ChangeMovieServlet extends HttpServlet {
             if (duration != null && !duration.equals("")) {
                 filmBean.setDuration("PT" + duration + "M");
             }
-            if (catalogo != null && !catalogo.equals("") && !catalogo.equals("Choose...")) {
+            if (catalogo != null  && !catalogo.equals("Choose...")) {
                 filmBean.setCatalog(catalogo);
             }
             if (data != null && !data.equals("")) {
@@ -145,7 +175,11 @@ public class ChangeMovieServlet extends HttpServlet {
             documentUpdater.put("actors", filmBean.getActors());
             documentUpdater.put("imdbRating", filmBean.getImdbRating());
             documentUpdater.put("posterurl", filmBean.getPosterurl());
+            documentUpdater.put("productionCompany", filmBean.getProductionCompany());
             documentUpdater.put("catalog", filmBean.getCatalog());
+            documentUpdater.put("country", filmBean.getCountry());
+            documentUpdater.put("director", filmBean.getDirector());
+            documentUpdater.put("language", filmBean.getLanguage());
             documentUpdater.put("originalTitle",filmBean.getOriginalTitle());
 
             //Creo un oggetto di modifica e gli associo il documento di modifica creato prima

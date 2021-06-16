@@ -53,9 +53,15 @@ public class AddMovieServlet extends HttpServlet {
         String catalogo = request.getParameter("catalog");
         String date = request.getParameter("releaseDate");
         String imbdRating = request.getParameter("imdbRating");
+        String product = request.getParameter("product");
 
         String genres = request.getParameter("gen");
         String actors = request.getParameter("act");
+        String dir = request.getParameter("director");
+        String lan = request.getParameter("language");
+        String cou = request.getParameter("country");
+
+        film.setCatalog(catalogo);
 
         if (originalTitle != null && !originalTitle.equals("")) {
             film.setOriginalTitle(originalTitle);
@@ -82,24 +88,42 @@ public class AddMovieServlet extends HttpServlet {
         } else {
             film.setImdbRating(0.0);
         }
-        // TODO: Bisogna fare un controllo che se il film è appena inserito, il rating degli utenti è 0
-        // TODO: per ora lascio così, ma se "modifico" il film potrebbe dare problemi
+
         film.setAverageRating(0.0);
 
+        //trasformo le stringhe in un array di stringhe da inserire nel DB
         String[] g = genres.split(",");
         List<String> generi = new ArrayList<>();
         String[] a = actors.split(",");
         List<String> attori = new ArrayList<>();
+        String[] d = dir.split(",");
+        List<String> director = new ArrayList<>();
+        String[] l = lan.split(",");
+        List<String> language = new ArrayList<>();
+        String[] c = cou.split(",");
+        List<String> country = new ArrayList<>();
+
         for (int i = 0; i < g.length; i++) {
-            logger.log(Level.WARNING, "Genere: " + g[i]);
             generi.add(g[i].trim());
         }
-        film.setGenres(generi);
         for (int i = 0; i < a.length; i++) {
-            logger.log(Level.WARNING, "Attore: " + a[i]);
             attori.add(a[i].trim());
         }
+        for (int i = 0; i < d.length; i++) {
+            director.add(d[i].trim());
+        }
+        for (int i = 0; i < l.length; i++) {
+            language.add(l[i].trim());
+        }
+        for (int i = 0; i < c.length; i++) {
+            country.add(c[i].trim());
+        }
+
+        film.setGenres(generi);
         film.setActors(attori);
+        film.setDirector(director);
+        film.setLanguage(language);
+        film.setCountry(country);
 
         // Controllo che non esista già il film
         Document filter = new Document("title", film.getTitle());

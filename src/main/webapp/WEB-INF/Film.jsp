@@ -294,7 +294,7 @@
                                 %>
                                     <%=", "%>
                                     <%}%>
-                                    <%=film.getLanguage().get(y).toString()%><%
+                                    <%=film.getCountry().get(y).toString()%><%
                                             }
 
                                     %></p>
