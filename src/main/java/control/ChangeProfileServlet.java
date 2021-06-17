@@ -91,11 +91,14 @@ public class ChangeProfileServlet extends HttpServlet {
             String cognomeU = request.getParameter("lastName");
             String date = request.getParameter("dateOfBirth");
             String gender = request.getParameter("gender");
+            logger.log(Level.WARNING, "Il genere preso in input è "+ gender);
+            logger.log(Level.WARNING, "Il genere presente è "+ user.getGender());
             temp.setEmail(emailu);
             temp.setFirstName(nameU);
             temp.setLastName(cognomeU);
             temp.setUsername(usernameu);
             temp.setGender(gender);
+            logger.log(Level.WARNING, "Il genere sostituito è "+ temp.getGender());
             temp.setAdmin(false);
             if (date != null && !date.equals("")) {
                 String[] list = date.split("-");

@@ -168,19 +168,33 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
+                                                    <%if(user.getEmail()!=null){%>
                                                     <input class="form-control" name="email" id="inputEmail"
                                                            type="email"
                                                            placeholder="<name@example.com*>"
                                                            value="<%=user.getEmail()%>" required/>
                                                     <label for="inputEmail" style="color: #212529">Email*</label>
+                                                    <%}else{%>
+                                                    <input class="form-control" name="email" id="inputEmail"
+                                                           type="email"
+                                                           placeholder="<name@example.com*>" required/>
+                                                    <label for="inputEmail" style="color: #212529">Email*</label>
+                                                    <%}%>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
+                                                    <%if(user.getUsername()!=null){%>
                                                     <input class="form-control" name="username" id="inputUsername"
                                                            type="text" placeholder="Enter your username*"
                                                            value="<%=user.getUsername()%>" required/>
                                                     <label for="inputUsername" style="color: #212529">Username*</label>
+                                                    <%}else{%>
+                                                    <input class="form-control" name="username" id="inputUsername"
+                                                           type="text" placeholder="Enter your username*"
+                                                            required/>
+                                                    <label for="inputUsername" style="color: #212529">Username*</label>
+                                                    <%}%>
                                                 </div>
                                             </div>
                                         </div>
@@ -206,36 +220,57 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
+                                                    <%if(user.getFirstName()!=null){%>
                                                     <input class="form-control" name="firstName" id="inputFirstName"
                                                            type="text" placeholder="Enter your first name"
                                                            value="<%=user.getFirstName()%>"/>
                                                     <label for="inputFirstName" style="color: #212529">First
                                                         Name</label>
+                                                    <%}else{%>
+                                                    <input class="form-control" name="firstName" id="inputFirstName"
+                                                           type="text" placeholder="Enter your first name"/>
+                                                    <label for="inputFirstName" style="color: #212529">First
+                                                        Name</label>
+                                                    <%}%>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
+                                                    <%if(user.getLastName()!=null){%>
                                                     <input class="form-control" name="lastName" id="inputLastName"
                                                            type="text" placeholder="Enter your last name"
                                                            value="<%=user.getLastName()%>"/>
                                                     <label for="inputLastName" style="color: #212529">Last Name</label>
+                                                    <%}else{%>
+                                                    <input class="form-control" name="lastName" id="inputLastName"
+                                                           type="text" placeholder="Enter your last name"/>
+                                                    <label for="inputLastName" style="color: #212529">Last Name</label>
+                                                    <%}%>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
+                                                    <%if(user.getDateOfBirth()!=null){%>
+                                                    <input class="form-control" name="dateOfBirth" id="inputDateOfBirth"
+                                                           type="date" placeholder="Enter your date of birth"
+                                                           value="<%=user.getDateOfBirth()%>"/>
+                                                    <label for="inputDateOfBirth" style="color: #212529">Date Of
+                                                        Birth <%=user.getDateOfBirth()%></label>
+                                                    <%}else{%>
                                                     <input class="form-control" name="dateOfBirth" id="inputDateOfBirth"
                                                            type="date" placeholder="Enter your date of birth"
                                                            value="<%=user.getDateOfBirth()%>"/>
                                                     <label for="inputDateOfBirth" style="color: #212529">Date Of
                                                         Birth</label>
+                                                    <%}%>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <span class="text-white">Gender</span> <br/>
                                                 <div class="form-check form-check-inline">
-                                                    <%if (user.getGender().equalsIgnoreCase("male")) {%>
+                                                    <%if (user.getGender()!=null && user.getGender().equalsIgnoreCase("male")) {%>
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            value="male"
                                                            id="flexRadioDefault1" checked>
@@ -250,7 +285,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <%if (user.getGender().equalsIgnoreCase("famale")) {%>
+                                                    <%if (user.getGender()!=null && user.getGender().equalsIgnoreCase("female")) {%>
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            value="female" id="flexRadioDefault2" checked>
                                                     <%} else {%>
@@ -263,7 +298,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <%if (user.getGender().equalsIgnoreCase("other")) {%>
+                                                    <%if (user.getGender()!=null && user.getGender().equalsIgnoreCase("other")) {%>
                                                     <input class="form-check-input" type="radio" name="gender"
                                                            value="other"
                                                            id="flexRadioDefault3" checked>
@@ -305,19 +340,32 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
+                                                    <%if(user.getEmail()!=null){%>
                                                     <input class="form-control" name="email" id="inputEmailad"
                                                            type="email"
                                                            placeholder="<name@example.com*>"
                                                            value="<%=user.getEmail()%>" required/>
                                                     <label for="inputEmail" style="color: #212529">Email*</label>
+                                                    <%}else{%>
+                                                    <input class="form-control" name="email" id="inputEmailad"
+                                                           type="email"
+                                                           placeholder="<name@example.com*>" required/>
+                                                    <label for="inputEmail" style="color: #212529">Email*</label>
+                                                    <%}%>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
+                                                    <%if(user.getUsername()!=null){%>
                                                     <input class="form-control" name="username" id="inputUsernamead"
                                                            type="text" placeholder="Enter your username*"
                                                            value="<%=user.getUsername()%>" required/>
                                                     <label for="inputUsername" style="color: #212529">Usernsme*</label>
+                                                    <%}else{%>
+                                                    <input class="form-control" name="username" id="inputUsernamead"
+                                                           type="text" placeholder="Enter your username*" required/>
+                                                    <label for="inputUsername" style="color: #212529">Usernsme*</label>
+                                                    <%}%>
                                                 </div>
                                             </div>
                                         </div>

@@ -413,7 +413,7 @@
                                                            id="inputDateRelasedm"
                                                            type="date" placeholder="Enter Date of Relased" />
                                                     <label for="inputDateRelasedm"
-                                                           style="color: #212529">Date of Relased
+                                                           style="color: #212529">Date of Relased <%=film.getReleaseDate()%>
                                                     </label>
                                                     <%}%>
                                                 </div>
