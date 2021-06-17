@@ -225,6 +225,7 @@
                                 <h6 class="card-title">User Rating: <%=film.getAverageRating()%>
                                 </h6>
 
+                                <%if(film.getGenres()!=null){%>
                                 <p class="card-title">Genres: <%
                                     int j;
                                     if (film.getGenres() != null) {
@@ -237,6 +238,9 @@
                                             }
                                         }
                                     %></p>
+                                <%}%>
+
+                                <%if(film.getActors()!=null){%>
                                 <p class="card-title">Actors: <%
                                     int h;
                                     if (film.getGenres() != null) {
@@ -249,6 +253,8 @@
                                             }
                                         }
                                     %></p>
+                                <%}%>
+
                                 <%if (film.getReleaseDate() != null) {%>
                                 <p class="card-title">Release date:
                                     <!-- Serve per stampare la data nel formato che ci interessa -->
@@ -299,9 +305,15 @@
                                     %></p>
                                 <%}%>
 
+                                <%if(film.getDuration()!= null){%>
+                                <p class="card-title">Duration : <%=film.getDuration().substring(2)%>
+                                </p>
+                                <%}%>
 
+                                <%if(film.getStoryline()!=null){%>
                                 <p class="card-title">Story: <%=film.getStoryline()%>
                                 </p>
+                                <%}%>
 
 
                             </div>

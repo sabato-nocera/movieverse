@@ -352,86 +352,148 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <div class="form-floating">
+                                                <%if(film.getStoryline()!=null){%>
                                                 <input class="form-control" name="story" id="inputStorym"
                                                        type="text" placeholder="Story" overflow="scroll" value="<%=film.getStoryline()%>"/>
                                                 <label for="inputStorym" style="color: #212529"
-                                                       class="overflow-auto">Story</label>
+                                                       class="overflow-auto">StoryLine</label>
+                                                <%}else{%>
+                                                <input class="form-control" name="story" id="inputStorym"
+                                                       type="text" placeholder="Story" overflow="scroll" />
+                                                <label for="inputStorym" style="color: #212529"
+                                                       class="overflow-auto">StoryLine</label>
+                                                <%}%>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating">
+                                                <%if(film.getProductionCompany()!=null){%>
                                                 <input class="form-control" name="product" id="productm"
                                                        type="text" placeholder="Product Company" value="<%=film.getProductionCompany()%>"/>
                                                 <label for="productm" style="color: #212529">Production Company</label>
+                                                <%}else{%>
+                                                <input class="form-control" name="product" id="productm"
+                                                       type="text" placeholder="Product Company" />
+                                                <label for="productm" style="color: #212529">Production Company</label>
+                                                <%}%>
                                             </div>
                                         </div>
                                     </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
+                                                    <%if(film.getOriginalTitle()!=null){%>
                                                     <input class="form-control" name="originalTitle"
                                                            id="inputOriginalTitilem"
                                                            type="text" placeholder="Original Title" value="<%=film.getOriginalTitle()%>"/>
                                                     <label for="inputOriginalTitilem" style="color: #212529"
                                                            class="overflow-auto">Original Title
                                                     </label>
+                                                    <%}else{%>
+                                                    <input class="form-control" name="originalTitle"
+                                                           id="inputOriginalTitilem"
+                                                           type="text" placeholder="Original Title" />
+                                                    <label for="inputOriginalTitilem" style="color: #212529"
+                                                           class="overflow-auto">Original Title
+                                                    </label>
+                                                    <%}%>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
+                                                    <%if(film.getReleaseDate()!=null){%>
                                                     <input class="form-control" name="dateRelased"
                                                            id="inputDateRelasedm"
                                                            type="date" placeholder="Enter Date of Relased" value="<%=film.getReleaseDate()%>"/>
                                                     <label for="inputDateRelasedm"
                                                            style="color: #212529">Date of Relased
                                                     </label>
+                                                    <%}else{%>
+                                                    <input class="form-control" name="dateRelased"
+                                                           id="inputDateRelasedm"
+                                                           type="date" placeholder="Enter Date of Relased" />
+                                                    <label for="inputDateRelasedm"
+                                                           style="color: #212529">Date of Relased
+                                                    </label>
+                                                    <%}%>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
+                                                    <%if(film.getDuration()!=null){%>
                                                     <input class="form-control" name="duration" id="inputDurationm"
                                                            type="text" placeholder="duration" value="<%=film.getDuration().toString().substring(2,film.getDuration().toString().length()-2)%>"/>
                                                     <label for="inputDurationm"
                                                            style="color: #212529">Duration
                                                     </label>
+                                                    <%}else{%>
+                                                    <input class="form-control" name="duration" id="inputDurationm"
+                                                           type="text" placeholder="duration" />
+                                                    <label for="inputDurationm"
+                                                           style="color: #212529">Duration
+                                                    </label>
+                                                    <%}%>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
+                                                    <%if(film.getPosterurl()!=null){%>
                                                     <input class="form-control" name="poster" id="poster"
                                                            type="text" placeholder="Rating" value="<%=film.getPosterurl()%>"/>
                                                     <label for="poster"
                                                            style="color: #212529">Poster
                                                     </label>
+                                                    <%}else{%>
+                                                    <input class="form-control" name="poster" id="poster"
+                                                           type="text" placeholder="Rating" />
+                                                    <label for="poster"
+                                                           style="color: #212529">Poster
+                                                    </label>
+                                                    <%}%>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <p style="color: #adb5bd">insert , between actors and genres</p>
+                                    <p style="color: #adb5bd"><em>Insert a comma ( , ) between multiple Genres</em></p>
                                         <div class="row mb-3">
 
                                             <div class=" mb-3">
                                                 <div class="form-floating">
+                                                    <%if(film.getGenres()!=null){%>
                                                     <input class="form-control" name="gen" id="gen1i"
-                                                           type="text" placeholder="Story" value="<%=film.getGenres().toString().substring(1,film.getGenres().toString().length()-1)%>"/>
+                                                           type="text" placeholder="Genres" value="<%=film.getGenres().toString().substring(1,film.getGenres().toString().length()-1)%>"/>
                                                     <label for="gen1i"
                                                            style="color: #212529">Genres</label>
+                                                    <%}else{%>
+                                                    <input class="form-control" name="gen" id="gen1i"
+                                                           type="text" placeholder="Genres" />
+                                                    <label for="gen1i"
+                                                           style="color: #212529">Genres</label>
+                                                    <%}%>
                                                 </div>
                                             </div>
 
                                         </div>
 
+                                    <p style="color: #adb5bd"><em>Insert a comma ( , ) between multiple Actors</em></p>
                                         <div class="row mb-3">
 
 
                                             <div class=" mb-3">
                                                 <div class="form-floating">
+                                                    <%if(film.getActors()!=null){%>
                                                     <input class="form-control" name="act" id="act1i"
-                                                           type="text" placeholder="Story" value="<%=film.getActors().toString().substring(1,film.getActors().toString().length()-1)%>"/>
+                                                           type="text" placeholder="Actor" value="<%=film.getActors().toString().substring(1,film.getActors().toString().length()-1)%>"/>
                                                     <label for="act1i"
                                                            style="color: #212529">Actors</label>
+                                                    <%}else{%>
+                                                    <input class="form-control" name="act" id="act1i"
+                                                           type="text" placeholder="Actor" />
+                                                    <label for="act1i"
+                                                           style="color: #212529">Actors</label>
+                                                    <%}%>
                                                 </div>
                                             </div>
 
@@ -443,10 +505,17 @@
 
                                         <div class=" mb-3">
                                             <div class="form-floating">
+                                                <%if(film.getDirector()!=null){%>
                                                 <input class="form-control" name="director" id="dirm"
                                                        type="text" placeholder="Director" value="<%=film.getDirector().toString().substring(1,film.getDirector().toString().length()-1)%>"/>
                                                 <label for="dirm"
                                                        style="color: #212529">Director</label>
+                                                <%}else{%>
+                                                <input class="form-control" name="director" id="dirm"
+                                                       type="text" placeholder="Director" />
+                                                <label for="dirm"
+                                                       style="color: #212529">Director</label>
+                                                <%}%>
                                             </div>
                                         </div>
 
@@ -457,10 +526,17 @@
 
                                         <div class=" mb-3">
                                             <div class="form-floating">
+                                                <%if(film.getLanguage()!=null){%>
                                                 <input class="form-control" name="language" id="lanm"
                                                        type="text" placeholder="Story" value="<%=film.getLanguage().toString().substring(1,film.getLanguage().toString().length()-1)%>"/>
                                                 <label for="lanm"
                                                        style="color: #212529">Language</label>
+                                                <%}else{%>
+                                                <input class="form-control" name="language" id="lanm"
+                                                       type="text" placeholder="Story" />
+                                                <label for="lanm"
+                                                       style="color: #212529">Language</label>
+                                                <%}%>
                                             </div>
                                         </div>
 
@@ -471,10 +547,17 @@
 
                                         <div class=" mb-3">
                                             <div class="form-floating">
+                                                <%if(film.getCountry()!=null){%>
                                                 <input class="form-control" name="country" id="countrym"
                                                        type="text" placeholder="Story" value="<%=film.getCountry().toString().substring(1,film.getCountry().toString().length()-1)%>"/>
                                                 <label for="countrym"
                                                        style="color: #212529">Country</label>
+                                                <%}else{%>
+                                                <input class="form-control" name="country" id="countrym"
+                                                       type="text" placeholder="Story" />
+                                                <label for="countrym"
+                                                       style="color: #212529">Country</label>
+                                                <%}%>
                                             </div>
                                         </div>
 
@@ -524,8 +607,9 @@
                         </div>
                     </footer>
                 </main>
-            </div>
+
         </main>
+    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
             crossorigin="anonymous"></script>
