@@ -161,8 +161,7 @@ public class AddMovieServlet extends HttpServlet {
                     film.setId(document.getObjectId("_id"));
                     film.setReleaseDate(dateRetrieved);
 
-                    //TODO: Deve reindirizzare alla pagina che visualizza i dettagli del film appena inserito
-                    String url = response.encodeURL("Catalogo");
+                    String url = response.encodeURL("Film?TitoloFilm="+film.getTitle());
                     request.getRequestDispatcher(url).forward(request, response);
                     return;
                 }
@@ -171,7 +170,7 @@ public class AddMovieServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        String url = response.encodeURL("Catalogo");
+        String url = response.encodeURL("AggiornamentoCatalogoServlet");
         request.getRequestDispatcher(url).forward(request, response);
         return;
     }
