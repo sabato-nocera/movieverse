@@ -1,0 +1,325 @@
+Rimozione attributo poster da tutti gli elementi della collezione:
+
+db.movies_coming_soon.updateMany({}, {$unset: {poster:1}}, {multi:false});
+db.movies_in_theaters.updateMany({}, {$unset: {poster:1}}, {multi:false});
+db.top_rated_movies.updateMany({}, {$unset: {poster:1}}, {multi:false});
+
+db.top_rated_movies.updateMany({}, {$unset: {ratings:1}}, {multi:false});
+db.movies_in_theaters.updateMany({}, {$unset: {ratings:1}}, {multi:false});
+db.movies_coming_soon.updateMany({}, {$unset: {ratings:1}}, {multi:false});
+
+db.movies_coming_soon.updateMany({}, {$unset: {id:1}}, {multi:false});
+db.movies_in_theaters.updateMany({}, {$unset: {id:1}}, {multi:false});
+
+db.top_rated_movies.updateMany({}, {$unset: {contentRating:1}}, {multi:false});
+db.movies_coming_soon.updateMany({}, {$unset: {contentRating:1}}, {multi:false});
+db.movies_in_theaters.updateMany({}, {$unset: {contentRating:1}}, {multi:false});
+
+db.movies_in_theaters.find( { 'releaseDate' : {$exists: true} } ).forEach( function (x) 
+{   
+  db.movies_in_theaters.update({
+  '_id':x._id}, 
+  {"$set":
+  {
+  "releaseDate":new Date(x.releaseDate)
+  }
+  });
+  });
+db.other_movies.find( { 'releaseDate' : {$exists: true} } ).forEach( function (x) 
+{   
+  db.other_movies.update({
+  '_id':x._id}, 
+  {"$set":
+  {
+  "releaseDate":new Date(x.releaseDate)
+  }
+  });
+  });
+db.top_rated_movies.find( { 'releaseDate' : {$exists: true} } ).forEach( function (x) 
+{   
+  db.top_rated_movies.update({
+  '_id':x._id}, 
+  {"$set":
+  {
+  "releaseDate":new Date(x.releaseDate)
+  }
+  });
+  });
+db.movies_coming_soon.find( { 'releaseDate' : {$exists: true} } ).forEach( function (x) 
+{   
+  db.movies_coming_soon.update({
+  '_id':x._id}, 
+  {"$set":
+  {
+  "releaseDate":new Date(x.releaseDate)
+  }
+  });
+  });
+  
+
+######
+
+Sostituisce i film con rating "" con rating pari a 0
+
+db.movies.updateMany({ averageRating:null }, { $set:
+      {
+        averageRating: 0
+      }
+   }, {multi:true});
+   
+ db.movies_coming_soon.updateMany({ imdbRating:"" }, { $set:
+    {
+      imdbRating: 0
+    }
+ }, {multi:true});
+  
+######  
+
+db.movies_coming_soon.updateMany({}, {$set: {catalog:"movies_coming_soon"}}, {multi:true});
+db.top_rated_movies.updateMany({}, {$set: {catalog:"top_rated_movies"}}, {multi:true});
+db.other_movies.updateMany({}, {$set: {catalog:"other_movies"}}, {multi:true});
+db.movies_in_theaters.updateMany({}, {$set: {catalog:"movies_in_theaters"}}, {multi:true});
+
+#####
+
+db.movies.updateMany({originalTitle:""}, {$unset: {originalTitle:1}}, {multi:false});
+db.movies.updateMany({duration:""}, {$unset: {duration:1}}, {multi:false});
+db.movies.updateMany({actors:[]}, {$unset: {actors:1}}, {multi:false});
+db.movies.updateMany({storyline:""}, {$unset: {storyline:1}}, {multi:false});
+db.movies.updateMany({posterurl:""}, {$unset: {posterurl:1}}, {multi:false});
+
+#####
+// 1 e 0 sono tipo i valori di ritorno
+db.users.aggregate([
+  {$project: {
+    male: {$cond: [{$eq: ["$gender", "male"]}, 1, 0]},      
+    female: {$cond: [{$eq: ["$gender", "female"]}, 1, 0]},
+    other: {$cond: [{$eq: ["$gender", "other"]}, 1, 0]},
+  }},
+  {$group: { _id: null, male: {$sum: "$male"},
+                        female: {$sum: "$female"},
+                        other: {$sum: "$other"},
+                        total: {$sum: 1},
+  }},
+])
+
+db.movies.aggregate([
+  {$project: {
+    movies_coming_soon: {$cond: [{$eq: ["$catalog", "movies_coming_soon"]}, 1, 0]},      
+    movies_in_theaters: {$cond: [{$eq: ["$catalog", "movies_in_theaters"]}, 1, 0]},
+    top_rated_movies: {$cond: [{$eq: ["$catalog", "top_rated_movies"]}, 1, 0]},
+  }},
+  {$group: { _id: null, movies_coming_soon: {$sum: "$movies_coming_soon"},
+                        movies_in_theaters: {$sum: "$movies_in_theaters"},
+                        top_rated_movies: {$sum: "$top_rated_movies"},
+                        total: {$sum: 1},
+  }},
+])
+
+
+######
+
+db.tmp.updateMany({}, {$unset: {reviews_from_users:1}}, {multi:false});
+db.tmp.updateMany({}, {$unset: {reviews_from_critics:1}}, {multi:false});
+db.tmp.updateMany({}, {$unset: {writer:1}}, {multi:false});
+
+## Rinominare un campo
+
+db.tmp.updateMany( {}, { $rename: { "avg_vote": "imdbRating" } } )
+db.tmp.updateMany( {}, { $rename: { "description": "storyline" } } )
+db.tmp.updateMany( {}, { $rename: { "original_title": "originalTitle" } } )
+db.tmp.updateMany( {}, { $rename: { "date_published": "releaseDate" } } )
+db.tmp.updateMany( {}, { $rename: { "genre": "genres" } } )
+db.tmp.updateMany( {}, { $rename: { "production_company": "productionCompany" } } )
+
+db.tmp.find( { 'releaseDate' : {$exists: true} } ).forEach( function (x) 
+{   
+  db.tmp.update({
+  '_id':x._id}, 
+  {"$set":
+  {
+  "releaseDate":new Date(x.releaseDate)
+  }
+  });
+  });
+  
+### Trasformare actors e genres in array
+
+db.tmp.find( { 'genres' : {$exists: true} } ).forEach( function (x) 
+{   
+  db.tmp.update({
+  '_id':x._id}, 
+  {"$set":
+  {
+  "genres":x.genres.split(", ")
+  }
+  });
+  });
+
+db.tmp.find( { 'actors' : {$exists: true} } ).forEach( function (x) 
+{   
+  db.tmp.update({
+  '_id':x._id}, 
+  {"$set":
+  {
+  "actors":x.actors.split(", ")
+  }
+  });
+  });
+  
+  
+db.tmp.find( { 'country' : {$exists: true} } ).forEach( function (x) 
+{   
+  db.tmp.update({
+  '_id':x._id}, 
+  {"$set":
+  {
+  "country":x.country.split(", ")
+  }
+  });
+  });
+  
+db.tmp.find( { 'language' : {$exists: true} } ).forEach( function (x) 
+{   
+  db.tmp.update({
+  '_id':x._id}, 
+  {"$set":
+  {
+  "language":x.language.split(", ")
+  }
+  });
+  });
+  
+db.tmp.find( { 'director' : {$exists: true} } ).forEach( function (x) 
+{   
+  db.tmp.update({
+  '_id':x._id}, 
+  {"$set":
+  {
+  "director":x.director.split(", ")
+  }
+  });
+  });
+  
+### Cambiare il tipo di un campo
+
+db.tmp.updateMany({ imdbRating:"" }, { $set:
+      {
+        imdbRating: 0
+      }
+   }, {multi:true});
+   
+  
+db.tmp.find( { 'imdbRating' : {$exists: true} } ).forEach( function (x) 
+{   
+  db.tmp.update({
+  '_id':x._id}, 
+  {"$set":
+  {
+  "imdbRating": parseFloat(x.imdbRating)
+  }
+  });
+  });
+  
+## Durata in prime time
+
+db.tmp.find( { 'duration' : {$exists: true} } ).forEach( function (x) 
+{   
+  db.tmp.update({
+  '_id':x._id}, 
+  {"$set":
+  {
+  "duration": "PT".concat(x.duration).concat("M")
+  }
+  });
+  });   
+
+
+# Rimuovere tuple ridondanti
+db.movies.aggregate(
+    [ 
+        { "$sort": { "_id": 1 } }, 
+        { "$group": { 
+            "_id": "$title", 
+            "doc": { "$first": "$$ROOT" } 
+        }}, 
+        { "$replaceRoot": { "newRoot": "$doc" } },
+        { "$out": "movies" }
+    ]
+)
+
+db.tmp.aggregate(
+    [ 
+        { "$sort": { "_id": 1 } }, 
+        { "$group": { 
+            "_id": "$title", 
+            "doc": { "$first": "$$ROOT" } 
+        }}, 
+        { "$replaceRoot": { "newRoot": "$doc" } },
+        { "$out": "tmp" }
+    ]
+
+)
+
+####### Merge
+
+
+db.tmp.aggregate([
+  {$match:{}},
+  {
+  $merge : {
+    into: "movies",
+	on: ["title"],
+    whenMatched: [
+            { $set: {
+                productionCompany: "$$new.productionCompany",
+				country: "$$new.country",
+				director: "$$new.director",	
+                language: "$$new.language",
+                actors: "$$new.actors",
+                originalTitle: "$$new.originalTitle"
+            } } ],
+    whenNotMatched: "insert"
+  }
+}])
+
+##### RIDURRE IL NUMERO DI MOVIES
+
+db.movies.find({"releaseDate":{$gte: new Date('2000')}})
+
+db.movies.find({"releaseDate":{$gte: new Date('2018')}}).count()
+db.movies.find({"releaseDate":{$lt: new Date('2018')}}).count()
+
+db.movies.deleteMany({"releaseDate":{$lt: new Date('2018')}})
+db.movies.updateMany({}, {$unset: {catalog:1}}, {multi:false});
+
+db.movies.updateMany({"releaseDate":{$gte: new Date('2021')}}, { $set:
+      {
+        catalog: "movies_coming_soon"
+      }
+   }, {multi:true});
+   
+db.movies.updateMany({"releaseDate":{$eq: new Date('2020')}}, { $set:
+      {
+        catalog: "movies_in_theaters"
+      }
+   }, {multi:true});
+   
+
+db.movies.find({"imdbRating":{$gte: 9}}).count()
+   
+   
+db.movies.updateMany({"imdbRating":{$gte: 9}}, { $set:
+      {
+        catalog: "top_rated_movies"
+      }
+   }, {multi:true});
+   
+   
+   
+   
+   
+   
+   
+   
+   
